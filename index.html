@@ -17,7 +17,6 @@
 
     <main class="w-full max-w-6xl mx-auto bg-black bg-opacity-30 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 transition-all duration-500 relative">
         
-        <!-- Barra Superior: Navegação e Informações do Utilizador -->
         <div class="absolute top-5 left-5 right-5 flex justify-between items-center">
             <nav class="flex items-center space-x-4 text-white">
                 <a href="index.html" class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1" data-lang="navHome">Gerador</a>
@@ -36,16 +35,13 @@
             </div>
         </div>
 
-        <!-- Cabeçalho -->
         <header class="text-center mb-8 pt-16">
             <h1 class="text-4xl md:text-5xl font-bold text-white tracking-wide">Shape<span class="text-amber-400">Shift</span></h1>
             <p class="text-gray-400 mt-2" data-lang="subtitle">Sua jornada de fitness personalizada começa aqui.</p>
         </header>
 
-        <!-- Formulário Gerador -->
         <form id="workout-form" class="generator-form">
             <div class="form-grid">
-                <!-- Detalhes do Utilizador -->
                 <div class="form-group">
                     <label for="age" class="form-label">Idade</label>
                     <input type="number" id="age" name="age" class="form-input" placeholder="ex: 25">
@@ -58,8 +54,6 @@
                     <label for="height" class="form-label">Altura (cm)</label>
                     <input type="number" id="height" name="height" class="form-input" placeholder="ex: 175">
                 </div>
-                
-                <!-- Detalhes do Treino -->
                 <div class="form-group">
                     <label for="goal" class="form-label" data-lang="goalLabel">Objetivo Principal</label>
                     <select id="goal" name="goal" class="form-select">
@@ -91,10 +85,10 @@
                 <div class="form-group">
                     <label for="equipment" class="form-label" data-lang="equipmentLabel">Equipamento</label>
                     <select id="equipment" name="equipment" class="form-select">
-                        <option data-lang="equipOpt1">Acesso Total à Academia</option>
-                        <option data-lang="equipOpt2">Halteres e Barras</option>
-                        <option data-lang="equipOpt3">Apenas Halteres</option>
-                        <option data-lang="equipOpt4">Apenas Peso Corporal</option>
+                        <option data-lang="equipOpt1">Acesso Total à Academia 🏋️‍♂️</option>
+                        <option data-lang="equipOpt2">Halteres e Barras 💪</option>
+                        <option data-lang="equipOpt3">Apenas Halteres 🏠</option>
+                        <option data-lang="equipOpt4">Apenas Peso Corporal 🤸‍♂️</option>
                     </select>
                 </div>
             </div>
@@ -109,7 +103,6 @@
             </div>
         </form>
 
-        <!-- Seção de Saída (Resultado) -->
         <div id="output-container" class="w-full">
             <div id="loader" class="hidden text-center py-8">
                 <div role="status" class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-amber-400 border-r-transparent"></div>
@@ -127,7 +120,6 @@
         </div>
     </main>
     
-    <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -137,7 +129,7 @@
           apiKey: "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4",
           authDomain: "workoutplaner-3930e.firebaseapp.com",
           projectId: "workoutplaner-3930e",
-          storageBucket: "workoutplaner-3930e.firebasestorage.app",
+          storageBucket: "workoutplaner-3930e.appspot.com",
           messagingSenderId: "197140468893",
           appId: "1:197140468893:web:1e43c4072bddb0a4ec3074",
           measurementId: "G-W85Z68R4B9"
@@ -148,7 +140,6 @@
         window.auth = getAuth(app);
     </script>
 
-    <!-- Scripts da Aplicação -->
     <script src="translation.js" defer></script>
     <script type="module" src="utils.js" defer></script>
     <script type="module" src="app.js" defer></script>
