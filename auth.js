@@ -25,8 +25,6 @@ async function handleLogin() {
             await setDoc(userRef, {
                 email: user.email,
                 plan: "free",
-                // O sistema de gerações foi removido, mas pode ser reativado se necessário.
-                // generations: 3, 
                 createdAt: new Date().toISOString(),
                 // Campos para o sistema de "foguinho" (streak)
                 streakCount: 0,
