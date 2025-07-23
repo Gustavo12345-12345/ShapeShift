@@ -1,9 +1,9 @@
-import { doc, setDoc, getDoc, updateDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { auth, db } from './firebase-config.js'; // Importa do ficheiro centralizado
 import { processWorkoutTextToHtml } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Referências aos elementos do DOM
     const form = document.getElementById('workout-form');
     const generateBtn = document.getElementById('generate-btn');
     const saveBtn = document.getElementById('save-routine-btn');
@@ -16,19 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const streakCounterNav = document.getElementById('streak-counter-nav');
     const streakCountNav = document.getElementById('streak-count-nav');
 
-    // Variáveis de estado
     let generatedPlanText = null;
     let currentUserData = null;
 
-    // Instâncias do Firebase (inicializadas no HTML)
-    const auth = window.auth;
-    const db = window.db;
-
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-    /**
-     * Verifica se o formulário está preenchido para habilitar o botão de gerar.
-     */
     function checkFormValidity() {
         const goal = document.getElementById('goal').value;
         const level = document.getElementById('level').value;
@@ -44,15 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /**
-     * Atualiza a UI com os dados do utilizador.
-     */
     function updateUIAfterLogin() {
         if (!currentUserData) return;
-
-        // Lógica de gerações foi removida para modo de desenvolvimento
         generationsCounter.classList.add('hidden');
-
         if (currentUserData.streakCount > 0) {
             streakCountNav.textContent = currentUserData.streakCount;
             streakCounterNav.classList.remove('hidden');
@@ -62,9 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
         checkFormValidity();
     }
 
-    /**
-     * Lida com a geração do plano de treino.
-     */
     async function handleGeneratePlan() {
         workoutPlanOutput.classList.add('hidden');
         errorMessageContainer.classList.add('hidden');
@@ -184,12 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     handleLogout();
                 }
             });
-        } else {
-            // Apenas redireciona se não estiver já na página de login
-            if (!window.location.pathname.endsWith('login.html')) {
-                window.location.href = 'login.html';
-            }
         }
+        // O auth-guard.js trata o caso em que não há utilizador
     });
 
     form.addEventListener('change', checkFormValidity);
