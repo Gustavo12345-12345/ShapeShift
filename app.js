@@ -16,14 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const streakCounterNav = document.getElementById('streak-counter-nav');
     const streakCountNav = document.getElementById('streak-count-nav');
 
+    // Variáveis de estado
     let generatedPlanText = null;
     let currentUserData = null;
 
-    const auth = getAuth();
+    // Instâncias do Firebase (inicializadas no HTML)
+    const auth = window.auth;
     const db = window.db;
 
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+    /**
+     * Verifica se o formulário está preenchido para habilitar o botão de gerar.
+     */
     function checkFormValidity() {
         const goal = document.getElementById('goal').value;
         const level = document.getElementById('level').value;
@@ -39,9 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Atualiza a UI com os dados do utilizador.
+     */
     function updateUIAfterLogin() {
         if (!currentUserData) return;
+
+        // Lógica de gerações foi removida para modo de desenvolvimento
         generationsCounter.classList.add('hidden');
+
         if (currentUserData.streakCount > 0) {
             streakCountNav.textContent = currentUserData.streakCount;
             streakCounterNav.classList.remove('hidden');
@@ -51,14 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
         checkFormValidity();
     }
 
+    /**
+     * Lida com a geração do plano de treino.
+     */
     async function handleGeneratePlan() {
         workoutPlanOutput.classList.add('hidden');
         errorMessageContainer.classList.add('hidden');
         loader.classList.remove('hidden');
         generateBtn.disabled = true;
-        generateBtn.textContent = window.getTranslation('generatingBtn');
+        generateBtn.textContent = "A gerar...";
 
-        // MODIFICADO: Lê os novos campos do formulário
         const age = document.getElementById('age').value;
         const weight = document.getElementById('weight').value;
         const height = document.getElementById('height').value;
@@ -68,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const equipment = document.getElementById('equipment').value;
         const notes = document.getElementById('notes').value;
         
-        // MODIFICADO: Constrói o prompt com os novos dados do utilizador
         let userProfile = '';
         if (age) userProfile += `Idade: ${age} anos, `;
         if (weight) userProfile += `Peso: ${weight} kg, `;
@@ -92,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.status === 503 && attempt < maxRetries) {
                     const delay = Math.pow(2, attempt) * 1000;
-                    console.warn(`API retornou 503. A tentar novamente em ${delay / 1000}s...`);
                     await wait(delay);
                 } else {
                     break;
@@ -107,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
             const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
             if (!text) {
-                 throw new Error(window.getTranslation('invalidApiResp'));
+                 throw new Error("Resposta inválida da API.");
             }
 
             generatedPlanText = text;
@@ -118,13 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (error.message.includes("status 503")) {
                  errorMessageContainer.textContent = "O servidor de IA parece estar sobrecarregado. Por favor, aguarde um minuto e tente novamente.";
             } else {
-                 errorMessageContainer.textContent = `${window.getTranslation('errorPrefix')}${error.message}${window.getTranslation('errorSuffix')}`;
+                 errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}. Por favor, tente novamente.`;
             }
             errorMessageContainer.classList.remove('hidden');
         } finally {
             loader.classList.add('hidden');
             checkFormValidity();
-            generateBtn.textContent = window.getTranslation('generateBtn');
+            generateBtn.textContent = "Gerar Meu Plano";
         }
     }
 
@@ -158,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Erro ao guardar a rotina:", error);
             alert(`Falha ao guardar a rotina. Detalhes: ${error.message}`);
             saveBtn.disabled = false;
-            saveBtn.textContent = window.getTranslation('saveBtn');
+            saveBtn.textContent = "Guardar Rotina e Começar";
         }
     }
 
@@ -170,12 +181,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentUserData = userSnap.data();
                     updateUIAfterLogin();
                 } else {
-                    console.log("Documento do utilizador não encontrado, a redirecionar para login.");
                     handleLogout();
                 }
             });
         } else {
-            window.location.href = 'login.html';
+            // Apenas redireciona se não estiver já na página de login
+            if (!window.location.pathname.endsWith('login.html')) {
+                window.location.href = 'login.html';
+            }
         }
     });
 
