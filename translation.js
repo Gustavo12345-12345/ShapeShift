@@ -4,9 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const translations = {
         'pt': {
+            // GERAL
             navHome: 'Gerador',
             navRoutine: 'Minha Rotina',
             subtitle: 'Sua jornada de fitness personalizada começa aqui.',
+            
+            // PÁGINA DE LOGIN (CHAVES ADICIONADAS)
+            loginTitle: 'Bem-vindo de volta! Faça login para continuar.',
+            loginBtn: 'Entrar com Google',
+
+            // FORMULÁRIO GERADOR
             goalLabel: 'Objetivo Principal',
             goalOpt1: 'Construir Músculo',
             goalOpt2: 'Perder Gordura',
@@ -25,25 +32,38 @@ document.addEventListener('DOMContentLoaded', () => {
             equipOpt4: 'Apenas Peso Corporal',
             notesLabel: 'Observações Específicas (Opcional)',
             notesPlaceholder: "ex: 'Foco nas pernas', 'Evitar exercícios de salto'",
+            
+            // BOTÕES E ESTADOS
             generateBtn: 'Gerar Meu Plano',
-            generatingBtn: 'Gerando...',
-            saveBtn: 'Salvar Rotina e Iniciar',
-            loaderText: 'Gerando seu plano personalizado...',
+            generatingBtn: 'A gerar...',
+            saveBtn: 'Guardar Rotina e Começar',
+            loaderText: 'A gerar o seu plano personalizado...',
             errorPrefix: 'Ocorreu um erro: ',
             errorSuffix: '. Por favor, tente novamente.',
             invalidApiResp: 'Resposta inválida da API.',
+
+            // PÁGINA DE ROTINA
             routineTitle: 'Minha Rotina de Treino',
-            routineLoader: 'Carregando sua rotina...',
-            emptyState: 'Você ainda não salvou uma rotina.',
+            routineLoader: 'A carregar a sua rotina...',
+            emptyState: 'Você ainda não guardou uma rotina.',
             emptyStateBtn: 'Gerar uma agora',
+            
+            // TIMER
             timerTitle: 'Tempo de Descanso',
             timerStart: 'Iniciar',
             timerClose: 'Fechar'
         },
         'en': {
+            // GENERAL
             navHome: 'Generator',
             navRoutine: 'My Routine',
             subtitle: 'Your personalized fitness journey starts here.',
+
+            // LOGIN PAGE (KEYS ADDED)
+            loginTitle: 'Welcome back! Please log in to continue.',
+            loginBtn: 'Sign in with Google',
+
+            // GENERATOR FORM
             goalLabel: 'Primary Goal',
             goalOpt1: 'Build Muscle',
             goalOpt2: 'Lose Fat',
@@ -62,6 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
             equipOpt4: 'Bodyweight Only',
             notesLabel: 'Specific Notes (Optional)',
             notesPlaceholder: "e.g., 'Focus on legs', 'Avoid jumping exercises'",
+            
+            // BUTTONS AND STATES
             generateBtn: 'Generate My Plan',
             generatingBtn: 'Generating...',
             saveBtn: 'Save Routine and Start',
@@ -69,10 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
             errorPrefix: 'An error occurred: ',
             errorSuffix: '. Please try again.',
             invalidApiResp: 'Invalid response structure from the API.',
+
+            // ROUTINE PAGE
             routineTitle: 'My Workout Routine',
             routineLoader: 'Loading your routine...',
             emptyState: 'You haven\'t saved a routine yet.',
             emptyStateBtn: 'Generate one now',
+
+            // TIMER
             timerTitle: 'Rest Timer',
             timerStart: 'Start',
             timerClose: 'Close'
@@ -120,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // CORRIGIDO: Adiciona uma verificação para garantir que os botões existem antes de adicionar o listener.
+    // Adiciona uma verificação para garantir que os botões existem antes de adicionar o listener.
     if (langPtBtn && langEnBtn) {
         langPtBtn.addEventListener('click', () => setLanguage('pt'));
         langEnBtn.addEventListener('click', () => setLanguage('en'));
