@@ -106,10 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
             el.placeholder = window.getTranslation(key);
         });
 
-        langPtBtn.classList.toggle('opacity-50', lang !== 'pt');
-        langPtBtn.classList.toggle('opacity-100', lang === 'pt');
-        langEnBtn.classList.toggle('opacity-50', lang !== 'en');
-        langEnBtn.classList.toggle('opacity-100', lang === 'en');
+        // Apenas tenta modificar os botões se eles existirem
+        if (langPtBtn && langEnBtn) {
+            langPtBtn.classList.toggle('opacity-50', lang !== 'pt');
+            langPtBtn.classList.toggle('opacity-100', lang === 'pt');
+            langEnBtn.classList.toggle('opacity-50', lang !== 'en');
+            langEnBtn.classList.toggle('opacity-100', lang === 'en');
+        }
         
         const generateBtn = document.getElementById('generate-btn');
         if (generateBtn && !generateBtn.disabled) {
@@ -117,8 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    langPtBtn.addEventListener('click', () => setLanguage('pt'));
-    langEnBtn.addEventListener('click', () => setLanguage('en'));
+    // CORRIGIDO: Adiciona uma verificação para garantir que os botões existem antes de adicionar o listener.
+    if (langPtBtn && langEnBtn) {
+        langPtBtn.addEventListener('click', () => setLanguage('pt'));
+        langEnBtn.addEventListener('click', () => setLanguage('en'));
+    }
 
     if (langSwitcher) {
         langSwitcher.addEventListener('change', (e) => {
