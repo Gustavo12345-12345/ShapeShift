@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShapeShift - Minha Rotina</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen p-4">
+
+    <main class="w-full max-w-4xl mx-auto bg-black bg-opacity-30 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 transition-all duration-500 relative">
+
+        <div class="absolute top-5 left-5 right-5 flex justify-between items-center">
+            <nav class="flex items-center space-x-4 text-white">
+                <a href="index.html" class="hover:text-amber-300 transition-colors pb-1" data-lang="navHome">Gerador</a>
+                <a href="routine.html" class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1" data-lang="navRoutine">Minha Rotina</a>
+            </nav>
+            <!-- Outros ícones de navegação aqui -->
+        </div>
+        
+        <header class="text-center mb-8 pt-16">
+            <h1 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Escolha o seu Treino</h1>
+            <p class="text-gray-400 mt-2">Selecione um dos seus treinos salvos para começar.</p>
+        </header>
+
+        <!-- Container para os cartões de treino -->
+        <div id="workout-choices-container">
+            <!-- Os cartões de treino serão inseridos aqui pelo JavaScript -->
+        </div>
+
+        <!-- Estado de Carregamento -->
+        <div id="routine-loader" class="text-center py-16">
+            <div role="status" class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-amber-400 border-r-transparent"></div>
+            <p class="mt-4 text-gray-300" data-lang="routineLoader">A carregar a sua rotina...</p>
+        </div>
+        
+        <!-- Estado Vazio -->
+        <div id="empty-state" class="hidden text-center py-16">
+            <p class="text-xl text-gray-300" data-lang="emptyState">Você ainda não salvou uma rotina.</p>
+            <a href="index.html" class="mt-4 inline-block bg-amber-500 hover:bg-amber-600 text-black font-bold py-2 px-6 rounded-full" data-lang="emptyStateBtn">Gerar uma agora</a>
+        </div>
+    </main>
+    
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4",
+          authDomain: "workoutplaner-3930e.firebaseapp.com",
+          projectId: "workoutplaner-3930e",
+          storageBucket: "workoutplaner-3930e.firebasestorage.app",
+          messagingSenderId: "197140468893",
+          appId: "1:197140468893:web:1e43c4072bddb0a4ec3074",
+          measurementId: "G-W85Z68R4B9"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        window.db = getFirestore(app);
+        window.auth = getAuth(app);
+    </script>
+    
+    <script type="module" src="routine.js" defer></script>
+</body>
+</html>

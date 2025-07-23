@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitAI - Planos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <main class="w-full max-w-4xl mx-auto text-center">
+        <header class="mb-10">
+            <h1 class="text-5xl font-bold text-white" data-lang="plansTitle">Nossos Planos</h1>
+            <p class="text-gray-400 mt-2" data-lang="plansSubtitle">Escolha o plano que melhor se adapta a si.</p>
+        </header>
+
+        <div class="flex flex-col md:flex-row justify-center gap-8">
+            <!-- Plano Gratuito -->
+            <div class="bg-black bg-opacity-30 backdrop-blur-lg rounded-2xl p-8 border border-gray-700 w-full md:w-1/3">
+                <h2 class="text-3xl font-bold text-gray-400" data-lang="freePlanTitle">Gratuito</h2>
+                <p class="text-5xl font-bold my-6">R$0<span class="text-lg font-normal text-gray-400">/mês</span></p>
+                <ul class="space-y-3 text-gray-300 text-left">
+                    <li class="flex items-center"><span class="text-green-500 mr-3">✔</span><span data-lang="freeFeature1">3 Gerações de Treino</span></li>
+                    <li class="flex items-center"><span class="text-green-500 mr-3">✔</span><span data-lang="freeFeature2">Guardar Rotina</span></li>
+                    <li class="flex items-center"><span class="text-green-500 mr-3">✔</span><span data-lang="freeFeature3">Acompanhamento de Progresso</span></li>
+                </ul>
+                <a href="index.html" class="mt-8 block w-full bg-gray-600 text-white font-bold py-3 rounded-full" data-lang="backToApp">Voltar para a App</a>
+            </div>
+
+            <!-- Plano Pro -->
+            <div class="bg-black bg-opacity-40 backdrop-blur-lg rounded-2xl p-8 border-2 border-violet-500 w-full md:w-1/3 shadow-2xl shadow-violet-500/20">
+                <h2 class="text-3xl font-bold text-violet-400" data-lang="proPlanTitle">Pro</h2>
+                <p class="text-5xl font-bold my-6">R$19<span class="text-lg font-normal text-gray-400">/mês</span></p>
+                <ul class="space-y-3 text-gray-300 text-left">
+                    <li class="flex items-center"><span class="text-green-500 mr-3">✔</span><span data-lang="proFeature1">Gerações de Treino Ilimitadas</span></li>
+                    <li class="flex items-center"><span class="text-green-500 mr-3">✔</span><span data-lang="proFeature2">Guardar Rotina</span></li>
+                    <li class="flex items-center"><span class="text-green-500 mr-3">✔</span><span data-lang="proFeature3">Acompanhamento de Progresso</span></li>
+                    <li class="flex items-center"><span class="text-green-500 mr-3">✔</span><span data-lang="proFeature4">Substituição de Exercícios (Brevemente)</span></li>
+                </ul>
+                <button class="mt-8 block w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 rounded-full" data-lang="subscribeBtn">Subscrever (Brevemente)</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="translation.js" defer></script>
+</body>
+</html>
