@@ -1,6 +1,4 @@
-/**
- * Ícone de interrogação em formato SVG.
- */
+// Funções de ajuda compartilhadas, como o processador de texto da IA.
 const helpIconSvg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -8,17 +6,11 @@ const helpIconSvg = `
 </svg>
 `;
 
-/**
- * Processa o texto bruto do treino, identifica os exercícios, adiciona um link de ajuda
- * e um botão para iniciar o treino de cada dia. Esta versão é mais robusta para lidar
- * com variações no formato do texto da IA.
- * @param {string} text - O texto bruto gerado pela IA.
- * @returns {string} - Uma string HTML formatada.
- */
-export function processWorkoutTextToHtml(text) {
+export function processWorkoutTextToHtml(text, options = {}) {
+    const { showStartButton = false } = options;
+
     if (!text || text.trim() === '') return '';
 
-    // Remove asteriscos de negrito que a IA às vezes adiciona
     const cleanedText = text.replace(/\*\*/g, ''); 
     const lines = cleanedText.split('\n');
     let html = '';
@@ -29,13 +21,12 @@ export function processWorkoutTextToHtml(text) {
 
         if (trimmedLine === '') {
             if (inDayBlock) {
-                html += '</div>'; // Fecha a div do dia anterior
+                html += '</div>';
                 inDayBlock = false;
             }
-            return; // Pula linhas vazias
+            return;
         }
 
-        // Regex mais flexível para títulos de dia (ignora maiúsculas/minúsculas, aceita "Dia 1", etc.)
         const dayMatch = trimmedLine.match(/^(dia \d+|dia [a-z]|segunda|terça|quarta|quinta|sexta|sábado|domingo)/i);
         
         if (dayMatch) {
@@ -43,23 +34,25 @@ export function processWorkoutTextToHtml(text) {
                 html += '</div>';
             }
             const dayTitle = trimmedLine.replace(/:$/, '').trim();
-            const startButtonText = (window.getTranslation && window.getTranslation('startWorkoutBtn')) || 'Iniciar Treino';
-
+            
             html += `<div class="day-workout-group border-t border-gray-700 pt-4 mt-4">`;
             html += `<div class="flex justify-between items-center mb-4">`;
             html +=    `<h3 class="text-2xl font-bold text-amber-400">${dayTitle}</h3>`;
-            html +=    `<button class="start-workout-btn bg-amber-500 hover:bg-amber-600 text-black font-bold py-2 px-4 rounded-lg" data-day-title="${dayTitle}">${startButtonText}</button>`;
+            
+            if (showStartButton) {
+                const startButtonText = (window.getTranslation && window.getTranslation('startWorkoutBtn')) || 'Iniciar Treino';
+                html += `<button class="start-workout-btn bg-amber-500 hover:bg-amber-600 text-black font-bold py-2 px-4 rounded-lg" data-day-title="${dayTitle}">${startButtonText}</button>`;
+            }
+
             html += `</div>`;
             inDayBlock = true;
-            return; // Continua para a próxima linha
+            return;
         }
 
-        // Regex mais flexível para exercícios (começa com *, -, ou número)
-        // e que captura o nome do exercício e as séries/repetições.
         const exerciseMatch = trimmedLine.match(/^[*\-–\d\.]+\s*(?<name>.+?)(?:\s+(?<sets>\d+)\s*[xX]\s*(?<reps>[\d\-]+))?$/);
         
         if (exerciseMatch && exerciseMatch.groups.name) {
-            const exerciseName = exerciseMatch.groups.name.trim().replace(/:\s*$/, ''); // Remove ':' do final
+            const exerciseName = exerciseMatch.groups.name.trim().replace(/:\s*$/, '');
             const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(exerciseName + ' exercício como fazer')}`;
             
             const lineWithIcon = `
@@ -71,7 +64,6 @@ export function processWorkoutTextToHtml(text) {
                 </div>`;
             html += lineWithIcon;
         } else {
-            // Se não for um título de dia nem um exercício, trata como um parágrafo de descrição
             if (inDayBlock) {
                  html += `<p class="text-gray-400 mb-2">${trimmedLine}</p>`;
             }
@@ -79,7 +71,7 @@ export function processWorkoutTextToHtml(text) {
     });
 
     if (inDayBlock) {
-        html += '</div>'; // Fecha a última div do dia, se existir
+        html += '</div>';
     }
 
     return html;
