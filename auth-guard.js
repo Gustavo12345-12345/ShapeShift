@@ -3,6 +3,8 @@ import { auth } from './firebase-config.js';
 
 /**
  * Esta função verifica o estado de autenticação e protege a página.
+ * Ela espera um momento para dar tempo ao Firebase de carregar o estado de login,
+ * evitando o redirecionamento incorreto.
  */
 const protectPage = () => {
     onAuthStateChanged(auth, (user) => {
