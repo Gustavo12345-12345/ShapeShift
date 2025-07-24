@@ -19,57 +19,43 @@
                 <a href="index.html" class="hover:text-amber-300 transition-colors pb-1" data-lang="navHome">Gerador</a>
                 <a href="routine.html" class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1" data-lang="navRoutine">Minha Rotina</a>
             </nav>
-            <!-- Outros ícones de navegação aqui -->
+            
+            <div class="flex items-center space-x-4">
+                <div id="streak-counter-nav" class="flex items-center text-lg font-bold text-white bg-gray-900 bg-opacity-50 px-3 py-1 rounded-full hidden">
+                    <span class="streak-icon mr-2">🔥</span>
+                    <span id="streak-count-nav">0</span>
+                </div>
+                <button id="logout-btn" class="text-gray-400 hover:text-white" title="Logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/></svg>
+                </button>
+            </div>
         </div>
         
         <header class="text-center mb-8 pt-16">
             <h1 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Escolha o seu Treino</h1>
-            <p class="text-gray-400 mt-2">Selecione um dos seus treinos salvos para começar.</p>
+            <p class="text-gray-400 mt-2">Selecione um dos seus treinos guardados para começar.</p>
         </header>
 
-        <!-- Container para os cartões de treino -->
         <div id="workout-choices-container">
             <!-- Os cartões de treino serão inseridos aqui pelo JavaScript -->
         </div>
 
-        <!-- Estado de Carregamento -->
         <div id="routine-loader" class="text-center py-16">
             <div role="status" class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-amber-400 border-r-transparent"></div>
             <p class="mt-4 text-gray-300" data-lang="routineLoader">A carregar a sua rotina...</p>
         </div>
         
-        <!-- Estado Vazio -->
         <div id="empty-state" class="hidden text-center py-16">
-            <p class="text-xl text-gray-300" data-lang="emptyState">Você ainda não salvou uma rotina.</p>
+            <p class="text-xl text-gray-300" data-lang="emptyState">Você ainda não guardou uma rotina.</p>
             <a href="index.html" class="mt-4 inline-block bg-amber-500 hover:bg-amber-600 text-black font-bold py-2 px-6 rounded-full" data-lang="emptyStateBtn">Gerar uma agora</a>
         </div>
     </main>
     
-    <!-- Firebase -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        
-        const firebaseConfig = {
-          apiKey: "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4",
-          authDomain: "workoutplaner-3930e.firebaseapp.com",
-          projectId: "workoutplaner-3930e",
-          storageBucket: "workoutplaner-3930e.firebasestorage.app",
-          messagingSenderId: "197140468893",
-          appId: "1:197140468893:web:1e43c4072bddb0a4ec3074",
-          measurementId: "G-W85Z68R4B9"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        window.db = getFirestore(app);
-        window.auth = getAuth(app);
-    </script>
-    
     <!-- Scripts atualizados -->
     <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="auth-guard.js"></script> <!-- Protege a página -->
+    <script type="module" src="auth-guard.js"></script>
+    <script type="module" src="utils.js" defer></script>
+    <script type="module" src="routine.js" defer></script>
     <script src="translation.js" defer></script>
-    <script type="module" src="app.js" defer></script> <!-- Ou o script específico da página -->
 </body>
 </html>
