@@ -5,7 +5,6 @@ import { processWorkoutTextToHtml } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Referências aos Elementos do DOM ---
-    // Estas referências são para elementos que SÓ existem em index.html
     const form = document.getElementById('workout-form');
     const generateBtn = document.getElementById('generate-btn');
     const saveBtn = document.getElementById('save-routine-btn');
@@ -21,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const daysSelect = document.getElementById('days');
     const equipmentSelect = document.getElementById('equipment');
     const notesTextarea = document.getElementById('notes');
-
-    // Estas referências podem existir noutras páginas
     const logoutBtn = document.getElementById('logout-btn');
     const streakCounterNav = document.getElementById('streak-counter-nav');
     const streakCountNav = document.getElementById('streak-count-nav');
@@ -33,12 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-    // --- Funções ---
-
     function checkFormValidity() {
-        // Esta função só deve ser executada se os elementos do formulário existirem
         if (!goalSelect || !levelSelect || !daysSelect || !equipmentSelect) return;
-
         if (goalSelect.value && levelSelect.value && daysSelect.value && equipmentSelect.value) {
             generateBtn.disabled = false;
             generateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -50,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateUIAfterLogin() {
         if (!currentUserData) return;
-        
         if (streakCounterNav && streakCountNav) {
             if (currentUserData.streakCount > 0) {
                 streakCountNav.textContent = currentUserData.streakCount;
@@ -63,8 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function handleGeneratePlan() {
-        if (!form) return; // Segurança extra
-
+        if (!form) return;
         workoutPlanOutput.classList.add('hidden');
         errorMessageContainer.classList.add('hidden');
         loader.classList.remove('hidden');
@@ -81,12 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let response;
             const maxRetries = 3;
             for (let attempt = 1; attempt <= maxRetries; attempt++) {
-                response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
+                response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
                 if (response.status === 503 && attempt < maxRetries) {
                     await wait(Math.pow(2, attempt) * 1000);
                 } else {
@@ -98,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errorBody = await response.text();
                 throw new Error(`Status ${response.status}. Detalhes: ${errorBody}`);
             }
-            
             const result = await response.json();
             const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
             if (!text) throw new Error("Resposta inválida da API.");
@@ -106,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
             generatedPlanText = text;
             workoutPlanContent.innerHTML = processWorkoutTextToHtml(generatedPlanText);
             workoutPlanOutput.classList.remove('hidden');
-            
         } catch (error) {
             errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}. Por favor, tente novamente.`;
             errorMessageContainer.classList.remove('hidden');
@@ -137,11 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const userId = auth.currentUser.uid;
             const routineRef = doc(db, "users", userId, "routine", "active");
-            
-            await setDoc(routineRef, {
-                createdAt: new Date().toISOString(),
-                rawText: generatedPlanText
-            });
+            await setDoc(routineRef, { createdAt: new Date().toISOString(), rawText: generatedPlanText });
             window.location.href = 'routine.html';
         } catch (error) {
             console.error("Erro ao guardar a rotina:", error);
@@ -151,8 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Lógica de Inicialização ---
-
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const userRef = doc(db, "users", user.uid);
@@ -161,18 +139,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentUserData = userSnap.data();
                     updateUIAfterLogin();
                 } else {
-                    // Se o documento não existe, algo está errado, força o logout.
                     handleLogout();
                 }
             });
         }
-        // O auth-guard.js já trata o caso de não haver utilizador.
     });
 
-    // CORRIGIDO: Adiciona os listeners APENAS se os elementos existirem na página.
     if (form) {
         form.addEventListener('change', checkFormValidity);
-        checkFormValidity(); // Verificação inicial
+        checkFormValidity();
     }
     if (generateBtn) {
         generateBtn.addEventListener('click', (e) => {
