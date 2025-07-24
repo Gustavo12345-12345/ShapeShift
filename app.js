@@ -1,4 +1,5 @@
-import { doc, onSnapshot, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+// Lógica da página index.html: lida com a geração de treinos pela IA.
+import { doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { auth, db } from './firebase-config.js'; 
 import { processWorkoutTextToHtml } from './utils.js';
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${ageInput.value || 'Não informado'}, Peso: ${weightInput.value || 'Não informado'} kg, Altura: ${heightInput.value || 'Não informado'} cm. O objetivo do treino é ${goalSelect.value}, com um nível de fitness ${levelSelect.value}, para treinar ${daysSelect.value} dias por semana, com o seguinte equipamento disponível: ${equipmentSelect.value}. Observações adicionais: ${notesTextarea.value || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Use asteriscos para listas de exercícios. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
         try {
-            const apiKey = "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4";
+            const apiKey = "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4"; // SUBSTITUA PELA SUA CHAVE DE API
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
@@ -78,31 +79,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             const result = await response.json();
-            console.log("Resposta completa da API:", result); 
 
             if (!result.candidates || result.candidates.length === 0) {
-                throw new Error("A API retornou uma resposta vazia, sem candidatos.");
+                throw new Error("A API retornou uma resposta vazia. Isso pode ocorrer devido a filtros de segurança.");
             }
 
             const candidate = result.candidates[0];
 
             if (candidate.finishReason && candidate.finishReason !== "STOP") {
-                throw new Error(`A IA não gerou o treino. Motivo: ${candidate.finishReason}.`);
+                throw new Error(`A IA não gerou o treino. Motivo: ${candidate.finishReason}. Tente alterar os termos do seu pedido.`);
             }
 
             const text = candidate?.content?.parts?.[0]?.text;
-
-            // ===================================================================
-            // NOVA LINHA DE DIAGNÓSTICO
-            console.log("Texto extraído da IA:", text);
-            // ===================================================================
 
             if (!text || text.trim() === "") {
                 throw new Error("A IA retornou um texto em branco, embora a chamada tenha sido bem-sucedida.");
             }
 
             generatedPlanText = text;
-            workoutPlanContent.innerHTML = processWorkoutTextToHtml(generatedPlanText);
+            workoutPlanContent.innerHTML = processWorkoutTextToHtml(generatedPlanText, { showStartButton: false });
             workoutPlanOutput.classList.remove('hidden');
 
         } catch (error) {
@@ -154,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentUserData = userSnap.data();
                     updateUIAfterLogin();
                 } else {
-                    console.warn("Usuário autenticado, mas documento do Firestore ainda não encontrado. Aguardando...");
+                    console.warn("Usuário autenticado, mas documento do Firestore ainda não encontrado.");
                 }
             });
         }
