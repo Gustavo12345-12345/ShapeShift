@@ -14,7 +14,6 @@
 
     <main class="w-full max-w-4xl mx-auto bg-black bg-opacity-30 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 transition-all duration-500 relative">
 
-        <!-- Barra Superior Fixa -->
         <div id="workout-header" class="sticky top-0 bg-black bg-opacity-50 backdrop-blur-md z-10 p-4 -mx-6 -mt-6 mb-6 rounded-t-2xl">
             <div class="flex justify-between items-center">
                 <a href="routine.html" class="text-amber-400 hover:text-amber-200 transition-colors">&larr; Voltar para Rotina</a>
@@ -29,25 +28,19 @@
             <h1 id="workout-day-title" class="text-3xl md:text-4xl font-bold text-white tracking-wide">A carregar treino...</h1>
         </header>
 
-        <!-- Lista de Exercícios -->
-        <div id="exercise-list" class="space-y-4">
-            <!-- Exercícios serão inseridos aqui pelo JavaScript -->
-        </div>
+        <div id="exercise-list" class="space-y-4"></div>
 
-        <!-- Botão de Finalizar -->
         <div class="text-center mt-10">
             <button id="finish-workout-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-50 cursor-not-allowed" disabled>
                 Finalizar Treino
             </button>
         </div>
 
-        <!-- Loader -->
         <div id="workout-loader" class="text-center py-16 hidden">
             <div role="status" class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-amber-400 border-r-transparent"></div>
         </div>
     </main>
 
-    <!-- Modal do Timer -->
     <div id="timer-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center hidden z-50">
         <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl text-center w-80">
             <h3 class="text-2xl font-bold text-white mb-4">Tempo de Descanso</h3>
@@ -63,28 +56,9 @@
         </div>
     </div>
     
-    <!-- Firebase -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        
-        const firebaseConfig = {
-          apiKey: "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4",
-          authDomain: "workoutplaner-3930e.firebaseapp.com",
-          projectId: "workoutplaner-3930e",
-          storageBucket: "workoutplaner-3930e.firebasestorage.app",
-          messagingSenderId: "197140468893",
-          appId: "1:197140468893:web:1e43c4072bddb0a4ec3074",
-          measurementId: "G-W85Z68R4B9"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        window.db = getFirestore(app);
-        window.auth = getAuth(app);
-    </script>
-    
-    <!-- MODIFICADO: Adicionado o script utils.js para partilhar a lógica do ícone -->
+    <!-- Scripts atualizados -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="auth-guard.js"></script>
     <script type="module" src="utils.js" defer></script>
     <script type="module" src="start-workout.js" defer></script>
 </body>
