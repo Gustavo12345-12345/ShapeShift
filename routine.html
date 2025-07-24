@@ -44,6 +44,29 @@
                 </a>
             </div>
         </div>
+
+        <div id="session-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
+            <div class="bg-gray-900 rounded-2xl shadow-2xl w-full max-w-lg p-6 text-white transform transition-all">
+                <h2 id="session-exercise-title" class="text-3xl font-bold text-amber-400 mb-4">Nome do Exercício</h2>
+                <p id="session-exercise-sets" class="text-xl mb-6">4 séries de 10-12 repetições</p>
+                
+                <div id="sets-container" class="space-y-3 mb-8">
+                    </div>
+
+                <div class="flex justify-between items-center">
+                    <button id="session-close-btn" class="bg-gray-600 hover:bg-gray-700 py-2 px-4 rounded-lg" data-lang="closeBtn">Fechar</button>
+                    <button id="session-next-btn" class="bg-green-600 hover:bg-green-700 py-2 px-6 rounded-lg font-bold" data-lang="nextExerciseBtn">Próximo Exercício</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="timer-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
+            <div class="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center text-white">
+                <h3 class="text-2xl font-bold mb-4" data-lang="timerTitle">Tempo de Descanso</h3>
+                <div id="timer-display" class="text-8xl font-mono font-bold text-amber-400 my-6">60</div>
+                <button id="timer-close-btn" class="bg-gray-600 hover:bg-gray-700 py-2 px-4 rounded-lg" data-lang="timerClose">Fechar</button>
+            </div>
+        </div>
     </main>
     
     <script type="module" src="firebase-config.js"></script>
