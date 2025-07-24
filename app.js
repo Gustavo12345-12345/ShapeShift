@@ -139,7 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentUserData = userSnap.data();
                     updateUIAfterLogin();
                 } else {
-                    handleLogout();
+                    // **INÍCIO DA CORREÇÃO**
+                    // NÃO FAÇA LOGOUT. O usuário é autenticado.
+                    // A ausência do documento é temporária para novos usuários.
+                    // Apenas registramos o aviso e esperamos. O onSnapshot
+                    // será acionado novamente quando o documento for criado.
+                    console.warn("Usuário autenticado, mas documento do Firestore ainda não encontrado. Aguardando...");
+                    // **FIM DA CORREÇÃO**
                 }
             });
         }
