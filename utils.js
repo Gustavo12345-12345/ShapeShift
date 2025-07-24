@@ -6,6 +6,14 @@ const helpIconSvg = `
 </svg>
 `;
 
+/**
+ * Processa o texto bruto do treino. Agora aceita um objeto de opções
+ * para controlar a exibição de elementos, como o botão "Iniciar Treino".
+ * @param {string} text - O texto bruto gerado pela IA.
+ * @param {object} options - Opções de renderização.
+ * @param {boolean} options.showStartButton - Se true, renderiza o botão "Iniciar Treino".
+ * @returns {string} - Uma string HTML formatada.
+ */
 export function processWorkoutTextToHtml(text, options = {}) {
     const { showStartButton = false } = options;
 
@@ -40,9 +48,16 @@ export function processWorkoutTextToHtml(text, options = {}) {
             html +=    `<h3 class="text-2xl font-bold text-amber-400">${dayTitle}</h3>`;
             
             if (showStartButton) {
+                // =============================================================
+                // INÍCIO DA CORREÇÃO
+                // A chave correta é 'startWorkoutBtn', sem erros de digitação.
+                // =============================================================
                 const startButtonText = (window.getTranslation && window.getTranslation('startWorkoutBtn')) || 'Iniciar Treino';
                 html += `<button class="start-workout-btn bg-amber-500 hover:bg-amber-600 text-black font-bold py-2 px-4 rounded-lg" data-day-title="${dayTitle}">${startButtonText}</button>`;
             }
+            // =============================================================
+            // FIM DA CORREÇÃO
+            // =============================================================
 
             html += `</div>`;
             inDayBlock = true;
