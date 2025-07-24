@@ -4,6 +4,7 @@ import { auth, db } from './firebase-config.js'; // Importa do ficheiro centrali
 import { processWorkoutTextToHtml } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Referências aos Elementos do DOM ---
     const form = document.getElementById('workout-form');
     const generateBtn = document.getElementById('generate-btn');
     const saveBtn = document.getElementById('save-routine-btn');
@@ -11,23 +12,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const workoutPlanContent = document.getElementById('workout-plan-content');
     const loader = document.getElementById('loader');
     const errorMessageContainer = document.getElementById('error-message');
-    const generationsCounter = document.getElementById('generations-counter');
+    const ageInput = document.getElementById('age');
+    const weightInput = document.getElementById('weight');
+    const heightInput = document.getElementById('height');
+    const goalSelect = document.getElementById('goal');
+    const levelSelect = document.getElementById('level');
+    const daysSelect = document.getElementById('days');
+    const equipmentSelect = document.getElementById('equipment');
+    const notesTextarea = document.getElementById('notes');
     const logoutBtn = document.getElementById('logout-btn');
     const streakCounterNav = document.getElementById('streak-counter-nav');
     const streakCountNav = document.getElementById('streak-count-nav');
 
+    // Variáveis de estado
     let generatedPlanText = null;
     let currentUserData = null;
 
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     function checkFormValidity() {
-        const goal = document.getElementById('goal').value;
-        const level = document.getElementById('level').value;
-        const days = document.getElementById('days').value;
-        const equipment = document.getElementById('equipment').value;
-
-        if (goal && level && days && equipment) {
+        if (!goalSelect || !levelSelect || !daysSelect || !equipmentSelect) return;
+        if (goalSelect.value && levelSelect.value && daysSelect.value && equipmentSelect.value) {
             generateBtn.disabled = false;
             generateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         } else {
@@ -38,38 +43,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateUIAfterLogin() {
         if (!currentUserData) return;
-        generationsCounter.classList.add('hidden');
-        if (currentUserData.streakCount > 0) {
-            streakCountNav.textContent = currentUserData.streakCount;
-            streakCounterNav.classList.remove('hidden');
-        } else {
-            streakCounterNav.classList.add('hidden');
+        if (streakCounterNav && streakCountNav) {
+            if (currentUserData.streakCount > 0) {
+                streakCountNav.textContent = currentUserData.streakCount;
+                streakCounterNav.classList.remove('hidden');
+            } else {
+                streakCounterNav.classList.add('hidden');
+            }
         }
         checkFormValidity();
     }
 
     async function handleGeneratePlan() {
+        if (!form) return;
         workoutPlanOutput.classList.add('hidden');
         errorMessageContainer.classList.add('hidden');
         loader.classList.remove('hidden');
         generateBtn.disabled = true;
         generateBtn.textContent = "A gerar...";
 
-        const age = document.getElementById('age').value;
-        const weight = document.getElementById('weight').value;
-        const height = document.getElementById('height').value;
-        const goal = document.getElementById('goal').value;
-        const level = document.getElementById('level').value;
-        const days = document.getElementById('days').value;
-        const equipment = document.getElementById('equipment').value;
-        const notes = document.getElementById('notes').value;
-        
-        let userProfile = '';
-        if (age) userProfile += `Idade: ${age} anos, `;
-        if (weight) userProfile += `Peso: ${weight} kg, `;
-        if (height) userProfile += `Altura: ${height} cm. `;
-
-        const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: ${userProfile}O objetivo do treino é ${goal}, com um nível de fitness ${level}, para treinar ${days} dias por semana, com o seguinte equipamento disponível: ${equipment}. Observações adicionais: ${notes || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Use asteriscos para listas de exercícios. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
+        const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${ageInput.value || 'Não informado'}, Peso: ${weightInput.value || 'Não informado'} kg, Altura: ${heightInput.value || 'Não informado'} cm. O objetivo do treino é ${goalSelect.value}, com um nível de fitness ${levelSelect.value}, para treinar ${daysSelect.value} dias por semana, com o seguinte equipamento disponível: ${equipmentSelect.value}. Observações adicionais: ${notesTextarea.value || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Use asteriscos para listas de exercícios. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
         try {
             const apiKey = "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4";
@@ -79,15 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let response;
             const maxRetries = 3;
             for (let attempt = 1; attempt <= maxRetries; attempt++) {
-                response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
+                response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
                 if (response.status === 503 && attempt < maxRetries) {
-                    const delay = Math.pow(2, attempt) * 1000;
-                    await wait(delay);
+                    await wait(Math.pow(2, attempt) * 1000);
                 } else {
                     break;
                 }
@@ -97,23 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errorBody = await response.text();
                 throw new Error(`Status ${response.status}. Detalhes: ${errorBody}`);
             }
-            
             const result = await response.json();
             const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!text) {
-                 throw new Error("Resposta inválida da API.");
-            }
+            if (!text) throw new Error("Resposta inválida da API.");
 
             generatedPlanText = text;
             workoutPlanContent.innerHTML = processWorkoutTextToHtml(generatedPlanText);
             workoutPlanOutput.classList.remove('hidden');
-            
         } catch (error) {
-            if (error.message.includes("status 503")) {
-                 errorMessageContainer.textContent = "O servidor de IA parece estar sobrecarregado. Por favor, aguarde um minuto e tente novamente.";
-            } else {
-                 errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}. Por favor, tente novamente.`;
-            }
+            errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}. Por favor, tente novamente.`;
             errorMessageContainer.classList.remove('hidden');
         } finally {
             loader.classList.add('hidden');
@@ -142,11 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const userId = auth.currentUser.uid;
             const routineRef = doc(db, "users", userId, "routine", "active");
-            
-            await setDoc(routineRef, {
-                createdAt: new Date().toISOString(),
-                rawText: generatedPlanText
-            });
+            await setDoc(routineRef, { createdAt: new Date().toISOString(), rawText: generatedPlanText });
             window.location.href = 'routine.html';
         } catch (error) {
             console.error("Erro ao guardar a rotina:", error);
@@ -168,16 +143,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-        // O auth-guard.js trata o caso em que não há utilizador
     });
 
-    form.addEventListener('change', checkFormValidity);
-    generateBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        handleGeneratePlan();
-    });
-    saveBtn.addEventListener('click', handleSaveRoutine);
-    logoutBtn.addEventListener('click', handleLogout);
-
-    checkFormValidity();
+    if (form) {
+        form.addEventListener('change', checkFormValidity);
+        checkFormValidity();
+    }
+    if (generateBtn) {
+        generateBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleGeneratePlan();
+        });
+    }
+    if (saveBtn) {
+        saveBtn.addEventListener('click', handleSaveRoutine);
+    }
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', handleLogout);
+    }
 });
