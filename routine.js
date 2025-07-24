@@ -5,7 +5,7 @@ import { processWorkoutTextToHtml } from './utils.js';
 import { exerciseDB, normalizeName } from './exercise-db.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. DECLARAÇÃO DE TODAS AS VARIÁVEIS DE ELEMENTOS (INCLUINDO sessionNextBtn)
+    // 1. DECLARAÇÃO DE TODAS AS VARIÁVEIS DE ELEMENTOS
     const routineContentEl = document.getElementById('routine-content');
     const loaderEl = document.getElementById('routine-loader');
     const emptyStateEl = document.getElementById('empty-state');
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const noImageText = document.getElementById('no-image-text');
     const sessionSets = document.getElementById('session-exercise-sets');
     const setsContainer = document.getElementById('sets-container');
-    const sessionNextBtn = document.getElementById('session-next-btn'); // Variável é criada aqui
+    const sessionNextBtn = document.getElementById('session-next-btn');
     const sessionCloseBtn = document.getElementById('session-close-btn');
 
     const timerModal = document.getElementById('timer-modal');
@@ -44,12 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showCurrentExercise() {
         const exerciseText = workoutExercises[currentExerciseIndex];
-        const nameMatch = exerciseText.match(/^\s*[\*\-\d\.]*\s*(?<name>[^0-9]+)/);
-        const setsMatch = exerciseText.match(/(?<sets>\d+)\s*x\s*(?<reps>[\d\-]+)/);
-        
-        const name = nameMatch ? nameMatch.groups.name.trim() : exerciseText;
-        const setsInfo = setsMatch ? `${setsMatch.groups.sets} séries de ${setsMatch.groups.reps} repetições` : '';
-        const numSets = setsMatch ? parseInt(setsMatch.groups.sets, 10) : 3;
+
+        // =============================================================
+        // INÍCIO DA CORREÇÃO
+        // Usamos uma lógica mais robusta para separar o nome das séries/repetições,
+        // garantindo que o nome enviado para a busca da imagem esteja limpo.
+        // =============================================================
+        const exerciseMatch = exerciseText.match(/^(?<name>.+?)(?:\s+(?<sets>\d+)\s*[xX]\s*(?<reps>[\d\-]+))?\s*$/);
+
+        const name = exerciseMatch ? exerciseMatch.groups.name.trim().replace(/^[*\-–\d\.]*\s*/, '') : exerciseText;
+        const setsInfo = (exerciseMatch && exerciseMatch.groups.sets) ? `${exerciseMatch.groups.sets} séries de ${exerciseMatch.groups.reps} repetições` : '';
+        const numSets = (exerciseMatch && exerciseMatch.groups.sets) ? parseInt(exerciseMatch.groups.sets, 10) : 3;
+        // =============================================================
+        // FIM DA CORREÇÃO
+        // =============================================================
 
         sessionTitle.textContent = name;
         sessionSets.textContent = setsInfo;
@@ -132,8 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) { console.error("Erro ao atualizar a sequência:", error); }
     }
 
-    // 3. ANEXANDO OS EVENTOS DE CLIQUE AOS BOTÕES (DEPOIS DE SEREM CRIADOS)
-    if (sessionNextBtn) sessionNextBtn.addEventListener('click', () => { // Variável é usada aqui
+    // 3. ANEXANDO OS EVENTOS DE CLIQUE AOS BOTÕES
+    if (sessionNextBtn) sessionNextBtn.addEventListener('click', () => {
         if (currentExerciseIndex < workoutExercises.length - 1) {
             currentExerciseIndex++;
             showCurrentExercise();
