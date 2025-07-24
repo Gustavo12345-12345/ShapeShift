@@ -1,81 +1,92 @@
-// VERSÃO FINAL: Banco de dados com estrutura para +50 exercícios.
-// 3 exemplos estão preenchidos. Preencha os outros usando um conversor online de "GIF to Base64".
+// VERSÃO FINAL: Usa o pacote de GIFs "yuhonas/free-exercise-db" (com pessoas reais).
+// As imagens são carregadas via CDN (jsDelivr) para evitar TODOS os erros de bloqueio e download.
 
 export const exerciseDB = {
-    // ================== EXEMPLOS FUNCIONAIS ==================
-    agachamento: "data:image/gif;base64,R0lGODlhgACAAJECAMAAAD/AP///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBAACACwAAAAAgACAAAEACvSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2Oz+v3/L7/DxgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7A=",
-    supinoreto: "data:image/gif;base64,R0lGODlhgACAAJEDAMAAAD/AP//9/f39ACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBAADACwAAAAAgACAAAEAIvSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2Oz+v3/L7/DxgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7Cys7S1tre4ubq7vL2+v8DBwsPExcbHyMnKy8zNzs/Q0dLT1NXW19jZ2tvc3d7f4OHi4+Tl5ufo6err7O3u7/Dx8vP09fb3+Pn6+/z9/v8AAwocSLCgwYMIEypcyLChw4cQI0qcSLGixYsYM2rcyLGjx48gQ4ocSbKkyZMoU6pcybKly5cwY8qcSbOmzZtc/w5s6bOnz59AgwodSrSo0aNIkypdyrSp06dQo0qdSrWq1atYs2rdyrWr169gw4odS7as2bNo06pdy7at27dw48qdS7em3atw69q9y7ev37+AAwseTLiw4cOIEytezLix48eQI0ueTLmy5cuYM2vezLmz58+gQ4seTbq06dOoU6tezbq169ewY8ueTbu27du4c+vezbu379/AgwsfTry48ePIkytfzry58+fQo0ufTr269evYs2vfzr279+/gw4sfT768+fPo06tfz769+/fw48ufT7++/fv48+vfz7+///8ABijggAQWaOCBCCao4IIMNujggxBGKOGEFFZo4YUYZqjhhhx26OGHIIYo4ogklmjiiSimqOKKLLbo4ou0vQEAIfkECQQAAgAsAAAAAIAAgAABAAr0j6nL7Q+jnLTai7PevPsPhuJIluaJpurKtu4LxzJc1/aN5/rO9/4PDAqHxKLxiEwql8ym8wmNSqfUqvWKzWq33K73Cw6Lx+Sy+YxOq9fstvsNj8vn9Lr9js/r9/y+/w8YKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2en6ChoqOkpaanqKmqq6ytrq+wIAAh+QQJBAACACwAAAAAgACAAAEACvSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2Oz+v3/L7/DxgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7A=",
-    flexao: "data:image/gif;base64,R0lGODlhgACAAJECAP///wAAAP8AAP8AAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBAACACwAAAAAgACAAAEACvSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2Oz+v3/L7/DxgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7A=",
-
     // ================== PEITO (CHEST) ==================
-    supinoinclinado: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    supinodeclinado: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    supinoretocomhalteres: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    supinoinclinadocomhalteres: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    crucifixo: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    crucifixoinclinado: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    flexaodebraco: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "flexao"
-    crossover: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    pullovercomhalter: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    supinoreto: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-bench-press-1.gif",
+    supinoinclinado: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-incline-bench-press-1.gif",
+    supinodeclinado: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-decline-bench-press-1.gif",
+    supinoretocomhalteres: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-bench-press-1.gif",
+    supinoinclinadocomhalteres: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-incline-bench-press-1.gif",
+    crucifixo: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-fly-1.gif",
+    crucifixoinclinado: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/incline-dumbbell-fly-1.gif",
+    flexao: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/push-up-1.gif",
+    flexaodebraco: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/push-up-1.gif",
+    flexaoinclinada: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/incline-push-up-1.gif",
+    crossover: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/cable-crossover-1.gif",
+    peckdeck: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/machine-fly-1.gif",
+    pullovercomhalter: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-pullover-1.gif",
 
     // ================== COSTAS (BACK) ==================
-    puxadafrente: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    puxadafechada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    remadacavalinho: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    remadasentada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    remadaunilateral: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    serrote: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "remadaunilateral"
-    barrafixa: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    hiperextensao: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    puxadafrontal: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/lat-pulldown-1.gif",
+    puxadafrente: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/lat-pulldown-1.gif",
+    puxadafechada: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/close-grip-lat-pulldown-1.gif",
+    remadacurvada: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/bent-over-row-1.gif",
+    remadacavalinho: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/t-bar-row-1.gif",
+    remadasentada: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/seated-cable-row-1.gif",
+    remadaunilateral: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-row-1.gif",
+    serrote: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-row-1.gif",
+    barrafixa: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/pull-up-1.gif",
+    pulldown: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/straight-arm-pulldown-1.gif",
+    hiperextensao: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/hyperextension-1.gif",
+    goodmorning: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/good-morning-1.gif",
+    encolhimentodeombros: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-shrug-1.gif",
 
     // ================== PERNAS (LEGS) ==================
-    agachamentofrontal: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    agachamentogoblet: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    legpress: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    cadeiraextensora: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    mesaflexora: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    deadlift: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "levantamentoterra"
-    stiff: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    afundo: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    passada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "afundo"
-    agachamentobulgaro: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    panturrilha: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    elevacaopelvica: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    hipthrust: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "elevacaopelvica"
+    agachamento: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-squat-1.gif",
+    agachamentolivre: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-squat-1.gif",
+    agachamentofrontal: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-front-squat-1.gif",
+    agachamentogoblet: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/goblet-squat-1.gif",
+    legpress: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/leg-press-1.gif",
+    cadeiraextensora: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/leg-extension-1.gif",
+    mesaflexora: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/lying-leg-curl-1.gif",
+    levantamentoterra: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-deadlift-1.gif",
+    deadlift: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-deadlift-1.gif",
+    stiff: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/romanian-deadlift-1.gif",
+    afundo: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-lunges-1.gif",
+    passada: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-lunges-1.gif",
+    agachamentobulgaro: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/bulgarian-split-squat-1.gif",
+    panturrilha: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/calf-raise-1.gif",
+    elevacaopelvica: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/hip-thrust-1.gif",
+    hipthrust: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/hip-thrust-1.gif",
 
     // ================== OMBROS (SHOULDERS) ==================
-    desenvolvimentocomhalteres: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    desenvolvimentoarnold: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    elevacaolateral: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    elevacaofrontal: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    remadaalta: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    facepull: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    desenvolvimentomilitar: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-overhead-press-1.gif",
+    desenvolvimentocomhalteres: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-shoulder-press-1.gif",
+    desenvolvimentoarnold: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/arnold-press-1.gif",
+    elevacaolateral: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/lateral-raise-1.gif",
+    elevacaofrontal: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/front-raise-1.gif",
+    remadaalta: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/upright-row-1.gif",
+    facepull: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/face-pull-1.gif",
 
     // ================== BÍCEPS ==================
-    roscaalternada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    roscaconcentrada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    roscascott: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    roscamartelo: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    chinup: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    roscadireta: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/barbell-curl-1.gif",
+    roscaalternada: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-curl-1.gif",
+    roscaconcentrada: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/concentration-curl-1.gif",
+    roscascott: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/preacher-curl-1.gif",
+    roscamartelo: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/hammer-curl-1.gif",
+    chinup: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/chin-up-1.gif",
 
     // ================== TRÍCEPS ==================
-    tricepstesta: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    tricepscorda: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    tricepspulley: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "tricepscorda"
-    mergulhonobanco: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    supinofechado: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    tricepstesta: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/skull-crusher-1.gif",
+    tricepscorda: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/triceps-pushdown-1.gif",
+    tricepspulley: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/triceps-pushdown-1.gif",
+    tricepsfrances: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/dumbbell-overhead-triceps-extension-1.gif",
+    mergulhonobanco: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/bench-dips-1.gif",
+    supinofechado: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/close-grip-bench-press-1.gif",
 
     // ================== ABDÔMEN (ABS) ==================
-    pranchalateral: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    elevacaodepernas: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    elevacaodepernasnabarra: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    girorusso: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    abdominal: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/crunch-1.gif",
+    prancha: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/plank-1.gif",
+    elevacaodepernas: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/leg-raise-1.gif",
+    elevacaodepernasnabarra: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/hanging-leg-raise-1.gif",
+    girocontronco: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/russian-twist-1.gif",
 
     // ================== CARDIO / CORPO INTEIRO ==================
-    burpee: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    polichinelo: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    alpinista: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
-    kettlebellswing: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI"
+    burpee: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/burpee-1.gif",
+    polichinelo: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/jumping-jacks-1.gif",
+    alpinista: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/mountain-climber-1.gif",
+    kettlebellswing: "https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/images/kettlebell-swing-1.gif"
 };
 
 /**
