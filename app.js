@@ -78,41 +78,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             const result = await response.json();
-            console.log("Resposta completa da API:", result); // Mantido para depuração
-
-            // ===================================================================
-            // INÍCIO DA NOVA LÓGICA DE VERIFICAÇÃO ROBUSTA
-            // ===================================================================
+            console.log("Resposta completa da API:", result); 
 
             if (!result.candidates || result.candidates.length === 0) {
-                // Caso 1: A API não retornou nenhum "candidato" de resposta.
-                throw new Error("A API retornou uma resposta vazia. Isso pode ocorrer devido a filtros de segurança ou um prompt inválido.");
+                throw new Error("A API retornou uma resposta vazia, sem candidatos.");
             }
 
             const candidate = result.candidates[0];
 
-            // Caso 2: A IA parou de gerar por um motivo específico (geralmente segurança).
             if (candidate.finishReason && candidate.finishReason !== "STOP") {
-                throw new Error(`A IA não gerou o treino. Motivo: ${candidate.finishReason}. Tente alterar os termos do seu pedido (ex: usar 'definição muscular' em vez de 'perder gordura').`);
+                throw new Error(`A IA não gerou o treino. Motivo: ${candidate.finishReason}.`);
             }
 
             const text = candidate?.content?.parts?.[0]?.text;
 
-            // Caso 3: A IA terminou corretamente, mas o texto retornado é vazio.
-            if (!text || text.trim() === "") {
-                throw new Error("A IA retornou um texto em branco. Por favor, tente gerar novamente com um pedido diferente.");
-            }
+            // ===================================================================
+            // NOVA LINHA DE DIAGNÓSTICO
+            console.log("Texto extraído da IA:", text);
+            // ===================================================================
 
-            // ===================================================================
-            // FIM DA NOVA LÓGICA DE VERIFICAÇÃO
-            // ===================================================================
+            if (!text || text.trim() === "") {
+                throw new Error("A IA retornou um texto em branco, embora a chamada tenha sido bem-sucedida.");
+            }
 
             generatedPlanText = text;
             workoutPlanContent.innerHTML = processWorkoutTextToHtml(generatedPlanText);
             workoutPlanOutput.classList.remove('hidden');
 
         } catch (error) {
-            // Agora, esta seção exibirá os erros muito mais específicos que definimos acima.
             console.error("Falha ao gerar o plano:", error);
             errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}`;
             errorMessageContainer.classList.remove('hidden');
