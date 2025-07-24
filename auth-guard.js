@@ -3,14 +3,17 @@ import { auth } from './firebase-config.js';
 
 const protectPage = () => {
     onAuthStateChanged(auth, (user) => {
-        // Dá um pequeno tempo para o getRedirectResult() do auth.js ser processado.
-        setTimeout(() => {
-            if (!user && !window.location.pathname.endsWith('login.html')) {
-                console.log("Auth Guard: Utilizador não encontrado. A redirecionar para o login.");
-                window.location.href = 'login.html';
-            }
-        }, 500); // Meio segundo de espera
+        // Esta função é chamada quando o estado de autenticação do usuário é resolvido.
+        // O Firebase já lida com a persistência da sessão através da página.
+
+        // Se não há usuário e a página atual não é a de login, redireciona.
+        // Esta verificação é mais confiável do que usar um setTimeout.
+        if (!user && !window.location.pathname.endsWith('login.html')) {
+            console.log("Auth Guard: Usuário não encontrado. Redirecionando para o login.");
+            window.location.href = 'login.html';
+        }
     });
 };
 
+// Chama a função para proteger as páginas
 protectPage();
