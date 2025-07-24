@@ -29,7 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     streakRestores: 5 
                 });
             }
-            window.location.href = 'index.html';
+            
+            // NÃO FAÇA O REDIRECIONAMENTO AQUI.
+            // O listener onAuthStateChanged abaixo cuidará disso.
+            // window.location.href = 'index.html'; // LINHA REMOVIDA
 
         } catch (error) {
             console.error("Erro durante o login:", error.code, error.message);
@@ -42,10 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Redireciona se o utilizador já estiver logado
+    // Este listener agora se torna a ÚNICA fonte de redirecionamento.
+    // Ele dispara quando o usuário já está logado OU quando o login via popup tem sucesso.
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // Se o utilizador já está logado, vai para a página principal.
+            // Se o utilizador está logado (seja de uma sessão anterior ou de um novo login),
+            // ele deve ser redirecionado para a página principal.
             if (window.location.pathname.endsWith('login.html')) {
                 window.location.href = 'index.html';
             }
