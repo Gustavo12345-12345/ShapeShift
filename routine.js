@@ -2,34 +2,35 @@ import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { auth, db } from './firebase-config.js'; 
 import { processWorkoutTextToHtml } from './utils.js';
-// INÍCIO DA ALTERAÇÃO: Importa o banco de dados e a função de normalização
 import { exerciseDB, normalizeName } from './exercise-db.js';
-// FIM DA ALTERAÇÃO
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ... (outras referências de elementos)
+    // 1. DECLARAÇÃO DE TODAS AS VARIÁVEIS DE ELEMENTOS (INCLUINDO sessionNextBtn)
+    const routineContentEl = document.getElementById('routine-content');
+    const loaderEl = document.getElementById('routine-loader');
+    const emptyStateEl = document.getElementById('empty-state');
+    
     const sessionModal = document.getElementById('session-modal');
     const sessionTitle = document.getElementById('session-exercise-title');
-    // INÍCIO DA ALTERAÇÃO: Novas referências de elementos da imagem
     const exerciseImageContainer = document.getElementById('exercise-image-container');
     const sessionExerciseImg = document.getElementById('session-exercise-img');
     const noImageText = document.getElementById('no-image-text');
-    // FIM DA ALTERAÇÃO
     const sessionSets = document.getElementById('session-exercise-sets');
-    // ... (resto das referências)
+    const setsContainer = document.getElementById('sets-container');
+    const sessionNextBtn = document.getElementById('session-next-btn'); // Variável é criada aqui
+    const sessionCloseBtn = document.getElementById('session-close-btn');
 
-    // ... (função startWorkoutSession continua a mesma)
+    const timerModal = document.getElementById('timer-modal');
+    const timerDisplay = document.getElementById('timer-display');
+    const timerCloseBtn = document.getElementById('timer-close-btn');
 
-    /**
-     * Tenta encontrar uma imagem para o exercício no banco de dados.
-     * Usa uma busca "fuzzy" para encontrar correspondências parciais.
-     * @param {string} exerciseName - O nome do exercício vindo do plano.
-     * @returns {string|null} - A URL da imagem ou null se não encontrada.
-     */
+    let workoutExercises = [];
+    let currentExerciseIndex = 0;
+    let restTimerInterval;
+
+    // 2. DEFINIÇÃO DE TODAS AS FUNÇÕES
     function findImageForExercise(exerciseName) {
         const normalizedName = normalizeName(exerciseName);
-        
-        // Tenta encontrar a chave mais longa que corresponde ao início do nome normalizado
         let bestMatch = null;
         for (const key in exerciseDB) {
             if (normalizedName.includes(key)) {
@@ -53,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionTitle.textContent = name;
         sessionSets.textContent = setsInfo;
 
-        // INÍCIO DA ALTERAÇÃO: Lógica para carregar a imagem
         const imageUrl = findImageForExercise(name);
         if (imageUrl) {
             sessionExerciseImg.src = imageUrl;
@@ -63,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sessionExerciseImg.classList.add('hidden');
             noImageText.classList.remove('hidden');
         }
-        // FIM DA ALTERAÇÃO
         
         setsContainer.innerHTML = '';
         for (let i = 1; i <= numSets; i++) {
@@ -81,10 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionNextBtn.textContent = currentExerciseIndex >= workoutExercises.length - 1 ? 'Concluir Treino' : 'Próximo Exercício';
     }
     
-    // ... (o resto do arquivo routine.js continua o mesmo)
-    // startRestTimer, completeWorkout, listeners de botões e onAuthStateChanged
-    // não precisam de alterações. Apenas cole o código completo que você já tem
-    // a partir daqui, ou use a versão completa abaixo.
     function startWorkoutSession(dayGroupElement) {
         workoutExercises = Array.from(dayGroupElement.querySelectorAll('.exercise-text')).map(el => el.textContent);
         if (workoutExercises.length === 0) {
@@ -137,7 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) { console.error("Erro ao atualizar a sequência:", error); }
     }
 
-    if (sessionNextBtn) sessionNextBtn.addEventListener('click', () => {
+    // 3. ANEXANDO OS EVENTOS DE CLIQUE AOS BOTÕES (DEPOIS DE SEREM CRIADOS)
+    if (sessionNextBtn) sessionNextBtn.addEventListener('click', () => { // Variável é usada aqui
         if (currentExerciseIndex < workoutExercises.length - 1) {
             currentExerciseIndex++;
             showCurrentExercise();
@@ -155,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(restTimerInterval);
     });
 
+    // 4. LÓGICA PRINCIPAL QUE EXECUTA QUANDO A PÁGINA CARREGA
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             if(loaderEl) loaderEl.classList.remove('hidden');
@@ -176,6 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } finally {
                 if(loaderEl) loaderEl.classList.add('hidden');
             }
+        } else {
+            window.location.href = 'login.html';
         }
     });
 });
