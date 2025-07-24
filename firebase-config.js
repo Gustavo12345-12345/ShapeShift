@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-// A sua configuração do Firebase. Verifiquei e corrigi os valores.
+// A sua configuração do Firebase.
 const firebaseConfig = {
   apiKey: "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4",
   authDomain: "workoutplaner-3930e.firebaseapp.com",
