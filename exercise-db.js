@@ -1,105 +1,103 @@
 // Este é o nosso "banco de dados" de imagens.
-// A chave é o nome do exercício normalizado (sem espaços, acentos ou maiúsculas).
-// O valor é a URL do GIF animado.
-// Fonte dos GIFs: https://github.com/yuhonas/free-exercise-db (um recurso público e gratuito)
+// Os links foram alterados para o domínio raw.githubusercontent.com, que é mais permissivo.
+// Fonte dos GIFs: https://github.com/yuhonas/free-exercise-db
 
 export const exerciseDB = {
     // ================== PEITO (CHEST) ==================
-    supinoreto: "https://www.yuhonas.com/free-exercise-db/images/barbell-bench-press-1.gif",
-    supinoinclinado: "https://www.yuhonas.com/free-exercise-db/images/barbell-incline-bench-press-1.gif",
-    supinodeclinado: "https://www.yuhonas.com/free-exercise-db/images/barbell-decline-bench-press-1.gif",
-    supinoretocomhalteres: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-bench-press-1.gif",
-    supinoinclinadocomhalteres: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-incline-bench-press-1.gif",
-    crucifixo: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-fly-1.gif",
-    crucifixoinclinado: "https://www.yuhonas.com/free-exercise-db/images/incline-dumbbell-fly-1.gif",
-    flexao: "https://www.yuhonas.com/free-exercise-db/images/push-up-1.gif",
-    flexaodebraco: "https://www.yuhonas.com/free-exercise-db/images/push-up-1.gif",
-    flexaoinclinada: "https://www.yuhonas.com/free-exercise-db/images/incline-push-up-1.gif",
-    flexaodeclinada: "https://www.yuhonas.com/free-exercise-db/images/decline-push-up-1.gif",
-    crossover: "https://www.yuhonas.com/free-exercise-db/images/cable-crossover-1.gif",
-    peckdeck: "https://www.yuhonas.com/free-exercise-db/images/machine-fly-1.gif",
-    pullovercomhalter: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-pullover-1.gif",
+    supinoreto: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-bench-press-1.gif",
+    supinoinclinado: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-incline-bench-press-1.gif",
+    supinodeclinado: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-decline-bench-press-1.gif",
+    supinoretocomhalteres: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-bench-press-1.gif",
+    supinoinclinadocomhalteres: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-incline-bench-press-1.gif",
+    crucifixo: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-fly-1.gif",
+    crucifixoinclinado: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/incline-dumbbell-fly-1.gif",
+    flexao: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/push-up-1.gif",
+    flexaodebraco: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/push-up-1.gif",
+    flexaoinclinada: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/incline-push-up-1.gif",
+    flexaodeclinada: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/decline-push-up-1.gif",
+    crossover: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/cable-crossover-1.gif",
+    peckdeck: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/machine-fly-1.gif",
+    pullovercomhalter: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-pullover-1.gif",
 
     // ================== COSTAS (BACK) ==================
-    puxadafrontal: "https://www.yuhonas.com/free-exercise-db/images/lat-pulldown-1.gif",
-    puxadafrente: "https://www.yuhonas.com/free-exercise-db/images/lat-pulldown-1.gif",
-    puxadafechada: "https://www.yuhonas.com/free-exercise-db/images/close-grip-lat-pulldown-1.gif",
-    remadacurvada: "https://www.yuhonas.com/free-exercise-db/images/bent-over-row-1.gif",
-    remadacavalinho: "https://www.yuhonas.com/free-exercise-db/images/t-bar-row-1.gif",
-    remadasentada: "https://www.yuhonas.com/free-exercise-db/images/seated-cable-row-1.gif",
-    remadaunilateral: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-row-1.gif",
-    serrote: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-row-1.gif",
-    barrafixa: "https://www.yuhonas.com/free-exercise-db/images/pull-up-1.gif",
-    pulldown: "https://www.yuhonas.com/free-exercise-db/images/straight-arm-pulldown-1.gif",
-    hiperextensao: "https://www.yuhonas.com/free-exercise-db/images/hyperextension-1.gif",
-    goodmorning: "https://www.yuhonas.com/free-exercise-db/images/good-morning-1.gif",
-    encolhimentodeombros: "https://www.yuhonas.com/free-exercise-db/images/barbell-shrug-1.gif",
+    puxadafrontal: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/lat-pulldown-1.gif",
+    puxadafrente: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/lat-pulldown-1.gif",
+    puxadafechada: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/close-grip-lat-pulldown-1.gif",
+    remadacurvada: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/bent-over-row-1.gif",
+    remadacavalinho: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/t-bar-row-1.gif",
+    remadasentada: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/seated-cable-row-1.gif",
+    remadaunilateral: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-row-1.gif",
+    serrote: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-row-1.gif",
+    barrafixa: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/pull-up-1.gif",
+    pulldown: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/straight-arm-pulldown-1.gif",
+    hiperextensao: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/hyperextension-1.gif",
+    goodmorning: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/good-morning-1.gif",
+    encolhimentodeombros: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-shrug-1.gif",
 
     // ================== PERNAS (LEGS) ==================
-    agachamento: "https://www.yuhonas.com/free-exercise-db/images/barbell-squat-1.gif",
-    agachamentolivre: "https://www.yuhonas.com/free-exercise-db/images/barbell-squat-1.gif",
-    agachamentocombarra: "https://www.yuhonas.com/free-exercise-db/images/barbell-squat-1.gif",
-    agachamentofrontal: "https://www.yuhonas.com/free-exercise-db/images/barbell-front-squat-1.gif",
-    agachamentogoblet: "https://www.yuhonas.com/free-exercise-db/images/goblet-squat-1.gif",
-    agachamentohack: "https://www.yuhonas.com/free-exercise-db/images/hack-squat-1.gif",
-    legpress: "https://www.yuhonas.com/free-exercise-db/images/leg-press-1.gif",
-    extensaodepernas: "https://www.yuhonas.com/free-exercise-db/images/leg-extension-1.gif",
-    cadeiraextensora: "https://www.yuhonas.com/free-exercise-db/images/leg-extension-1.gif",
-    mesaflexora: "https://www.yuhonas.com/free-exercise-db/images/lying-leg-curl-1.gif",
-    flexaodepernas: "https://www.yuhonas.com/free-exercise-db/images/lying-leg-curl-1.gif",
-    levantamentoterra: "https://www.yuhonas.com/free-exercise-db/images/barbell-deadlift-1.gif",
-    deadlift: "https://www.yuhonas.com/free-exercise-db/images/barbell-deadlift-1.gif",
-    stiff: "https://www.yuhonas.com/free-exercise-db/images/romanian-deadlift-1.gif",
-    afundo: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-lunges-1.gif",
-    passada: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-lunges-1.gif",
-    agachamentobulgaro: "https://www.yuhonas.com/free-exercise-db/images/bulgarian-split-squat-1.gif",
-    elevacaodepanturrilha: "https://www.yuhonas.com/free-exercise-db/images/calf-raise-1.gif",
-    panturrilha: "https://www.yuhonas.com/free-exercise-db/images/calf-raise-1.gif",
-    elevacaopelvica: "https://www.yuhonas.com/free-exercise-db/images/hip-thrust-1.gif",
-    hipthrust: "https://www.yuhonas.com/free-exercise-db/images/hip-thrust-1.gif",
+    agachamento: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-squat-1.gif",
+    agachamentolivre: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-squat-1.gif",
+    agachamentocombarra: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-squat-1.gif",
+    agachamentofrontal: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-front-squat-1.gif",
+    agachamentogoblet: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/goblet-squat-1.gif",
+    agachamentohack: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/hack-squat-1.gif",
+    legpress: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/leg-press-1.gif",
+    extensaodepernas: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/leg-extension-1.gif",
+    cadeiraextensora: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/leg-extension-1.gif",
+    mesaflexora: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/lying-leg-curl-1.gif",
+    flexaodepernas: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/lying-leg-curl-1.gif",
+    levantamentoterra: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-deadlift-1.gif",
+    deadlift: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-deadlift-1.gif",
+    stiff: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/romanian-deadlift-1.gif",
+    afundo: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-lunges-1.gif",
+    passada: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-lunges-1.gif",
+    agachamentobulgaro: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/bulgarian-split-squat-1.gif",
+    elevacaodepanturrilha: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/calf-raise-1.gif",
+    panturrilha: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/calf-raise-1.gif",
+    elevacaopelvica: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/hip-thrust-1.gif",
+    hipthrust: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/hip-thrust-1.gif",
 
     // ================== OMBROS (SHOULDERS) ==================
-    desenvolvimentomilitar: "https://www.yuhonas.com/free-exercise-db/images/barbell-overhead-press-1.gif",
-    desenvolvimentocomhalteres: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-shoulder-press-1.gif",
-    desenvolvimentoarnold: "https://www.yuhonas.com/free-exercise-db/images/arnold-press-1.gif",
-    elevacaolateral: "https://www.yuhonas.com/free-exercise-db/images/lateral-raise-1.gif",
-    elevacaofrontal: "https://www.yuhonas.com/free-exercise-db/images/front-raise-1.gif",
-    remadaalta: "https://www.yuhonas.com/free-exercise-db/images/upright-row-1.gif",
-    facepull: "https://www.yuhonas.com/free-exercise-db/images/face-pull-1.gif",
+    desenvolvimentomilitar: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-overhead-press-1.gif",
+    desenvolvimentocomhalteres: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-shoulder-press-1.gif",
+    desenvolvimentoarnold: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/arnold-press-1.gif",
+    elevacaolateral: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/lateral-raise-1.gif",
+    elevacaofrontal: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/front-raise-1.gif",
+    remadaalta: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/upright-row-1.gif",
+    facepull: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/face-pull-1.gif",
 
     // ================== BÍCEPS ==================
-    roscadireta: "https://www.yuhonas.com/free-exercise-db/images/barbell-curl-1.gif",
-    roscaalternada: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-curl-1.gif",
-    roscaconcentrada: "https://www.yuhonas.com/free-exercise-db/images/concentration-curl-1.gif",
-    roscascott: "https://www.yuhonas.com/free-exercise-db/images/preacher-curl-1.gif",
-    roscamartelo: "https://www.yuhonas.com/free-exercise-db/images/hammer-curl-1.gif",
-    chinup: "https://www.yuhonas.com/free-exercise-db/images/chin-up-1.gif",
+    roscadireta: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/barbell-curl-1.gif",
+    roscaalternada: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-curl-1.gif",
+    roscaconcentrada: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/concentration-curl-1.gif",
+    roscascott: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/preacher-curl-1.gif",
+    roscamartelo: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/hammer-curl-1.gif",
+    chinup: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/chin-up-1.gif",
 
     // ================== TRÍCEPS ==================
-    tricepstesta: "https://www.yuhonas.com/free-exercise-db/images/skull-crusher-1.gif",
-    tricepscorda: "https://www.yuhonas.com/free-exercise-db/images/triceps-pushdown-1.gif",
-    tricepspulley: "https://www.yuhonas.com/free-exercise-db/images/triceps-pushdown-1.gif",
-    tricepsfrances: "https://www.yuhonas.com/free-exercise-db/images/dumbbell-overhead-triceps-extension-1.gif",
-    mergulhonobanco: "https://www.yuhonas.com/free-exercise-db/images/bench-dips-1.gif",
-    supinofechado: "https://www.yuhonas.com/free-exercise-db/images/close-grip-bench-press-1.gif",
+    tricepstesta: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/skull-crusher-1.gif",
+    tricepscorda: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/triceps-pushdown-1.gif",
+    tricepspulley: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/triceps-pushdown-1.gif",
+    tricepsfrances: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/dumbbell-overhead-triceps-extension-1.gif",
+    mergulhonobanco: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/bench-dips-1.gif",
+    supinofechado: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/close-grip-bench-press-1.gif",
 
     // ================== ABDÔMEN (ABS) ==================
-    abdominal: "https://www.yuhonas.com/free-exercise-db/images/crunch-1.gif",
-    prancha: "https://www.yuhonas.com/free-exercise-db/images/plank-1.gif",
-    elevacaodepernas: "https://www.yuhonas.com/free-exercise-db/images/leg-raise-1.gif",
-    elevacaodepernasnabarra: "https://www.yuhonas.com/free-exercise-db/images/hanging-leg-raise-1.gif",
-    girocontronco: "https://www.yuhonas.com/free-exercise-db/images/russian-twist-1.gif",
+    abdominal: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/crunch-1.gif",
+    prancha: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/plank-1.gif",
+    elevacaodepernas: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/leg-raise-1.gif",
+    elevacaodepernasnabarra: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/hanging-leg-raise-1.gif",
+    girocontronco: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/russian-twist-1.gif",
 
     // ================== CARDIO / CORPO INTEIRO ==================
-    burpee: "https://www.yuhonas.com/free-exercise-db/images/burpee-1.gif",
-    polichinelo: "https://www.yuhonas.com/free-exercise-db/images/jumping-jacks-1.gif",
-    alpinista: "https://www.yuhonas.com/free-exercise-db/images/mountain-climber-1.gif",
-    kettlebellswing: "https://www.yuhonas.com/free-exercise-db/images/kettlebell-swing-1.gif"
+    burpee: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/burpee-1.gif",
+    polichinelo: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/jumping-jacks-1.gif",
+    alpinista: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/mountain-climber-1.gif",
+    kettlebellswing: "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/images/kettlebell-swing-1.gif"
 };
 
 /**
  * Normaliza o nome de um exercício para criar uma chave de busca.
- * Ex: "Supino Reto com Halteres" -> "supinoretocomhalteres"
  * @param {string} name - O nome do exercício.
  * @returns {string} - O nome normalizado.
  */
@@ -107,7 +105,7 @@ export function normalizeName(name) {
     if (!name) return '';
     return name
         .toLowerCase()
-        .normalize("NFD") // Separa acentos das letras
-        .replace(/[\u0300-\u036f]/g, "") // Remove os acentos
-        .replace(/[^a-z0-9]/g, ''); // Remove tudo que não for letra ou número
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, '');
 }
