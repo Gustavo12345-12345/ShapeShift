@@ -1,4 +1,4 @@
-import { doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { doc, onSnapshot, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { auth, db } from './firebase-config.js'; // Importa do ficheiro centralizado
 import { processWorkoutTextToHtml } from './utils.js';
@@ -28,21 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let generatedPlanText = null;
     let currentUserData = null;
 
-    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
     function checkFormValidity() {
-        if (!goalSelect || !levelSelect || !daysSelect || !equipmentSelect) return;
-        if (goalSelect.value && levelSelect.value && daysSelect.value && equipmentSelect.value) {
-            generateBtn.disabled = false;
+        if (!generateBtn || !goalSelect || !levelSelect || !daysSelect || !equipmentSelect) return;
+        
+        const isFormValid = goalSelect.value && levelSelect.value && daysSelect.value && equipmentSelect.value;
+        generateBtn.disabled = !isFormValid;
+        
+        if (isFormValid) {
             generateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         } else {
-            generateBtn.disabled = true;
             generateBtn.classList.add('opacity-50', 'cursor-not-allowed');
         }
     }
 
     function updateUIAfterLogin() {
         if (!currentUserData) return;
+        
         if (streakCounterNav && streakCountNav) {
             if (currentUserData.streakCount > 0) {
                 streakCountNav.textContent = currentUserData.streakCount;
@@ -64,40 +65,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${ageInput.value || 'Não informado'}, Peso: ${weightInput.value || 'Não informado'} kg, Altura: ${heightInput.value || 'Não informado'} cm. O objetivo do treino é ${goalSelect.value}, com um nível de fitness ${levelSelect.value}, para treinar ${daysSelect.value} dias por semana, com o seguinte equipamento disponível: ${equipmentSelect.value}. Observações adicionais: ${notesTextarea.value || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Use asteriscos para listas de exercícios. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
+        // DEBUG: Mostra o prompt no console
+        console.log("Gerando plano com o seguinte prompt:", prompt);
+
         try {
             const apiKey = "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4";
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
-            let response;
-            const maxRetries = 3;
-            for (let attempt = 1; attempt <= maxRetries; attempt++) {
-                response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                if (response.status === 503 && attempt < maxRetries) {
-                    await wait(Math.pow(2, attempt) * 1000);
-                } else {
-                    break;
-                }
-            }
+            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+
+            // DEBUG: Mostra o status da resposta da API
+            console.log("Resposta da API recebida com status:", response.status);
 
             if (!response.ok) {
-                const errorBody = await response.text();
-                throw new Error(`Status ${response.status}. Detalhes: ${errorBody}`);
+                const errorBody = await response.json(); // Tenta ler o corpo do erro como JSON
+                console.error("Erro detalhado da API:", errorBody);
+                throw new Error(`Status ${response.status}. Detalhes: ${JSON.stringify(errorBody.error.message)}`);
             }
+            
             const result = await response.json();
+            // DEBUG: Mostra os dados recebidos da API
+            console.log("Dados da API recebidos com sucesso:", result);
+
             const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!text) throw new Error("Resposta inválida da API.");
+            if (!text) {
+                 console.error("Estrutura de resposta da API inválida:", result);
+                 throw new Error("Resposta inválida da API.");
+            }
 
             generatedPlanText = text;
             workoutPlanContent.innerHTML = processWorkoutTextToHtml(generatedPlanText);
             workoutPlanOutput.classList.remove('hidden');
         } catch (error) {
-            errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}. Por favor, tente novamente.`;
+            // Mostra o erro na tela e no console para facilitar a depuração
+            console.error("Falha ao gerar o plano:", error);
+            errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}. Verifique o console para mais detalhes.`;
             errorMessageContainer.classList.remove('hidden');
         } finally {
             loader.classList.add('hidden');
-            checkFormValidity();
             generateBtn.textContent = "Gerar Meu Plano";
+            checkFormValidity();
         }
     }
 
@@ -139,31 +147,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentUserData = userSnap.data();
                     updateUIAfterLogin();
                 } else {
-                    // **INÍCIO DA CORREÇÃO**
-                    // NÃO FAÇA LOGOUT. O usuário é autenticado.
-                    // A ausência do documento é temporária para novos usuários.
-                    // Apenas registramos o aviso e esperamos. O onSnapshot
-                    // será acionado novamente quando o documento for criado.
                     console.warn("Usuário autenticado, mas documento do Firestore ainda não encontrado. Aguardando...");
-                    // **FIM DA CORREÇÃO**
                 }
             });
         }
     });
 
     if (form) {
-        form.addEventListener('change', checkFormValidity);
-        checkFormValidity();
+        // 'input' é melhor que 'change' para uma resposta mais imediata da UI
+        form.addEventListener('input', checkFormValidity);
+        checkFormValidity(); // Verifica o estado inicial
     }
+    
     if (generateBtn) {
         generateBtn.addEventListener('click', (e) => {
             e.preventDefault();
             handleGeneratePlan();
         });
     }
+
     if (saveBtn) {
         saveBtn.addEventListener('click', handleSaveRoutine);
     }
+
     if (logoutBtn) {
         logoutBtn.addEventListener('click', handleLogout);
     }
