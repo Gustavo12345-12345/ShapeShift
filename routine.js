@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { auth, db } from './firebase-config.js'; 
 import { processWorkoutTextToHtml } from './utils.js';
@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Atualiza o texto do botão principal do modal
         if (currentExerciseIndex >= workoutExercises.length - 1) {
-            sessionNextBtn.textContent = window.getTranslation('workoutCompleteTitle') || 'Concluir Treino';
+            sessionNextBtn.textContent = (window.getTranslation && window.getTranslation('workoutCompleteTitle')) || 'Concluir Treino';
         } else {
-            sessionNextBtn.textContent = window.getTranslation('nextExerciseBtn') || 'Próximo Exercício';
+            sessionNextBtn.textContent = (window.getTranslation && window.getTranslation('nextExerciseBtn')) || 'Próximo Exercício';
         }
     }
     
@@ -149,9 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 await updateDoc(userRef, {
                     lastWorkoutDate: new Date().toISOString(),
-                    streakCount: newStreak // ou increment(1) se a lógica for apenas incrementar
+                    streakCount: newStreak
                 });
-                alert(window.getTranslation('updateStreakMsg'));
+                alert((window.getTranslation && window.getTranslation('updateStreakMsg')) || 'Sequência atualizada!');
             } else {
                  console.log("Treino já registrado hoje. Sequência não atualizada.");
             }
@@ -162,29 +162,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Listeners de Eventos dos Modais ---
+    if (sessionNextBtn) {
+        sessionNextBtn.addEventListener('click', () => {
+            if (currentExerciseIndex < workoutExercises.length - 1) {
+                currentExerciseIndex++;
+                showCurrentExercise();
+            } else {
+                sessionModal.classList.add('hidden');
+                completeWorkout();
+            }
+        });
+    }
 
-    sessionNextBtn.addEventListener('click', () => {
-        if (currentExerciseIndex < workoutExercises.length - 1) {
-            currentExerciseIndex++;
-            showCurrentExercise();
-        } else {
+    if (sessionCloseBtn) {
+        sessionCloseBtn.addEventListener('click', () => {
             sessionModal.classList.add('hidden');
-            completeWorkout();
-        }
-    });
+            clearInterval(restTimerInterval);
+        });
+    }
 
-    sessionCloseBtn.addEventListener('click', () => {
-        sessionModal.classList.add('hidden');
-        clearInterval(restTimerInterval);
-    });
-
-    timerCloseBtn.addEventListener('click', () => {
-        clearInterval(restTimerInterval);
-        timerModal.classList.add('hidden');
-    });
+    if (timerCloseBtn) {
+        timerCloseBtn.addEventListener('click', () => {
+            clearInterval(restTimerInterval);
+            timerModal.classList.add('hidden');
+        });
+    }
 
     // --- LÓGICA PRINCIPAL DE CARREGAMENTO DA PÁGINA ---
-
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             try {
@@ -200,7 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.querySelectorAll('.start-workout-btn').forEach(btn => {
                         btn.addEventListener('click', (e) => {
                             const dayGroup = e.target.closest('.day-workout-group');
-                            startWorkoutSession(dayGroup);
+                            if (dayGroup) {
+                                startWorkoutSession(dayGroup);
+                            } else {
+                                console.error("Erro: Não foi possível encontrar o contêiner do dia de treino (.day-workout-group).");
+                            }
                         });
                     });
                 } else {
@@ -211,7 +219,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 routineContentEl.innerHTML = `<p class="text-red-400">Ocorreu um erro ao carregar sua rotina. Tente novamente mais tarde.</p>`;
                 routineContentEl.classList.remove('hidden');
             } finally {
-                loaderEl.classList.add('hidden');
+                if (loaderEl) {
+                    loaderEl.classList.add('hidden');
+                }
             }
         } else {
             window.location.href = 'login.html';
