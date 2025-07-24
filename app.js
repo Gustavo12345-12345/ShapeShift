@@ -1,6 +1,6 @@
 import { doc, onSnapshot, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { auth, db } from './firebase-config.js'; // Importa do ficheiro centralizado
+import { auth, db } from './firebase-config.js'; 
 import { processWorkoutTextToHtml } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -65,9 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${ageInput.value || 'Não informado'}, Peso: ${weightInput.value || 'Não informado'} kg, Altura: ${heightInput.value || 'Não informado'} cm. O objetivo do treino é ${goalSelect.value}, com um nível de fitness ${levelSelect.value}, para treinar ${daysSelect.value} dias por semana, com o seguinte equipamento disponível: ${equipmentSelect.value}. Observações adicionais: ${notesTextarea.value || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Use asteriscos para listas de exercícios. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
-        // DEBUG: Mostra o prompt no console
-        console.log("Gerando plano com o seguinte prompt:", prompt);
-
         try {
             const apiKey = "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4";
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
@@ -75,32 +72,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
 
-            // DEBUG: Mostra o status da resposta da API
-            console.log("Resposta da API recebida com status:", response.status);
-
             if (!response.ok) {
-                const errorBody = await response.json(); // Tenta ler o corpo do erro como JSON
-                console.error("Erro detalhado da API:", errorBody);
-                throw new Error(`Status ${response.status}. Detalhes: ${JSON.stringify(errorBody.error.message)}`);
+                const errorBody = await response.json();
+                throw new Error(`Erro de rede ${response.status}. Detalhes: ${JSON.stringify(errorBody.error.message)}`);
             }
             
             const result = await response.json();
-            // DEBUG: Mostra os dados recebidos da API
-            console.log("Dados da API recebidos com sucesso:", result);
+            console.log("Resposta completa da API:", result); // Mantido para depuração
 
-            const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!text) {
-                 console.error("Estrutura de resposta da API inválida:", result);
-                 throw new Error("Resposta inválida da API.");
+            // ===================================================================
+            // INÍCIO DA NOVA LÓGICA DE VERIFICAÇÃO ROBUSTA
+            // ===================================================================
+
+            if (!result.candidates || result.candidates.length === 0) {
+                // Caso 1: A API não retornou nenhum "candidato" de resposta.
+                throw new Error("A API retornou uma resposta vazia. Isso pode ocorrer devido a filtros de segurança ou um prompt inválido.");
             }
+
+            const candidate = result.candidates[0];
+
+            // Caso 2: A IA parou de gerar por um motivo específico (geralmente segurança).
+            if (candidate.finishReason && candidate.finishReason !== "STOP") {
+                throw new Error(`A IA não gerou o treino. Motivo: ${candidate.finishReason}. Tente alterar os termos do seu pedido (ex: usar 'definição muscular' em vez de 'perder gordura').`);
+            }
+
+            const text = candidate?.content?.parts?.[0]?.text;
+
+            // Caso 3: A IA terminou corretamente, mas o texto retornado é vazio.
+            if (!text || text.trim() === "") {
+                throw new Error("A IA retornou um texto em branco. Por favor, tente gerar novamente com um pedido diferente.");
+            }
+
+            // ===================================================================
+            // FIM DA NOVA LÓGICA DE VERIFICAÇÃO
+            // ===================================================================
 
             generatedPlanText = text;
             workoutPlanContent.innerHTML = processWorkoutTextToHtml(generatedPlanText);
             workoutPlanOutput.classList.remove('hidden');
+
         } catch (error) {
-            // Mostra o erro na tela e no console para facilitar a depuração
+            // Agora, esta seção exibirá os erros muito mais específicos que definimos acima.
             console.error("Falha ao gerar o plano:", error);
-            errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}. Verifique o console para mais detalhes.`;
+            errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}`;
             errorMessageContainer.classList.remove('hidden');
         } finally {
             loader.classList.add('hidden');
@@ -154,9 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (form) {
-        // 'input' é melhor que 'change' para uma resposta mais imediata da UI
         form.addEventListener('input', checkFormValidity);
-        checkFormValidity(); // Verifica o estado inicial
+        checkFormValidity();
     }
     
     if (generateBtn) {
