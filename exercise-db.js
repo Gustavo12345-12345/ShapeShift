@@ -1,98 +1,79 @@
-// Banco de dados de imagens para a fonte "workout-gifs".
-// Esta é uma versão expandida com mais exercícios e variações.
+// Banco de dados de imagens usando o CDN jsDelivr para servir os arquivos do GitHub.
+// Isso evita problemas de bloqueio (CORB) e a necessidade de baixar os arquivos localmente.
 
 export const exerciseDB = {
     // ================== PEITO (CHEST) ==================
-    supinoreto: "./images/barbell-bench-press.gif",
-    supinoinclinado: "./images/incline-bench-press.gif",
-    supinodeclinado: "./images/decline-barbell-bench-press.gif",
-    supinoretocomhalteres: "./images/dumbbell-bench-press.gif",
-    supinoinclinadocomhalteres: "./images/dumbbell-incline-bench-press.gif",
-    flexao: "./images/push-up.gif",
-    flexaodebraco: "./images/push-up.gif",
-    flexaoinclinada: "./images/incline-push-up.gif",
-    mergulhoemparalelas: "./images/dips-chest-version.gif",
-    crucifixo: "./images/dumbbell-flat-fly.gif",
-    crucifixoinclinado: "./images/incline-dumbbell-fly.gif",
-    crossover: "./images/cable-crossover.gif",
-    pullovercomhalter: "./images/dumbbell-pullover.gif",
+    supinoreto: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-bench-press.gif",
+    supinoinclinado: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/incline-bench-press.gif",
+    supinoretocomhalteres: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-bench-press.gif",
+    supinoinclinadocomhalteres: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-incline-bench-press.gif",
+    flexao: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/push-up.gif",
+    flexaodebraco: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/push-up.gif",
+    crucifixo: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-flat-fly.gif",
+    crossover: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/cable-crossover.gif",
+    mergulhoemparalelas: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dips-chest-version.gif",
+    pullovercomhalter: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-pullover.gif",
 
     // ================== COSTAS (BACK) ==================
-    barrafixa: "./images/pull-up.gif",
-    chinup: "./images/chin-up.gif",
-    remadacurvada: "./images/barbell-row.gif",
-    remadacavalinho: "./images/t-bar-row.gif",
-    remadaunilateral: "./images/one-arm-dumbbell-row.gif",
-    serrote: "./images/one-arm-dumbbell-row.gif",
-    puxadafrontal: "./images/lat-pulldown.gif",
-    puxadafrente: "./images/lat-pulldown.gif",
-    puxadafechada: "./images/close-grip-lat-pulldown.gif",
-    remadasentada: "./images/seated-cable-row.gif",
-    levantamentoterra: "./images/deadlift.gif",
-    deadlift: "./images/deadlift.gif",
-    hiperextensao: "./images/hyperextension.gif",
+    barrafixa: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/pull-up.gif",
+    chinup: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/chin-up.gif",
+    remadacurvada: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-row.gif",
+    remadacavalinho: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/t-bar-row.gif",
+    remadaunilateral: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/one-arm-dumbbell-row.gif",
+    serrote: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/one-arm-dumbbell-row.gif",
+    puxadafrontal: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/lat-pulldown.gif",
+    puxadafrente: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/lat-pulldown.gif",
+    remadasentada: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/seated-cable-row.gif",
+    levantamentoterra: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/deadlift.gif",
+    deadlift: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/deadlift.gif",
 
     // ================== PERNAS (LEGS) ==================
-    agachamento: "./images/barbell-squat.gif",
-    agachamentolivre: "./images/barbell-squat.gif",
-    agachamentofrontal: "./images/front-squat.gif",
-    agachamentogoblet: "./images/goblet-squat.gif",
-    legpress: "./images/leg-press.gif",
-    afundo: "./images/dumbbell-lunges.gif",
-    passada: "./images/dumbbell-lunges.gif",
-    stiff: "./images/romanian-deadlift.gif",
-    cadeiraextensora: "./images/leg-extension.gif",
-    mesaflexora: "./images/leg-curl.gif",
-    flexaodepernas: "./images/leg-curl.gif",
-    agachamentobulgaro: "./images/bulgarian-split-squat.gif",
-    elevacaopelvica: "./images/hip-thrust.gif",
-    hipthrust: "./images/hip-thrust.gif",
-    panturrilhaempe: "./images/standing-calf-raise.gif",
-    panturrilhasentado: "./images/seated-calf-raise.gif",
-    goodmorning: "./images/good-morning.gif",
+    agachamento: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-squat.gif",
+    agachamentolivre: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-squat.gif",
+    legpress: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-press.gif",
+    afundo: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-lunges.gif",
+    passada: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-lunges.gif",
+    stiff: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/romanian-deadlift.gif",
+    cadeiraextensora: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-extension.gif",
+    mesaflexora: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-curl.gif",
+    flexaodepernas: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-curl.gif",
+    agachamentobulgaro: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/bulgarian-split-squat.gif",
+    elevacaopelvica: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/hip-thrust.gif",
+    hipthrust: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/hip-thrust.gif",
+    panturrilhasentado: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/seated-calf-raise.gif",
 
     // ================== OMBROS (SHOULDERS) ==================
-    desenvolvimentomilitar: "./images/overhead-press.gif",
-    desenvolvimentocomhalteres: "./images/dumbbell-shoulder-press.gif",
-    desenvolvimentoarnold: "./images/arnold-press.gif",
-    elevacaolateral: "./images/dumbbell-lateral-raise.gif",
-    elevacaofrontal: "./images/dumbbell-front-raise.gif",
-    remadaalta: "./images/upright-row.gif",
-    facepull: "./images/face-pull.gif",
-    encolhimento: "./images/dumbbell-shrug.gif",
+    desenvolvimentomilitar: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/overhead-press.gif",
+    desenvolvimentocomhalteres: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-shoulder-press.gif",
+    desenvolvimentoarnold: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/arnold-press.gif",
+    elevacaolateral: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-lateral-raise.gif",
+    elevacaofrontal: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-front-raise.gif",
+    facepull: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/face-pull.gif",
 
     // ================== BÍCEPS ==================
-    roscadireta: "./images/barbell-curl.gif",
-    roscaalternada: "./images/dumbbell-alternate-bicep-curl.gif",
-    roscamartelo: "./images/hammer-curl.gif",
-    roscascott: "./images/preacher-curl.gif",
-    roscaconcentrada: "./images/concentration-curl.gif",
-    roscainversa: "./images/reverse-barbell-curl.gif",
+    roscadireta: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-curl.gif",
+    roscaalternada: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-alternate-bicep-curl.gif",
+    roscamartelo: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/hammer-curl.gif",
+    roscascott: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/preacher-curl.gif",
 
     // ================== TRÍCEPS ==================
-    tricepstesta: "./images/barbell-skull-crusher.gif",
-    tricepscorda: "./images/tricep-rope-pushdown.gif",
-    mergulhonobanco: "./images/tricep-dips.gif",
-    supinofechado: "./images/close-grip-bench-press.gif",
-    tricepsfrances: "./images/dumbbell-overhead-tricep-extension.gif",
-    coice: "./images/tricep-kickback.gif",
+    tricepstesta: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-skull-crusher.gif",
+    tricepscorda: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/tricep-rope-pushdown.gif",
+    mergulhonobanco: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/tricep-dips.gif",
+    supinofechado: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/close-grip-bench-press.gif",
 
     // ================== ABDÔMEN (ABS) ==================
-    abdominal: "./images/crunches.gif",
-    prancha: "./images/plank.gif",
-    pranchalateral: "./images/side-plank.gif",
-    elevacaodepernas: "./images/leg-raise.gif",
-    elevacaodepernasnabarra: "./images/hanging-leg-raise.gif",
-    girorusso: "./images/russian-twist.gif",
-    bicicletanoar: "./images/bicycle-crunch.gif",
-
+    abdominal: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/crunches.gif",
+    prancha: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/plank.gif",
+    elevacaodepernas: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-raise.gif",
+    elevacaodepernasnabarra: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/hanging-leg-raise.gif",
+    girorusso: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/russian-twist.gif",
+    
     // ================== CARDIO / CORPO INTEIRO ==================
-    burpee: "./images/burpee.gif",
-    polichinelo: "./images/jumping-jacks.gif",
-    alpinista: "./images/mountain-climbers.gif",
-    kettlebellswing: "./images/kettlebell-swing.gif",
-    saltoemcaixa: "./images/box-jump.gif",
-    corda: "./images/jump-rope.gif"
+    burpee: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/burpee.gif",
+    polichinelo: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/jumping-jacks.gif",
+    alpinista: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/mountain-climbers.gif",
+    kettlebellswing: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/kettlebell-swing.gif"
 };
 
 /**
@@ -106,5 +87,5 @@ export function normalizeName(name) {
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, '');
+        .replace(/[^a-z0-g]/g, '');
 }
