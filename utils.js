@@ -7,8 +7,8 @@ const helpIconSvg = `
 `;
 
 /**
- * Processa o texto bruto do treino. Agora aceita um objeto de opções
- * para controlar a exibição de elementos, como o botão "Iniciar Treino".
+ * Processa o texto bruto do treino. Esta versão final possui uma lógica
+ * mais robusta para identificar as linhas de exercício.
  * @param {string} text - O texto bruto gerado pela IA.
  * @param {object} options - Opções de renderização.
  * @param {boolean} options.showStartButton - Se true, renderiza o botão "Iniciar Treino".
@@ -48,25 +48,25 @@ export function processWorkoutTextToHtml(text, options = {}) {
             html +=    `<h3 class="text-2xl font-bold text-amber-400">${dayTitle}</h3>`;
             
             if (showStartButton) {
-                // =============================================================
-                // INÍCIO DA CORREÇÃO
-                // A chave correta é 'startWorkoutBtn', sem erros de digitação.
-                // =============================================================
                 const startButtonText = (window.getTranslation && window.getTranslation('startWorkoutBtn')) || 'Iniciar Treino';
                 html += `<button class="start-workout-btn bg-amber-500 hover:bg-amber-600 text-black font-bold py-2 px-4 rounded-lg" data-day-title="${dayTitle}">${startButtonText}</button>`;
             }
-            // =============================================================
-            // FIM DA CORREÇÃO
-            // =============================================================
 
             html += `</div>`;
             inDayBlock = true;
             return;
         }
 
-        const exerciseMatch = trimmedLine.match(/^[*\-–\d\.]+\s*(?<name>.+?)(?:\s+(?<sets>\d+)\s*[xX]\s*(?<reps>[\d\-]+))?$/);
+        // =============================================================
+        // INÍCIO DA CORREÇÃO
+        // Esta nova expressão regular é mais flexível. Ela identifica uma linha como
+        // um exercício se ela contém texto e termina (opcionalmente) com um padrão 
+        // de séries e repetições (ex: 4x10). Ela não exige mais que a linha 
+        // comece com um marcador como '*' ou '-'.
+        // =============================================================
+        const exerciseMatch = trimmedLine.match(/^(?<name>.+?)(?:\s+(?<sets>\d+)\s*[xX]\s*(?<reps>[\d\-]+))?\s*$/);
         
-        if (exerciseMatch && exerciseMatch.groups.name) {
+        if (inDayBlock && exerciseMatch && exerciseMatch.groups.name) {
             const exerciseName = exerciseMatch.groups.name.trim().replace(/:\s*$/, '');
             const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(exerciseName + ' exercício como fazer')}`;
             
@@ -78,11 +78,14 @@ export function processWorkoutTextToHtml(text, options = {}) {
                     </a>
                 </div>`;
             html += lineWithIcon;
-        } else {
-            if (inDayBlock) {
-                 html += `<p class="text-gray-400 mb-2">${trimmedLine}</p>`;
-            }
+        } else if (inDayBlock) {
+            // Se estiver dentro de um bloco de dia, mas não for um exercício reconhecido,
+            // trata como uma descrição ou nota.
+             html += `<p class="text-gray-400 mb-2">${trimmedLine}</p>`;
         }
+        // =============================================================
+        // FIM DA CORREÇÃO
+        // =============================================================
     });
 
     if (inDayBlock) {
