@@ -53,9 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionTitle.textContent = name;
         sessionSets.textContent = setsInfo;
 
-        // =============================================================
-        // INÍCIO DA MUDANÇA: DEPURAÇÃO NA TELA
-        // =============================================================
         const imageUrl = findImageForExercise(name);
         
         if (imageUrl) {
@@ -63,15 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
             sessionExerciseImg.classList.remove('hidden');
             noImageText.classList.add('hidden');
         } else {
-            // Se a imagem não for encontrada, mostramos o termo que falhou.
             const normalizedNameToSearch = normalizeName(name);
             sessionExerciseImg.classList.add('hidden');
             noImageText.classList.remove('hidden');
             noImageText.innerHTML = `Imagem não disponível.<br><small class="text-xs text-gray-600">Debug: Termo procurado: '${normalizedNameToSearch}'</small>`;
         }
-        // =============================================================
-        // FIM DA MUDANÇA
-        // =============================================================
         
         setsContainer.innerHTML = '';
         for (let i = 1; i <= numSets; i++) {
@@ -141,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) { console.error("Erro ao atualizar a sequência:", error); }
     }
 
-    // 3. ANEXANDO OS EVENTOS DE CLIQUE AOS BOTÕES
     if (sessionNextBtn) sessionNextBtn.addEventListener('click', () => {
         if (currentExerciseIndex < workoutExercises.length - 1) {
             currentExerciseIndex++;
@@ -160,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(restTimerInterval);
     });
 
-    // 4. LÓGICA PRINCIPAL QUE EXECUTA QUANDO A PÁGINA CARREGA
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             if(loaderEl) loaderEl.classList.remove('hidden');
