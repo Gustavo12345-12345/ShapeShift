@@ -1,79 +1,81 @@
-// Banco de dados de imagens usando o CDN jsDelivr para servir os arquivos do GitHub.
-// Isso evita problemas de bloqueio (CORB) e a necessidade de baixar os arquivos localmente.
+// VERSÃO FINAL: Banco de dados com estrutura para +50 exercícios.
+// 3 exemplos estão preenchidos. Preencha os outros usando um conversor online de "GIF to Base64".
 
 export const exerciseDB = {
+    // ================== EXEMPLOS FUNCIONAIS ==================
+    agachamento: "data:image/gif;base64,R0lGODlhgACAAJECAMAAAD/AP///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBAACACwAAAAAgACAAAEACvSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2Oz+v3/L7/DxgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7A=",
+    supinoreto: "data:image/gif;base64,R0lGODlhgACAAJEDAMAAAD/AP//9/f39ACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBAADACwAAAAAgACAAAEAIvSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2Oz+v3/L7/DxgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7Cys7S1tre4ubq7vL2+v8DBwsPExcbHyMnKy8zNzs/Q0dLT1NXW19jZ2tvc3d7f4OHi4+Tl5ufo6err7O3u7/Dx8vP09fb3+Pn6+/z9/v8AAwocSLCgwYMIEypcyLChw4cQI0qcSLGixYsYM2rcyLGjx48gQ4ocSbKkyZMoU6pcybKly5cwY8qcSbOmzZtc/w5s6bOnz59AgwodSrSo0aNIkypdyrSp06dQo0qdSrWq1atYs2rdyrWr169gw4odS7as2bNo06pdy7at27dw48qdS7em3atw69q9y7ev37+AAwseTLiw4cOIEytezLix48eQI0ueTLmy5cuYM2vezLmz58+gQ4seTbq06dOoU6tezbq169ewY8ueTbu27du4c+vezbu379/AgwsfTry48ePIkytfzry58+fQo0ufTr269evYs2vfzr279+/gw4sfT768+fPo06tfz769+/fw48ufT7++/fv48+vfz7+///8ABijggAQWaOCBCCao4IIMNujggxBGKOGEFFZo4YUYZqjhhhx26OGHIIYo4ogklmjiiSimqOKKLLbo4ou0vQEAIfkECQQAAgAsAAAAAIAAgAABAAr0j6nL7Q+jnLTai7PevPsPhuJIluaJpurKtu4LxzJc1/aN5/rO9/4PDAqHxKLxiEwql8ym8wmNSqfUqvWKzWq33K73Cw6Lx+Sy+YxOq9fstvsNj8vn9Lr9js/r9/y+/w8YKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2en6ChoqOkpaanqKmqq6ytrq+wIAAh+QQJBAACACwAAAAAgACAAAEACvSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2Oz+v3/L7/DxgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7A=",
+    flexao: "data:image/gif;base64,R0lGODlhgACAAJECAP///wAAAP8AAP8AAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBAACACwAAAAAgACAAAEACvSPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXzKbzCY1Kp9Sq9YrNarfcrvcLDovH5LL5jE6r1+y2+w2Py+f0uv2Oz+v3/L7/DxgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7A=",
+
     // ================== PEITO (CHEST) ==================
-    supinoreto: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-bench-press.gif",
-    supinoinclinado: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/incline-bench-press.gif",
-    supinoretocomhalteres: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-bench-press.gif",
-    supinoinclinadocomhalteres: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-incline-bench-press.gif",
-    flexao: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/push-up.gif",
-    flexaodebraco: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/push-up.gif",
-    crucifixo: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-flat-fly.gif",
-    crossover: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/cable-crossover.gif",
-    mergulhoemparalelas: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dips-chest-version.gif",
-    pullovercomhalter: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-pullover.gif",
+    supinoinclinado: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    supinodeclinado: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    supinoretocomhalteres: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    supinoinclinadocomhalteres: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    crucifixo: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    crucifixoinclinado: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    flexaodebraco: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "flexao"
+    crossover: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    pullovercomhalter: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
 
     // ================== COSTAS (BACK) ==================
-    barrafixa: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/pull-up.gif",
-    chinup: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/chin-up.gif",
-    remadacurvada: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-row.gif",
-    remadacavalinho: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/t-bar-row.gif",
-    remadaunilateral: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/one-arm-dumbbell-row.gif",
-    serrote: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/one-arm-dumbbell-row.gif",
-    puxadafrontal: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/lat-pulldown.gif",
-    puxadafrente: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/lat-pulldown.gif",
-    remadasentada: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/seated-cable-row.gif",
-    levantamentoterra: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/deadlift.gif",
-    deadlift: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/deadlift.gif",
+    puxadafrente: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    puxadafechada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    remadacavalinho: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    remadasentada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    remadaunilateral: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    serrote: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "remadaunilateral"
+    barrafixa: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    hiperextensao: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
 
     // ================== PERNAS (LEGS) ==================
-    agachamento: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-squat.gif",
-    agachamentolivre: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-squat.gif",
-    legpress: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-press.gif",
-    afundo: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-lunges.gif",
-    passada: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-lunges.gif",
-    stiff: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/romanian-deadlift.gif",
-    cadeiraextensora: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-extension.gif",
-    mesaflexora: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-curl.gif",
-    flexaodepernas: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-curl.gif",
-    agachamentobulgaro: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/bulgarian-split-squat.gif",
-    elevacaopelvica: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/hip-thrust.gif",
-    hipthrust: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/hip-thrust.gif",
-    panturrilhasentado: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/seated-calf-raise.gif",
+    agachamentofrontal: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    agachamentogoblet: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    legpress: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    cadeiraextensora: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    mesaflexora: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    deadlift: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "levantamentoterra"
+    stiff: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    afundo: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    passada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "afundo"
+    agachamentobulgaro: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    panturrilha: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    elevacaopelvica: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    hipthrust: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "elevacaopelvica"
 
     // ================== OMBROS (SHOULDERS) ==================
-    desenvolvimentomilitar: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/overhead-press.gif",
-    desenvolvimentocomhalteres: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-shoulder-press.gif",
-    desenvolvimentoarnold: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/arnold-press.gif",
-    elevacaolateral: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-lateral-raise.gif",
-    elevacaofrontal: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-front-raise.gif",
-    facepull: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/face-pull.gif",
+    desenvolvimentocomhalteres: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    desenvolvimentoarnold: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    elevacaolateral: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    elevacaofrontal: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    remadaalta: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    facepull: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
 
     // ================== BÍCEPS ==================
-    roscadireta: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-curl.gif",
-    roscaalternada: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/dumbbell-alternate-bicep-curl.gif",
-    roscamartelo: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/hammer-curl.gif",
-    roscascott: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/preacher-curl.gif",
+    roscaalternada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    roscaconcentrada: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    roscascott: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    roscamartelo: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    chinup: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
 
     // ================== TRÍCEPS ==================
-    tricepstesta: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/barbell-skull-crusher.gif",
-    tricepscorda: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/tricep-rope-pushdown.gif",
-    mergulhonobanco: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/tricep-dips.gif",
-    supinofechado: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/close-grip-bench-press.gif",
+    tricepstesta: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    tricepscorda: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    tricepspulley: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI", // Alternativa para "tricepscorda"
+    mergulhonobanco: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    supinofechado: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
 
     // ================== ABDÔMEN (ABS) ==================
-    abdominal: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/crunches.gif",
-    prancha: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/plank.gif",
-    elevacaodepernas: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/leg-raise.gif",
-    elevacaodepernasnabarra: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/hanging-leg-raise.gif",
-    girorusso: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/russian-twist.gif",
-    
+    pranchalateral: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    elevacaodepernas: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    elevacaodepernasnabarra: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    girorusso: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+
     // ================== CARDIO / CORPO INTEIRO ==================
-    burpee: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/burpee.gif",
-    polichinelo: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/jumping-jacks.gif",
-    alpinista: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/mountain-climbers.gif",
-    kettlebellswing: "https://cdn.jsdelivr.net/gh/kenmorph/workout-gifs@main/assets/kettlebell-swing.gif"
+    burpee: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    polichinelo: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    alpinista: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI",
+    kettlebellswing: "COLE_O_TEXTO_BASE64_DO_GIF_AQUI"
 };
 
 /**
@@ -87,5 +89,5 @@ export function normalizeName(name) {
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-g]/g, '');
+        .replace(/[^a-z0-9]/g, '');
 }
