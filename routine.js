@@ -1,38 +1,44 @@
-// Lógica da página routine.html: carrega a rotina salva e gerencia a sessão de treino interativa.
 import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { auth, db } from './firebase-config.js'; 
 import { processWorkoutTextToHtml } from './utils.js';
+// INÍCIO DA ALTERAÇÃO: Importa o banco de dados e a função de normalização
+import { exerciseDB, normalizeName } from './exercise-db.js';
+// FIM DA ALTERAÇÃO
 
 document.addEventListener('DOMContentLoaded', () => {
-    const routineContentEl = document.getElementById('routine-content');
-    const loaderEl = document.getElementById('routine-loader');
-    const emptyStateEl = document.getElementById('empty-state');
-    
+    // ... (outras referências de elementos)
     const sessionModal = document.getElementById('session-modal');
     const sessionTitle = document.getElementById('session-exercise-title');
+    // INÍCIO DA ALTERAÇÃO: Novas referências de elementos da imagem
+    const exerciseImageContainer = document.getElementById('exercise-image-container');
+    const sessionExerciseImg = document.getElementById('session-exercise-img');
+    const noImageText = document.getElementById('no-image-text');
+    // FIM DA ALTERAÇÃO
     const sessionSets = document.getElementById('session-exercise-sets');
-    const setsContainer = document.getElementById('sets-container');
-    const sessionNextBtn = document.getElementById('session-next-btn');
-    const sessionCloseBtn = document.getElementById('session-close-btn');
+    // ... (resto das referências)
 
-    const timerModal = document.getElementById('timer-modal');
-    const timerDisplay = document.getElementById('timer-display');
-    const timerCloseBtn = document.getElementById('timer-close-btn');
+    // ... (função startWorkoutSession continua a mesma)
 
-    let workoutExercises = [];
-    let currentExerciseIndex = 0;
-    let restTimerInterval;
-
-    function startWorkoutSession(dayGroupElement) {
-        workoutExercises = Array.from(dayGroupElement.querySelectorAll('.exercise-text')).map(el => el.textContent);
-        if (workoutExercises.length === 0) {
-            alert('Não foram encontrados exercícios para este dia. O formato do plano pode ser inválido.');
-            return;
+    /**
+     * Tenta encontrar uma imagem para o exercício no banco de dados.
+     * Usa uma busca "fuzzy" para encontrar correspondências parciais.
+     * @param {string} exerciseName - O nome do exercício vindo do plano.
+     * @returns {string|null} - A URL da imagem ou null se não encontrada.
+     */
+    function findImageForExercise(exerciseName) {
+        const normalizedName = normalizeName(exerciseName);
+        
+        // Tenta encontrar a chave mais longa que corresponde ao início do nome normalizado
+        let bestMatch = null;
+        for (const key in exerciseDB) {
+            if (normalizedName.includes(key)) {
+                if (!bestMatch || key.length > bestMatch.length) {
+                    bestMatch = key;
+                }
+            }
         }
-        currentExerciseIndex = 0;
-        showCurrentExercise();
-        if (sessionModal) sessionModal.classList.remove('hidden');
+        return bestMatch ? exerciseDB[bestMatch] : null;
     }
 
     function showCurrentExercise() {
@@ -40,10 +46,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameMatch = exerciseText.match(/^\s*[\*\-\d\.]*\s*(?<name>[^0-9]+)/);
         const setsMatch = exerciseText.match(/(?<sets>\d+)\s*x\s*(?<reps>[\d\-]+)/);
         
-        sessionTitle.textContent = nameMatch ? nameMatch.groups.name.trim() : exerciseText;
-        sessionSets.textContent = setsMatch ? `${setsMatch.groups.sets} séries de ${setsMatch.groups.reps} repetições` : '';
+        const name = nameMatch ? nameMatch.groups.name.trim() : exerciseText;
+        const setsInfo = setsMatch ? `${setsMatch.groups.sets} séries de ${setsMatch.groups.reps} repetições` : '';
         const numSets = setsMatch ? parseInt(setsMatch.groups.sets, 10) : 3;
 
+        sessionTitle.textContent = name;
+        sessionSets.textContent = setsInfo;
+
+        // INÍCIO DA ALTERAÇÃO: Lógica para carregar a imagem
+        const imageUrl = findImageForExercise(name);
+        if (imageUrl) {
+            sessionExerciseImg.src = imageUrl;
+            sessionExerciseImg.classList.remove('hidden');
+            noImageText.classList.add('hidden');
+        } else {
+            sessionExerciseImg.classList.add('hidden');
+            noImageText.classList.remove('hidden');
+        }
+        // FIM DA ALTERAÇÃO
+        
         setsContainer.innerHTML = '';
         for (let i = 1; i <= numSets; i++) {
             setsContainer.innerHTML += `<label class="flex items-center bg-gray-800 p-3 rounded-lg cursor-pointer"><input type="checkbox" class="set-checkbox h-6 w-6 rounded-md bg-gray-700 text-amber-500"><span class="ml-4 text-lg">Concluir Série ${i}</span></label>`;
@@ -60,6 +81,21 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionNextBtn.textContent = currentExerciseIndex >= workoutExercises.length - 1 ? 'Concluir Treino' : 'Próximo Exercício';
     }
     
+    // ... (o resto do arquivo routine.js continua o mesmo)
+    // startRestTimer, completeWorkout, listeners de botões e onAuthStateChanged
+    // não precisam de alterações. Apenas cole o código completo que você já tem
+    // a partir daqui, ou use a versão completa abaixo.
+    function startWorkoutSession(dayGroupElement) {
+        workoutExercises = Array.from(dayGroupElement.querySelectorAll('.exercise-text')).map(el => el.textContent);
+        if (workoutExercises.length === 0) {
+            alert('Não foram encontrados exercícios para este dia. O formato do plano pode ser inválido.');
+            return;
+        }
+        currentExerciseIndex = 0;
+        showCurrentExercise();
+        if (sessionModal) sessionModal.classList.remove('hidden');
+    }
+
     function startRestTimer(duration) {
         let timer = duration;
         timerDisplay.textContent = timer;
