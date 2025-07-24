@@ -45,32 +45,33 @@ document.addEventListener('DOMContentLoaded', () => {
     function showCurrentExercise() {
         const exerciseText = workoutExercises[currentExerciseIndex];
 
-        // =============================================================
-        // INÍCIO DA CORREÇÃO
-        // Usamos uma lógica mais robusta para separar o nome das séries/repetições,
-        // garantindo que o nome enviado para a busca da imagem esteja limpo.
-        // =============================================================
         const exerciseMatch = exerciseText.match(/^(?<name>.+?)(?:\s+(?<sets>\d+)\s*[xX]\s*(?<reps>[\d\-]+))?\s*$/);
-
         const name = exerciseMatch ? exerciseMatch.groups.name.trim().replace(/^[*\-–\d\.]*\s*/, '') : exerciseText;
         const setsInfo = (exerciseMatch && exerciseMatch.groups.sets) ? `${exerciseMatch.groups.sets} séries de ${exerciseMatch.groups.reps} repetições` : '';
         const numSets = (exerciseMatch && exerciseMatch.groups.sets) ? parseInt(exerciseMatch.groups.sets, 10) : 3;
-        // =============================================================
-        // FIM DA CORREÇÃO
-        // =============================================================
 
         sessionTitle.textContent = name;
         sessionSets.textContent = setsInfo;
 
+        // =============================================================
+        // INÍCIO DA MUDANÇA: DEPURAÇÃO NA TELA
+        // =============================================================
         const imageUrl = findImageForExercise(name);
+        
         if (imageUrl) {
             sessionExerciseImg.src = imageUrl;
             sessionExerciseImg.classList.remove('hidden');
             noImageText.classList.add('hidden');
         } else {
+            // Se a imagem não for encontrada, mostramos o termo que falhou.
+            const normalizedNameToSearch = normalizeName(name);
             sessionExerciseImg.classList.add('hidden');
             noImageText.classList.remove('hidden');
+            noImageText.innerHTML = `Imagem não disponível.<br><small class="text-xs text-gray-600">Debug: Termo procurado: '${normalizedNameToSearch}'</small>`;
         }
+        // =============================================================
+        // FIM DA MUDANÇA
+        // =============================================================
         
         setsContainer.innerHTML = '';
         for (let i = 1; i <= numSets; i++) {
