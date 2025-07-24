@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Adiciona o listener ao botão de login, agora com a certeza de que ele existe.
     if(loginBtn) {
         loginBtn.addEventListener('click', handleLogin);
+        console.log("Botão de login configurado com sucesso."); // Mensagem de confirmação
     } else {
         console.error("ERRO CRÍTICO: O botão de login não foi encontrado na página.");
     }
