@@ -5,7 +5,6 @@ import { auth, db } from './firebase-config.js';
 import { processWorkoutTextToHtml } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Referências aos Elementos do DOM ---
     const form = document.getElementById('workout-form');
     const generateBtn = document.getElementById('generate-btn');
     const saveBtn = document.getElementById('save-routine-btn');
@@ -25,26 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const streakCounterNav = document.getElementById('streak-counter-nav');
     const streakCountNav = document.getElementById('streak-count-nav');
 
-    // Variáveis de estado
     let generatedPlanText = null;
     let currentUserData = null;
 
     function checkFormValidity() {
         if (!generateBtn || !goalSelect || !levelSelect || !daysSelect || !equipmentSelect) return;
-        
         const isFormValid = goalSelect.value && levelSelect.value && daysSelect.value && equipmentSelect.value;
         generateBtn.disabled = !isFormValid;
-        
-        if (isFormValid) {
-            generateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-        } else {
-            generateBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        }
+        generateBtn.classList.toggle('opacity-50', !isFormValid);
+        generateBtn.classList.toggle('cursor-not-allowed', !isFormValid);
     }
 
     function updateUIAfterLogin() {
         if (!currentUserData) return;
-        
         if (streakCounterNav && streakCountNav) {
             if (currentUserData.streakCount > 0) {
                 streakCountNav.textContent = currentUserData.streakCount;
@@ -67,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${ageInput.value || 'Não informado'}, Peso: ${weightInput.value || 'Não informado'} kg, Altura: ${heightInput.value || 'Não informado'} cm. O objetivo do treino é ${goalSelect.value}, com um nível de fitness ${levelSelect.value}, para treinar ${daysSelect.value} dias por semana, com o seguinte equipamento disponível: ${equipmentSelect.value}. Observações adicionais: ${notesTextarea.value || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Use asteriscos para listas de exercícios. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
         try {
-            const apiKey = "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4"; // SUBSTITUA PELA SUA CHAVE DE API
+            const apiKey = "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4"; // SUBSTITUA PELA SUA CHAVE DE API DO GOOGLE AI
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
@@ -79,29 +71,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             const result = await response.json();
-
-            if (!result.candidates || result.candidates.length === 0) {
-                throw new Error("A API retornou uma resposta vazia. Isso pode ocorrer devido a filtros de segurança.");
-            }
+            if (!result.candidates || result.candidates.length === 0) throw new Error("A API retornou uma resposta vazia.");
 
             const candidate = result.candidates[0];
-
-            if (candidate.finishReason && candidate.finishReason !== "STOP") {
-                throw new Error(`A IA não gerou o treino. Motivo: ${candidate.finishReason}. Tente alterar os termos do seu pedido.`);
-            }
+            if (candidate.finishReason && candidate.finishReason !== "STOP") throw new Error(`A IA não gerou o treino. Motivo: ${candidate.finishReason}.`);
 
             const text = candidate?.content?.parts?.[0]?.text;
-
-            if (!text || text.trim() === "") {
-                throw new Error("A IA retornou um texto em branco, embora a chamada tenha sido bem-sucedida.");
-            }
+            if (!text || text.trim() === "") throw new Error("A IA retornou um texto em branco.");
 
             generatedPlanText = text;
             workoutPlanContent.innerHTML = processWorkoutTextToHtml(generatedPlanText, { showStartButton: false });
             workoutPlanOutput.classList.remove('hidden');
 
         } catch (error) {
-            console.error("Falha ao gerar o plano:", error);
             errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}`;
             errorMessageContainer.classList.remove('hidden');
         } finally {
@@ -127,14 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         saveBtn.disabled = true;
         saveBtn.textContent = "A guardar...";
-
         try {
             const userId = auth.currentUser.uid;
             const routineRef = doc(db, "users", userId, "routine", "active");
             await setDoc(routineRef, { createdAt: new Date().toISOString(), rawText: generatedPlanText });
             window.location.href = 'routine.html';
         } catch (error) {
-            console.error("Erro ao guardar a rotina:", error);
             alert(`Falha ao guardar a rotina. Detalhes: ${error.message}`);
             saveBtn.disabled = false;
             saveBtn.textContent = "Guardar Rotina e Começar";
@@ -148,8 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (userSnap.exists()) {
                     currentUserData = userSnap.data();
                     updateUIAfterLogin();
-                } else {
-                    console.warn("Usuário autenticado, mas documento do Firestore ainda não encontrado.");
                 }
             });
         }
@@ -159,19 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('input', checkFormValidity);
         checkFormValidity();
     }
-    
-    if (generateBtn) {
-        generateBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            handleGeneratePlan();
-        });
-    }
-
-    if (saveBtn) {
-        saveBtn.addEventListener('click', handleSaveRoutine);
-    }
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', handleLogout);
-    }
+    if (generateBtn) generateBtn.addEventListener('click', (e) => { e.preventDefault(); handleGeneratePlan(); });
+    if (saveBtn) saveBtn.addEventListener('click', handleSaveRoutine);
+    if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
 });
