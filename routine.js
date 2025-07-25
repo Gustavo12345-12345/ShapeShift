@@ -4,69 +4,31 @@ import { auth, db } from './firebase-config.js';
 import { processWorkoutTextToHtml } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Referências (note que a ref para loaderEl não é mais necessária, mas podemos manter)
+    // Referências do DOM (sem o loaderEl)
     const routineContentEl = document.getElementById('routine-content');
-    const loaderEl = document.getElementById('routine-loader');
     const emptyStateEl = document.getElementById('empty-state');
     const sessionModal = document.getElementById('session-modal');
     // ...outras referências...
+    const sessionTitle = document.getElementById('session-exercise-title');
+    const sessionSets = document.getElementById('session-exercise-sets');
+    const setsContainer = document.getElementById('sets-container');
+    const sessionNextBtn = document.getElementById('session-next-btn');
+    const sessionCloseBtn = document.getElementById('session-close-btn');
+    const timerModal = document.getElementById('timer-modal');
+    const timerDisplay = document.getElementById('timer-display');
+    const timerCloseBtn = document.getElementById('timer-close-btn');
 
-    // A lógica de treino permanece a mesma
     let workoutExercises = [];
     let currentExerciseIndex = 0;
-    // ... (funções showCurrentExercise, startWorkoutSession, etc.)
-
-    // LÓGICA PRINCIPAL DE CARREGAMENTO (MODIFICADA)
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            // A LINHA QUE MOSTRAVA O LOADER FOI REMOVIDA
-            try {
-                const routineRef = doc(db, "users", user.uid, "routine", "active");
-                const docSnap = await getDoc(routineRef); // A busca ainda acontece
-
-                if (docSnap.exists() && docSnap.data().rawText) {
-                    routineContentEl.innerHTML = processWorkoutTextToHtml(docSnap.data().rawText, { showStartButton: true });
-                    routineContentEl.classList.remove('hidden');
-                    
-                    document.querySelectorAll('.start-workout-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            const dayGroup = e.target.closest('.day-workout-group');
-                            if (typeof startWorkoutSession === 'function') {
-                                if (dayGroup) startWorkoutSession(dayGroup);
-                            }
-                        });
-                    });
-                } else {
-                    if(emptyStateEl) emptyStateEl.classList.remove('hidden');
-                }
-            } catch (error) {
-                console.error("Erro ao carregar rotina:", error);
-                routineContentEl.innerHTML = `<p class="text-red-400 font-bold">Ocorreu um erro ao carregar sua rotina: ${error.message}</p>`;
-                routineContentEl.classList.remove('hidden');
-            }
-            // A LINHA NO "finally" QUE ESCONDIA O LOADER FOI REMOVIDA
-        } else {
-            window.location.href = 'login.html';
-        }
-    });
-
-    // =========================================================================
-    // COLE AQUI O RESTO DAS SUAS FUNÇÕES DE TREINO (showCurrentExercise, etc.)
-    // Elas não mudam, apenas a lógica de carregamento acima.
-    // =========================================================================
-    
-    // Funções de Treino (sem alterações)
     let restTimerInterval;
+
     function showCurrentExercise() {
         const exerciseText = workoutExercises[currentExerciseIndex];
-        const exerciseMatch = exerciseText.match(/^(?<name>.+?)(?:\s+(?<sets>\d+)\s*[xX]\s*(?<reps>[\d\-]+))?\s*$/);
-        const name = exerciseMatch ? exerciseMatch.groups.name.trim().replace(/^[*\-–\d\.]*\s*/, '') : exerciseText;
-        const setsInfo = (exerciseMatch && exerciseMatch.groups.sets) ? `${exerciseMatch.groups.sets}s de ${exerciseMatch.groups.reps}` : '';
-        const numSets = (exerciseMatch && exerciseMatch.groups.sets) ? parseInt(exerciseMatch.groups.sets, 10) : 3;
-        const sessionTitle = document.getElementById('session-exercise-title');
-        const sessionSets = document.getElementById('session-exercise-sets');
-        const setsContainer = document.getElementById('sets-container');
-        const sessionNextBtn = document.getElementById('session-next-btn');
+        const match = exerciseText.match(/^(?<name>.+?)(?:\s+(?<sets>\d+)\s*[xX]\s*(?<reps>[\d\-]+))?\s*$/);
+        const name = match ? match.groups.name.trim().replace(/^[*\-–\d\.]*\s*/, '') : exerciseText;
+        const setsInfo = (match && match.groups.sets) ? `${match.groups.sets}s de ${match.groups.reps}` : '';
+        const numSets = (match && match.groups.sets) ? parseInt(match.groups.sets, 10) : 3;
+
         sessionTitle.textContent = name;
         sessionSets.textContent = setsInfo;
         setsContainer.innerHTML = '';
@@ -82,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }));
         sessionNextBtn.textContent = currentExerciseIndex >= workoutExercises.length - 1 ? 'Concluir Treino' : 'Próximo Exercício';
     }
+    
     function startWorkoutSession(dayGroupElement) {
        workoutExercises = Array.from(dayGroupElement.querySelectorAll('.exercise-text')).map(el => el.textContent);
        if (workoutExercises.length === 0) { alert('Não foram encontrados exercícios para este dia.'); return; }
@@ -89,9 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
        showCurrentExercise();
        sessionModal?.classList.remove('hidden');
     }
+
     function startRestTimer(duration) {
-        const timerModal = document.getElementById('timer-modal');
-        const timerDisplay = document.getElementById('timer-display');
         let timer = duration;
         timerDisplay.textContent = timer;
         timerModal?.classList.remove('hidden');
@@ -102,10 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (timer <= 0) {
                 clearInterval(restTimerInterval);
                 timerModal?.classList.add('hidden');
-                new Audio('https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg').play().catch(()=>{});
             }
         }, 1000);
     }
+    
     async function completeWorkout() {
         const { currentUser } = auth;
         if (!currentUser) return;
@@ -127,9 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) { console.error("Erro ao atualizar a sequência:", error); }
     }
-    const sessionNextBtn = document.getElementById('session-next-btn');
-    const sessionCloseBtn = document.getElementById('session-close-btn');
-    const timerCloseBtn = document.getElementById('timer-close-btn');
+
     if (sessionNextBtn) sessionNextBtn.addEventListener('click', () => {
         if (currentExerciseIndex < workoutExercises.length - 1) {
             currentExerciseIndex++;
@@ -139,12 +99,28 @@ document.addEventListener('DOMContentLoaded', () => {
             completeWorkout();
         }
     });
-    if (sessionCloseBtn) sessionCloseBtn.addEventListener('click', () => {
-        sessionModal?.classList.add('hidden');
-        clearInterval(restTimerInterval);
-    });
-    if (timerCloseBtn) timerCloseBtn.addEventListener('click', () => {
-        timerModal?.classList.add('hidden');
-        clearInterval(restTimerInterval);
+    if (sessionCloseBtn) sessionCloseBtn.addEventListener('click', () => sessionModal?.classList.add('hidden'));
+    if (timerCloseBtn) timerCloseBtn.addEventListener('click', () => timerModal?.classList.add('hidden'));
+
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) { window.location.href = 'login.html'; return; }
+        
+        try {
+            const routineRef = doc(db, "users", user.uid, "routine", "active");
+            const docSnap = await getDoc(routineRef);
+            
+            if (docSnap.exists() && docSnap.data().rawText) {
+                routineContentEl.innerHTML = processWorkoutTextToHtml(docSnap.data().rawText, { showStartButton: true });
+                routineContentEl.classList.remove('hidden');
+                document.querySelectorAll('.start-workout-btn').forEach(btn => btn.addEventListener('click', e => {
+                    startWorkoutSession(e.target.closest('.day-workout-group'));
+                }));
+            } else {
+                emptyStateEl?.classList.remove('hidden');
+            }
+        } catch (error) {
+            routineContentEl.innerHTML = `<p class="text-red-400 font-bold">Ocorreu um erro ao carregar sua rotina: ${error.message}</p>`;
+            routineContentEl.classList.remove('hidden');
+        }
     });
 });
