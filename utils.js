@@ -1,6 +1,13 @@
 // Funções de ajuda compartilhadas, como o processador de texto da IA.
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34-.294.46-.545.46H6.5c-.5 0-.78-.42-.69-1.01l1.417-6.69a.68.68 0 0 1 .69-.58h.04l1.5 6.926c.012.052.09.12.285.12h.03c.195 0 .308-.04.295-.121l-1.4-6.786a.68.68 0 0 1 .68-.58z"/><circle cx="8" cy="13" r="1"/></svg>;
+const helpIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34-.294.46-.545.46H6.5c-.5 0-.78-.42-.69-1.01l1.417-6.69a.68.68 0 0 1 .69-.58h.04l1.5 6.926c.012.052.09.12.285.12h.03c.195 0 .308-.04.295-.121l-1.4-6.786a.68.68 0 0 1 .68-.58z"/><circle cx="8" cy="13" r="1"/></svg>`;
 
+/**
+ * Processa o texto bruto do treino para HTML.
+ * @param {string} text - O texto bruto gerado pela IA.
+ * @param {object} options - Opções de renderização.
+ * @param {boolean} options.showStartButton - Se true, renderiza o botão "Iniciar Treino".
+ * @returns {string} - Uma string HTML formatada.
+ */
 export function processWorkoutTextToHtml(text, options = {}) {
     const { showStartButton = false } = options;
     if (!text || text.trim() === '') return '';
@@ -28,14 +35,13 @@ export function processWorkoutTextToHtml(text, options = {}) {
             return; 
         }
 
-        // LÓGICA QUE ADICIONA A INTERROGAÇÃO
         if (inDayBlock) {
             const exerciseName = trimmedLine.split(/ \d+x/)[0].replace(/^[*\-–\d\.]*\s*/, '').trim();
             const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(exerciseName + ' exercício como fazer')}`;
             
             html += `<div class="exercise-line">
                         <span class="exercise-text">${trimmedLine}</span>
-                        <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="exercise-info-link" title="Pesquisar '${exerciseName} no Google'">
+                        <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="exercise-info-link" title="Pesquisar '${exerciseName}' no Google">
                             ${helpIconSvg}
                         </a>
                     </div>`;
