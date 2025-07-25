@@ -1,14 +1,12 @@
 import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { auth, db } from './firebase-config.js'; 
 import { processWorkoutTextToHtml } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Referências do DOM (sem o loaderEl)
     const routineContentEl = document.getElementById('routine-content');
     const emptyStateEl = document.getElementById('empty-state');
     const sessionModal = document.getElementById('session-modal');
-    // ...outras referências...
     const sessionTitle = document.getElementById('session-exercise-title');
     const sessionSets = document.getElementById('session-exercise-sets');
     const setsContainer = document.getElementById('sets-container');
@@ -17,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const timerModal = document.getElementById('timer-modal');
     const timerDisplay = document.getElementById('timer-display');
     const timerCloseBtn = document.getElementById('timer-close-btn');
+    const streakCounterNav = document.getElementById('streak-counter-nav');
+    const streakCountNav = document.getElementById('streak-count-nav');
+    const logoutBtn = document.getElementById('logout-btn');
 
     let workoutExercises = [];
     let currentExerciseIndex = 0;
@@ -102,10 +103,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sessionCloseBtn) sessionCloseBtn.addEventListener('click', () => sessionModal?.classList.add('hidden'));
     if (timerCloseBtn) timerCloseBtn.addEventListener('click', () => timerModal?.classList.add('hidden'));
 
+    if (logoutBtn) logoutBtn.addEventListener('click', () => signOut(auth).catch(console.error));
+
     onAuthStateChanged(auth, async (user) => {
         if (!user) { window.location.href = 'login.html'; return; }
         
         try {
+            const userRef = doc(db, "users", user.uid);
+            const userSnap = await getDoc(userRef);
+            if (userSnap.exists()) {
+                const userData = userSnap.data();
+                if (streakCounterNav && streakCountNav) {
+                    streakCounterNav.classList.toggle('hidden', !(userData.streakCount > 0));
+                    streakCountNav.textContent = userData.streakCount || 0;
+                }
+            }
+
             const routineRef = doc(db, "users", user.uid, "routine", "active");
             const docSnap = await getDoc(routineRef);
             
@@ -119,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 emptyStateEl?.classList.remove('hidden');
             }
         } catch (error) {
-            routineContentEl.innerHTML = `<p class="text-red-400 font-bold">Ocorreu um erro ao carregar sua rotina: ${error.message}</p>`;
+            routineContentEl.innerHTML = `<p class="text-red-400 font-bold">Ocorreu um erro ao carregar seus dados: ${error.message}</p>`;
             routineContentEl.classList.remove('hidden');
         }
     });
