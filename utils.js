@@ -19,14 +19,19 @@ export function processWorkoutTextToHtml(text, options = {}) {
 
     lines.forEach(line => {
         const trimmedLine = line.trim();
-        if (!trimmedLine) return;
+        if (!trimmedLine) return; // Pula linhas totalmente vazias
 
+        // Tenta identificar se a linha é um título de dia
         const dayMatch = trimmedLine.match(/^(dia \d+|dia [a-z]|segunda|terça|quarta|quinta|sexta|sábado|domingo)/i);
         
         if (dayMatch) {
-            if (inDayBlock) html += '</div>';
+            if (inDayBlock) html += '</div>'; // Fecha o bloco anterior
+            
             const dayTitle = trimmedLine.replace(/:$/, '').trim();
-            html += `<div class="day-workout-group border-t border-gray-700 pt-4 mt-4"><div class="flex justify-between items-center mb-4"><h3 class="text-2xl font-bold text-amber-400">${dayTitle}</h3>`;
+            html += `<div class="day-workout-group border-t border-gray-700 pt-4 mt-4">`;
+            html += `<div class="flex justify-between items-center mb-4">`;
+            html += `<h3 class="text-2xl font-bold text-amber-400">${dayTitle}</h3>`;
+            
             if (showStartButton) {
                 html += `<button class="start-workout-btn bg-amber-500 hover:bg-amber-600 text-black font-bold py-2 px-4 rounded-lg">Iniciar Treino</button>`;
             }
@@ -35,6 +40,7 @@ export function processWorkoutTextToHtml(text, options = {}) {
             return; 
         }
 
+        // Se estamos dentro de um bloco de dia, qualquer outra linha não vazia é um exercício.
         if (inDayBlock) {
             const exerciseName = trimmedLine.split(/ \d+x/)[0].replace(/^[*\-–\d\.]*\s*/, '').trim();
             const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(exerciseName + ' exercício como fazer')}`;
@@ -48,6 +54,6 @@ export function processWorkoutTextToHtml(text, options = {}) {
         }
     });
 
-    if (inDayBlock) html += '</div>';
+    if (inDayBlock) html += '</div>'; // Fecha o último bloco, se existir
     return html;
 }
