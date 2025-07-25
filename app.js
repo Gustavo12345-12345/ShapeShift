@@ -32,11 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const userData = userSnap.data();
                 if (streakCounterNav && streakCountNav) {
                     const streakCount = userData.streakCount || 0;
-                    
-                    // LÓGICA CORRIGIDA:
-                    // 1. Sempre mostra o contador.
-                    // 2. Atualiza o número.
-                    // 3. Apenas muda a opacidade se a sequência for 0.
                     streakCountNav.textContent = streakCount;
                     streakCounterNav.classList.remove('hidden'); 
                     streakCounterNav.classList.toggle('opacity-50', streakCount <= 0);
@@ -57,10 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${formData.get('age') || 'Não informado'}, Peso: ${formData.get('weight') || 'Não informado'} kg, Altura: ${formData.get('height') || 'Não informado'} cm. O objetivo do treino é ${formData.get('goal')}, com um nível de fitness ${formData.get('level')}, para treinar ${formData.get('days')} dias por semana, com o seguinte equipamento disponível: ${formData.get('equipment')}. Observações adicionais: ${formData.get('notes') || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
         try {
-            // Lembre-se de colocar sua chave de API pessoal do Google AI aqui
-            const apiKey = "SUA_CHAVE_DE_API_DO_GOOGLE_AI_AQUI";
-            if (apiKey.includes("SUA_CHAVE")) {
-                throw new Error("A chave de API do Google AI não foi configurada no app.js.");
+            // =======================================================================
+            // !!!!   COLE AQUI A SUA CHAVE DE API PESSOAL GERADA NO GOOGLE AI STUDIO   !!!!
+            const apiKey = "COLE_A_CHAVE_AQUI";
+            // =======================================================================
+            
+            if (apiKey.includes("COLE_A_CHAVE_AQUI")) {
+                throw new Error("A chave de API do Google AI não foi configurada. Gere uma no Google AI Studio e insira no arquivo app.js.");
             }
 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
