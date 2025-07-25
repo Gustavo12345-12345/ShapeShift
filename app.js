@@ -19,13 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     onAuthStateChanged(auth, (user) => {
         if (!user) return;
+        
         const userRef = doc(db, "users", user.uid);
         onSnapshot(userRef, (userSnap) => {
             if (userSnap.exists()) {
-                const data = userSnap.data();
+                const userData = userSnap.data();
                 if (streakCounterNav && streakCountNav) {
-                    streakCounterNav.classList.toggle('hidden', !(data.streakCount > 0));
-                    streakCountNav.textContent = data.streakCount || 0;
+                    const streakCount = userData.streakCount || 0;
+                    streakCounterNav.classList.toggle('hidden', streakCount <= 0);
+                    streakCountNav.textContent = streakCount;
                 }
             }
         });
@@ -43,11 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${formData.get('age') || 'Não informado'}, Peso: ${formData.get('weight') || 'Não informado'} kg, Altura: ${formData.get('height') || 'Não informado'} cm. O objetivo do treino é ${formData.get('goal')}, com um nível de fitness ${formData.get('level')}, para treinar ${formData.get('days')} dias por semana, com o seguinte equipamento disponível: ${formData.get('equipment')}. Observações adicionais: ${formData.get('notes') || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
         try {
-            // =======================================================================
-            // !!!!   CRÍTICO: INSIRA SUA CHAVE DE API PESSOAL DO GOOGLE AI (GEMINI) AQUI   !!!!
             const apiKey = "SUA_CHAVE_DE_API_DO_GOOGLE_AI_AQUI";
-            // =======================================================================
-            if (apiKey.includes("SUA_CHAVE")) throw new Error("A chave de API do Google AI não foi configurada no app.js.");
+            
+            if (apiKey.includes("SUA_CHAVE")) {
+                throw new Error("A chave de API do Google AI não foi configurada no app.js.");
+            }
 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("A requisição para a IA demorou demais (timeout).")), 20000));
