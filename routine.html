@@ -19,13 +19,13 @@
         
         <div class="absolute top-5 left-5 right-5 flex justify-between items-center">
             <nav class="flex items-center space-x-4 text-white">
-                <a href="index.html" class="hover:text-amber-300 transition-colors pb-1" data-lang="navHome">Gerador</a>
-                <a href="routine.html" class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1" data-lang="navRoutine">Minha Rotina</a>
+                <a href="index.html" class="hover:text-amber-300 transition-colors pb-1">Gerador</a>
+                <a href="routine.html" class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1">Minha Rotina</a>
             </nav>
         </div>
 
-<header class="text-center mb-8 pt-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-wide" data-lang="routineTitle">Minha Rotina de Treino</h1>
+        <header class="text-center mb-8 pt-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-wide">Minha Rotina de Treino</h1>
         </header>
 
         <div class="text-center text-gray-400 text-sm mb-6 flex items-center justify-center gap-2">
@@ -35,23 +35,13 @@
             </svg>
             <span>Clique no ícone ao lado de um exercício para pesquisar como executá-lo.</span>
         </div>
-<div id="routine-output">
-            <div id="routine-loader" class="text-center py-8 hidden"> <div role="status" class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-amber-400 border-r-transparent"></div>
-                <p class="mt-4 text-gray-300">A carregar a sua rotina...</p>
-            </div>
-            
-        <div id="routine-output">
-            <div id="routine-loader" class="text-center py-8">
-                <div role="status" class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-amber-400 border-r-transparent"></div>
-                <p class="mt-4 text-gray-300" data-lang="routineLoader">A carregar a sua rotina...</p>
-            </div>
 
-            <div id="routine-content" class="hidden prose prose-invert max-w-none">
-                </div>
+        <div id="routine-output">
+            <div id="routine-content" class="hidden prose prose-invert max-w-none"></div>
 
             <div id="empty-state" class="hidden text-center py-10">
-                <p class="text-xl text-gray-400 mb-4" data-lang="emptyState">Você ainda não guardou uma rotina.</p>
-                <a href="index.html" class="generate-button inline-block" data-lang="emptyStateBtn">
+                <p class="text-xl text-gray-400 mb-4">Você ainda não guardou uma rotina.</p>
+                <a href="index.html" class="generate-button inline-block">
                     Gerar uma agora
                 </a>
             </div>
@@ -60,10 +50,9 @@
         <div id="session-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
             <div class="bg-gray-900 rounded-2xl shadow-2xl w-full max-w-lg p-6 text-white transform transition-all">
                 <h2 id="session-exercise-title" class="text-3xl font-bold text-amber-400 mb-2">Nome do Exercício</h2>
-                <p id="session-exercise-sets" class="text-xl mb-6">4 séries de 10-12 repetições</p>
+                <p id="session-exercise-sets" class="text-xl mb-6"></p>
                 
-                <div id="sets-container" class="space-y-3 mb-8">
-                    </div>
+                <div id="sets-container" class="space-y-3 mb-8"></div>
 
                 <div class="flex justify-between items-center">
                     <button id="session-close-btn" class="bg-gray-600 hover:bg-gray-700 py-2 px-4 rounded-lg">Fechar</button>
@@ -74,16 +63,15 @@
 
         <div id="timer-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
             <div class="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center text-white">
-                <h3 class="text-2xl font-bold mb-4" data-lang="timerTitle">Tempo de Descanso</h3>
+                <h3 class="text-2xl font-bold mb-4">Tempo de Descanso</h3>
                 <div id="timer-display" class="text-8xl font-mono font-bold text-amber-400 my-6">60</div>
-                <button id="timer-close-btn" class="bg-gray-600 hover:bg-gray-700 py-2 px-4 rounded-lg" data-lang="timerClose">Fechar</button>
+                <button id="timer-close-btn" class="bg-gray-600 hover:bg-gray-700 py-2 px-4 rounded-lg">Fechar</button>
             </div>
         </div>
     </main>
     
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="auth-guard.js"></script>
-    <script src="translation.js" defer></script>
     <script type="module" src="utils.js"></script>
     <script type="module" src="routine.js"></script> 
 </body>
