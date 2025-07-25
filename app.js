@@ -59,21 +59,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${ageInput.value || 'Não informado'}, Peso: ${weightInput.value || 'Não informado'} kg, Altura: ${heightInput.value || 'Não informado'} cm. O objetivo do treino é ${goalSelect.value}, com um nível de fitness ${levelSelect.value}, para treinar ${daysSelect.value} dias por semana, com o seguinte equipamento disponível: ${equipmentSelect.value}. Observações adicionais: ${notesTextarea.value || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
         try {
-            // Lembre-se de substituir pela sua chave de API
-            const apiKey = "SUA_CHAVE_DE_API_DO_GOOGLE_AI_AQUI";
-            if (apiKey.includes("SUA_CHAVE")) {
+            // =======================================================================
+            // !!!!   CRÍTICO: COLE A NOVA CHAVE QUE VOCÊ GEROU NO AI STUDIO AQUI   !!!!
+            const apiKey = "COLE_SUA_NOVA_CHAVE_DA_IA_AQUI";
+            // =======================================================================
+            
+            if (apiKey.includes("COLE_SUA_NOVA_CHAVE")) {
                 throw new Error("A chave de API do Google AI não foi configurada no arquivo app.js.");
             }
 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
-            // Criamos uma promessa de timeout de 15 segundos
             const timeoutPromise = new Promise((_, reject) =>
                 setTimeout(() => reject(new Error("A requisição para a IA demorou demais (timeout).")), 15000)
             );
 
-            // A requisição da API compete com o timeout
             const fetchPromise = fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             const response = await Promise.race([fetchPromise, timeoutPromise]);
 
@@ -100,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMessageContainer.textContent = `Ocorreu um erro: ${error.message}`;
             errorMessageContainer.classList.remove('hidden');
         } finally {
-            // Este bloco agora será executado mesmo se houver um timeout
             loader.classList.add('hidden');
             generateBtn.textContent = "Gerar Meu Plano";
             checkFormValidity();
