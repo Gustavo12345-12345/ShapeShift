@@ -18,23 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let generatedPlanText = null;
 
     onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            if (streakCounterNav) streakCounterNav.classList.add('hidden');
-            if (logoutBtn) logoutBtn.classList.add('hidden');
-            return;
-        }
+        if (!user) return;
         
-        if (logoutBtn) logoutBtn.classList.remove('hidden');
-
         const userRef = doc(db, "users", user.uid);
         onSnapshot(userRef, (userSnap) => {
             if (userSnap.exists()) {
                 const userData = userSnap.data();
                 if (streakCounterNav && streakCountNav) {
                     const streakCount = userData.streakCount || 0;
+                    streakCounterNav.classList.toggle('hidden', streakCount <= 0);
                     streakCountNav.textContent = streakCount;
-                    streakCounterNav.classList.remove('hidden'); 
-                    streakCounterNav.classList.toggle('opacity-50', streakCount <= 0);
                 }
             }
         });
@@ -53,12 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // =======================================================================
-            // !!!!   COLE AQUI A SUA CHAVE DE API PESSOAL GERADA NO GOOGLE AI STUDIO   !!!!
+            //           COLE A SUA CHAVE DE API, CONFIGURADA, AQUI
+            // =======================================================================
             const apiKey = "AIzaSyCr1IRVrWncBi2M8NQ5PBbWrY_g5Zp1mno";
             // =======================================================================
             
             if (apiKey.includes("AIzaSyCr1IRVrWncBi2M8NQ5PBbWrY_g5Zp1mno")) {
-                throw new Error("A chave de API do Google AI não foi configurada. Gere uma no Google AI Studio e insira no arquivo app.js.");
+                throw new Error("A chave de API do Google AI não foi configurada no app.js.");
             }
 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
