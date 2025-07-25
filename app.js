@@ -54,10 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // =======================================================================
             // !!!!   COLE AQUI A SUA CHAVE DE API PESSOAL GERADA NO GOOGLE AI STUDIO   !!!!
-            const apiKey = "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4";
+            const apiKey = "AIzaSyBW6LmWWqMiFp50GfOiaFRN3CGRN6DOIRU";
             // =======================================================================
             
-            if (apiKey.includes("AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4")) {
+            if (apiKey.includes("AIzaSyBW6LmWWqMiFp50GfOiaFRN3CGRN6DOIRU")) {
                 throw new Error("A chave de API do Google AI não foi configurada. Gere uma no Google AI Studio e insira no arquivo app.js.");
             }
 
