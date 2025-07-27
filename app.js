@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const userData = userSnap.data();
                 if (streakCounterNav && streakCountNav) {
                     const streakCount = userData.streakCount || 0;
-                    streakCounterNav.classList.toggle('hidden', streakCount <= 0);
+                    // *** LÓGICA CORRIGIDA ***
+                    // Remove a classe 'hidden' para garantir que o contador seja sempre visível.
+                    streakCounterNav.classList.remove('hidden');
                     streakCountNav.textContent = streakCount;
                 }
             }
@@ -45,11 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${formData.get('age') || 'Não informado'}, Peso: ${formData.get('weight') || 'Não informado'} kg, Altura: ${formData.get('height') || 'Não informado'} cm. O objetivo do treino é ${formData.get('goal')}, com um nível de fitness ${formData.get('level')}, para treinar ${formData.get('days')} dias por semana, com o seguinte equipamento disponível: ${formData.get('equipment')}. Observações adicionais: ${formData.get('notes') || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
         try {
-            // Sua chave de API foi inserida aqui.
             const apiKey = "AIzaSyCeknOilCeptvVH6zL2GF45k1e_R5jXa9k";
-            
-            // A verificação desnecessária foi REMOVIDA.
-
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("A requisição para a IA demorou demais (timeout).")), 20000));
             const fetchPromise = fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
