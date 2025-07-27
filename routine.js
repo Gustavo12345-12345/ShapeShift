@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { doc, getDoc, updateDoc, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { auth, db } from './firebase-config.js'; 
 import { processWorkoutTextToHtml } from './utils.js';
@@ -18,11 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const streakCounterNav = document.getElementById('streak-counter-nav');
     const streakCountNav = document.getElementById('streak-count-nav');
     const logoutBtn = document.getElementById('logout-btn');
+    // Referência para o novo botão
+    const deleteRoutineBtn = document.getElementById('delete-routine-btn');
 
     let workoutExercises = [];
     let currentExerciseIndex = 0;
     let restTimerInterval;
 
+    // ... (funções showCurrentExercise, startWorkoutSession, startRestTimer, completeWorkout permanecem iguais)
     function showCurrentExercise() {
         if (currentExerciseIndex >= workoutExercises.length) return;
         const exerciseText = workoutExercises[currentExerciseIndex];
@@ -92,6 +95,34 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) { console.error("Erro ao atualizar a sequência:", error); }
     }
 
+    /**
+     * NOVA FUNÇÃO: Lida com a remoção da rotina ativa.
+     */
+    async function handleDeleteRoutine() {
+        const { currentUser } = auth;
+        if (!currentUser) return;
+
+        // Idealmente, aqui haveria um modal de confirmação.
+        // Para simplificar, vamos remover diretamente.
+        
+        deleteRoutineBtn.disabled = true;
+        
+        try {
+            const routineRef = doc(db, "users", currentUser.uid, "routine", "active");
+            await deleteDoc(routineRef);
+
+            // Atualiza a interface para refletir a remoção
+            routineContentEl.classList.add('hidden');
+            emptyStateEl.classList.remove('hidden');
+            deleteRoutineBtn.classList.add('hidden');
+            
+        } catch (error) {
+            console.error("Erro ao remover a rotina:", error);
+            alert(`Falha ao remover a rotina: ${error.message}`);
+            deleteRoutineBtn.disabled = false; // Reabilita o botão em caso de erro
+        }
+    }
+
     if (sessionNextBtn) sessionNextBtn.addEventListener('click', () => {
         if (currentExerciseIndex < workoutExercises.length - 1) {
             currentExerciseIndex++;
@@ -108,39 +139,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (logoutBtn) logoutBtn.addEventListener('click', () => signOut(auth).catch(console.error));
+    // Adiciona o evento de clique ao novo botão
+    if (deleteRoutineBtn) deleteRoutineBtn.addEventListener('click', handleDeleteRoutine);
 
     onAuthStateChanged(auth, (user) => {
         if (!user) { window.location.href = 'login.html'; return; }
         
         const userRef = doc(db, "users", user.uid);
         
-        // LÓGICA CORRIGIDA PARA MOSTRAR O FOGUINHO
         onSnapshot(userRef, (userSnap) => {
             if (userSnap.exists()) {
                 const userData = userSnap.data();
                 if (streakCounterNav && streakCountNav) {
                     const streakCount = userData.streakCount || 0;
-                    // Garante que o contador está sempre visível
                     streakCounterNav.classList.remove('hidden');
-                    // Atualiza o número
                     streakCountNav.textContent = streakCount;
                 }
             }
         });
 
-        // Lógica para carregar a rotina de treino
         const routineRef = doc(db, "users", user.uid, "routine", "active");
         getDoc(routineRef).then(docSnap => {
             if (docSnap.exists() && docSnap.data().rawText) {
                 routineContentEl.innerHTML = processWorkoutTextToHtml(docSnap.data().rawText, { showStartButton: true });
                 routineContentEl.classList.remove('hidden');
                 emptyStateEl?.classList.add('hidden');
+                // Mostra o botão de remover se a rotina existir
+                deleteRoutineBtn.classList.remove('hidden');
                 document.querySelectorAll('.start-workout-btn').forEach(btn => btn.addEventListener('click', e => {
                     startWorkoutSession(e.target.closest('.day-workout-group'));
                 }));
             } else {
                 emptyStateEl?.classList.remove('hidden');
                 routineContentEl.classList.add('hidden');
+                // Esconde o botão de remover se não houver rotina
+                deleteRoutineBtn.classList.add('hidden');
             }
         }).catch(error => {
             console.error("Erro ao carregar a rotina:", error);
