@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // =======================================================================
             //           COLE A SUA CHAVE DE API, CONFIGURADA, AQUI
             // =======================================================================
-            const apiKey = "AIzaSyCr1IRVrWncBi2M8NQ5PBbWrY_g5Zp1mno";
+            const apiKey = "AIzaSyDcLbvMixoF__yCFnNFNhmyC5nz8nhlEU4";
             // =======================================================================
             
-            if (apiKey.includes("AIzaSyCr1IRVrWncBi2M8NQ5PBbWrY_g5Zp1mno")) {
+            if (apiKey.includes("AIzaSyDcLbvMixoF__yCFnNFNhmyC5nz8nhlEU4")) {
                 throw new Error("A chave de API do Google AI não foi configurada no app.js.");
             }
 
