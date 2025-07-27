@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { doc, getDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { auth, db } from './firebase-config.js'; 
 import { processWorkoutTextToHtml } from './utils.js';
@@ -24,17 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let restTimerInterval;
 
     function showCurrentExercise() {
+        if (currentExerciseIndex >= workoutExercises.length) return;
         const exerciseText = workoutExercises[currentExerciseIndex];
         const match = exerciseText.match(/^(?<name>.+?)(?:\s+(?<sets>\d+)\s*[xX]\s*(?<reps>[\d\-]+))?\s*$/);
         const name = match ? match.groups.name.trim().replace(/^[*\-–\d\.]*\s*/, '') : exerciseText;
-        const setsInfo = (match && match.groups.sets) ? `${match.groups.sets}s de ${match.groups.reps}` : '';
+        const setsInfo = (match && match.groups.sets) ? `${match.groups.sets}x de ${match.groups.reps}` : 'Séries e reps não especificadas';
         const numSets = (match && match.groups.sets) ? parseInt(match.groups.sets, 10) : 3;
 
         sessionTitle.textContent = name;
         sessionSets.textContent = setsInfo;
         setsContainer.innerHTML = '';
         for (let i = 1; i <= numSets; i++) {
-            setsContainer.innerHTML += `<label class="flex items-center bg-gray-800 p-3 rounded-lg cursor-pointer"><input type="checkbox" class="set-checkbox h-6 w-6 rounded-md"><span class="ml-4 text-lg">Concluir Série ${i}</span></label>`;
+            setsContainer.innerHTML += `<label class="flex items-center bg-gray-800 p-3 rounded-lg cursor-pointer transition-opacity"><input type="checkbox" class="set-checkbox h-6 w-6 rounded-md bg-gray-700 border-gray-600 text-amber-500 focus:ring-amber-500"><span class="ml-4 text-lg">Concluir Série ${i}</span></label>`;
         }
         setsContainer.querySelectorAll('.set-checkbox').forEach(cb => cb.addEventListener('change', e => {
             if (e.target.checked) {
@@ -101,39 +102,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     if (sessionCloseBtn) sessionCloseBtn.addEventListener('click', () => sessionModal?.classList.add('hidden'));
-    if (timerCloseBtn) timerCloseBtn.addEventListener('click', () => timerModal?.classList.add('hidden'));
+    if (timerCloseBtn) timerCloseBtn.addEventListener('click', () => {
+        clearInterval(restTimerInterval);
+        timerModal?.classList.add('hidden');
+    });
 
     if (logoutBtn) logoutBtn.addEventListener('click', () => signOut(auth).catch(console.error));
 
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, (user) => {
         if (!user) { window.location.href = 'login.html'; return; }
         
-        try {
-            const userRef = doc(db, "users", user.uid);
-            const userSnap = await getDoc(userRef);
+        const userRef = doc(db, "users", user.uid);
+        
+        // LÓGICA CORRIGIDA PARA MOSTRAR O FOGUINHO
+        onSnapshot(userRef, (userSnap) => {
             if (userSnap.exists()) {
                 const userData = userSnap.data();
                 if (streakCounterNav && streakCountNav) {
-                    streakCounterNav.classList.toggle('hidden', !(userData.streakCount > 0));
-                    streakCountNav.textContent = userData.streakCount || 0;
+                    const streakCount = userData.streakCount || 0;
+                    // Garante que o contador está sempre visível
+                    streakCounterNav.classList.remove('hidden');
+                    // Atualiza o número
+                    streakCountNav.textContent = streakCount;
                 }
             }
+        });
 
-            const routineRef = doc(db, "users", user.uid, "routine", "active");
-            const docSnap = await getDoc(routineRef);
-            
+        // Lógica para carregar a rotina de treino
+        const routineRef = doc(db, "users", user.uid, "routine", "active");
+        getDoc(routineRef).then(docSnap => {
             if (docSnap.exists() && docSnap.data().rawText) {
                 routineContentEl.innerHTML = processWorkoutTextToHtml(docSnap.data().rawText, { showStartButton: true });
                 routineContentEl.classList.remove('hidden');
+                emptyStateEl?.classList.add('hidden');
                 document.querySelectorAll('.start-workout-btn').forEach(btn => btn.addEventListener('click', e => {
                     startWorkoutSession(e.target.closest('.day-workout-group'));
                 }));
             } else {
                 emptyStateEl?.classList.remove('hidden');
+                routineContentEl.classList.add('hidden');
             }
-        } catch (error) {
-            routineContentEl.innerHTML = `<p class="text-red-400 font-bold">Ocorreu um erro ao carregar seus dados: ${error.message}</p>`;
+        }).catch(error => {
+            console.error("Erro ao carregar a rotina:", error);
+            routineContentEl.innerHTML = `<p class="text-red-400 font-bold">Ocorreu um erro ao carregar sua rotina: ${error.message}</p>`;
             routineContentEl.classList.remove('hidden');
-        }
+        });
     });
 });
