@@ -70,12 +70,19 @@ h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme nece
 .form-select {
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
+    border-radius: 0.75rem; /* Levemente mais arredondado */
+    padding: 1.1rem 1.4rem; /* Aumentado para campos maiores */
     color: #e0e0e0;
-    font-size: 1rem;
+    font-size: 1.1rem; /* Levemente maior */
     transition: all 0.3s ease;
     outline: none;
+}
+
+.form-input::placeholder,
+.form-select::placeholder { /* Estilo para o placeholder */
+    color: rgba(255, 255, 255, 0.5); /* Cor mais clara para o placeholder */
+    opacity: 1; /* Garante que a opacidade seja aplicada */
+    font-style: italic; /* Adiciona um toque de estilo */
 }
 
 .form-input:focus,
@@ -91,9 +98,9 @@ h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme nece
     -moz-appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 1rem center;
+    background-position: right 1.4rem center; /* Ajustado para o novo padding */
     background-size: 1.5em 1.5em;
-    padding-right: 2.5rem;
+    padding-right: 3.5rem; /* Aumentado para acomodar a seta */
 }
 
 .form-group-full {
@@ -105,14 +112,14 @@ h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme nece
 .form-group-full textarea.form-input {
     background-color: rgba(255, 255, 255, 0.1); /* Um pouco mais opaco */
     border: 1px solid rgba(255, 255, 255, 0.3); /* Borda um pouco mais visível */
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
+    border-radius: 0.75rem; /* Levemente mais arredondado */
+    padding: 1.1rem 1.4rem; /* Aumentado para campos maiores */
     color: #e0e0e0;
-    font-size: 1rem;
+    font-size: 1.1rem; /* Levemente maior */
     transition: all 0.3s ease;
     outline: none;
     resize: vertical; /* Permite redimensionar verticalmente */
-    min-height: 4rem; /* Altura mínima */
+    min-height: 6rem; /* Altura mínima ligeiramente maior */
 }
 
 .form-group-full textarea.form-input:focus {
@@ -131,20 +138,20 @@ h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme nece
     background: #fbbf24; /* Cor sólida âmbar */
     color: #1a202c; /* Cor de texto escura para contraste */
     font-weight: 700;
-    padding: 0.9rem 2.5rem;
+    padding: 1rem 3rem; /* Padding maior para botões mais proeminentes */
     border-radius: 0.75rem; /* Menos arredondado */
-    box-shadow: 0 3px 8px rgba(251, 191, 36, 0.3); /* Sombra mais suave */
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4); /* Sombra um pouco mais forte */
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Fonte ligeiramente maior */
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
 
 .generate-button:hover {
-    transform: translateY(-2px) scale(1.01); /* Efeito de hover mais sutil */
-    box-shadow: 0 5px 10px rgba(251, 191, 36, 0.4); /* Sombra no hover */
+    transform: translateY(-3px) scale(1.01); /* Efeito de hover um pouco mais pronunciado */
+    box-shadow: 0 6px 15px rgba(251, 191, 36, 0.6); /* Sombra no hover */
 }
 
 .generate-button:disabled {
@@ -211,11 +218,12 @@ h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme nece
     background-color: #fbbf24; /* amber-500 */
     color: #1a202c; /* black */
     font-weight: 700;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem; /* Ajustado */
     border-radius: 0.75rem; /* Ajustado */
     transition: background-color 0.3s ease;
     border: none;
     cursor: pointer;
+    font-size: 1rem; /* Ajustado */
 }
 
 .start-workout-btn:hover {
@@ -288,9 +296,9 @@ h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme nece
     background-color: #fbbf24; /* amber-500 */
     color: #1a202c; /* black */
     font-weight: 700;
-    padding: 0.25rem 1rem;
+    padding: 0.3rem 1.1rem; /* Ajustado */
     border-radius: 0.75rem; /* Ajustado */
-    font-size: 0.875rem; /* text-sm */
+    font-size: 0.9rem; /* Ajustado */
     transition: background-color 0.3s ease;
     border: none;
     cursor: pointer;
@@ -396,8 +404,8 @@ h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme nece
 
 /* Estilos para mensagens de erro */
 #error-message {
-    background-color: rgba(220, 38, 38, 0.3); /* red-600 com opacidade */
-    color: #fca5a5; /* red-300 */
+    background-color: rgba(220, 38, 38, 0.3);
+    color: #fca5a5;
     padding: 1rem;
     border-radius: 0.5rem;
     margin-top: 1rem;
@@ -500,18 +508,18 @@ h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme nece
     background-color: #fff;
     color: #1a202c;
     font-weight: 600;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Sombra mais suave */
+    padding: 0.85rem 1.25rem; /* Ajustado */
+    border-radius: 0.6rem; /* Ajustado */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Sombra mais visível */
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    font-size: 1.125rem;
+    font-size: 1.15rem; /* Levemente maior */
 }
 
 .login-button:hover {
-    transform: scale(1.02); /* Efeito de hover mais sutil */
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px) scale(1.02); /* Efeito de hover um pouco mais pronunciado */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
 }
 
 #auth-error {
