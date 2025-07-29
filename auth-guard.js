@@ -6,9 +6,9 @@ const protectPage = () => {
         // Esta função é chamada quando o estado de autenticação do usuário é resolvido.
         // O Firebase já lida com a persistência da sessão através da página.
 
-        // Se não há usuário e a página atual não é a de login, redireciona.
-        // Esta verificação é mais confiável do que usar um setTimeout.
-        if (!user && !window.location.pathname.endsWith('/login')) {
+        // Se não há usuário e a página atual NÃO é a de login, redireciona.
+        // Usamos startsWith para cobrir tanto /login quanto /login/
+        if (!user && !window.location.pathname.startsWith('/login')) {
             console.log("Auth Guard: Usuário não encontrado. Redirecionando para o login.");
             window.location.href = '/login';
         }
