@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css"> <!-- CORRIGIDO: Caminho absoluto para o CSS -->
 
 </head>
 <body class="min-h-screen p-4">
@@ -19,57 +19,45 @@
         
         <div class="absolute top-5 left-5 right-5 flex justify-between items-center">
             <nav class="flex items-center space-x-4 text-white">
-                <a href="index.html" class="hover:text-amber-300 transition-colors pb-1">Gerador</a>
+                <a href="/" class="hover:text-amber-300 transition-colors pb-1">Gerador</a> <!-- CORRIGIDO: Link para a raiz do site -->
                 <a href="/minha-rotina" class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1">Minha Rotina</a>
             </nav>
-
             <div class="flex items-center space-x-4">
                 <div id="streak-counter-nav" class="flex items-center text-lg font-bold text-white bg-gray-900 bg-opacity-50 px-3 py-1 rounded-full hidden">
-                   <span class="mr-2">🔥</span>
-                   <span id="streak-count-nav">0</span>
-               </div>
-               <button id="logout-btn" class="text-gray-400 hover:text-white" title="Logout">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/></svg>
-               </button>
-           </div>
+                    <span class="mr-2">🔥</span>
+                    <span id="streak-count-nav">0</span>
+                </div>
+                <button id="logout-btn" class="text-gray-400 hover:text-white" title="Logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/></svg>
+                </button>
+            </div>
         </div>
 
         <header class="text-center mb-8 pt-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-wide">Minha Rotina de Treino</h1>
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-wide">Minha <span class="text-amber-400">Rotina</span></h1>
+            <p class="text-gray-400 mt-2" data-lang="routineSubtitle">Seu plano de treino atual e histórico.</p>
         </header>
 
-        <div class="text-center text-gray-400 text-sm mb-6 flex items-center justify-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34-.294.46-.545.46H6.5c-.5 0-.78-.42-.69-1.01l1.417-6.69a.68.68 0 0 1 .69-.58h.04l1.5 6.926c.012.052.09.12.285.12h.03c.195 0 .308-.04.295-.121l-1.4-6.786a.68.68 0 0 1 .68-.58z"/>
-                <circle cx="8" cy="13" r="1"/>
-            </svg>
-            <span>Clique no ícone ao lado de um exercício para pesquisar como executá-lo.</span>
+        <div id="empty-state" class="text-center py-12 hidden">
+            <p class="text-gray-300 text-lg mb-4" data-lang="noRoutine">Você ainda não tem uma rotina de treino salva.</p>
+            <a href="/" class="generate-button inline-block">
+                Gerar uma agora
+            </a>
         </div>
 
-        <div id="routine-output">
-            <div id="routine-content" class="hidden prose prose-invert max-w-none"></div>
-
-            <!-- BOTÃO MOVIDO PARA O FINAL DA FICHA -->
-            <div class="text-center mt-8">
-                <button id="delete-routine-btn" class="hidden bg-red-800 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg text-xs transition-all duration-300 items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="inline-block mr-2 align-middle" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                    </svg>
-                    Remover Rotina
-                </button>
-            </div>
-
-            <div id="empty-state" class="hidden text-center py-10">
-                <p class="text-xl text-gray-400 mb-4">Você ainda não guardou uma rotina.</p>
-                <a href="index.html" class="generate-button inline-block">
-                    Gerar uma agora
-                </a>
-            </div>
+        <div id="routine-content" class="hidden">
+            <!-- Conteúdo da rotina será carregado aqui pelo JS -->
         </div>
 
+        <div class="text-center mt-8">
+            <button id="delete-routine-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg hidden" data-lang="deleteRoutineBtn">
+                Remover Rotina Atual
+            </button>
+        </div>
+
+        <!-- Modal de Sessão de Treino -->
         <div id="session-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
-            <div class="bg-gray-900 rounded-2xl shadow-2xl w-full max-w-lg p-6 text-white transform transition-all">
+            <div class="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-8 text-center text-white">
                 <h2 id="session-exercise-title" class="text-3xl font-bold text-amber-400 mb-2">Nome do Exercício</h2>
                 <p id="session-exercise-sets" class="text-xl mb-6"></p>
                 
@@ -90,10 +78,36 @@
             </div>
         </div>
     </main>
-    
+
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="auth-guard.js"></script>
-    <script type="module" src="utils.js"></script>
-    <script type="module" src="routine.js"></script> 
+    <script type="module">
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { auth, db } from './firebase-config.js';
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                onSnapshot(userRef, (userSnap) => {
+                    if (userSnap.exists()) {
+                        const userData = userSnap.data();
+                        const streakCounterNav = document.getElementById('streak-counter-nav');
+                        const streakCountNav = document.getElementById('streak-count-nav');
+                        if (streakCounterNav && streakCountNav) {
+                            if (userData.streakCount > 0) {
+                                streakCountNav.textContent = userData.streakCount;
+                                streakCounterNav.classList.remove('hidden');
+                            } else {
+                                streakCounterNav.classList.add('hidden');
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="translation.js" defer></script>
+    <script type="module" src="routine.js"></script>
 </body>
 </html>
