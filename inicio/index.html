@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShapeShift - Gerador de Treino</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="min-h-screen p-4">
+
+    <main class="w-full max-w-6xl mx-auto bg-black bg-opacity-30 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 transition-all duration-500 relative">
+        
+        <!-- NAVEGAÇÃO SUPERIOR -->
+        <div class="absolute top-5 left-5 right-5 flex justify-between items-center">
+            <nav class="flex items-center space-x-4 text-white">
+                <a href="/inicio" class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1" data-lang="navHome">Gerador</a>
+                <a href="/minha-rotina" class="hover:text-amber-300 transition-colors pb-1" data-lang="navRoutine">Minha Rotina</a>
+            </nav>
+
+            <!-- ÍCONES DO LADO DIREITO (FOGUINHO E LOGOUT) -->
+            <div class="flex items-center space-x-4">
+                 <!-- MECANISMO DE FOGUINHO (STREAK) ADICIONADO AQUI -->
+                 <div id="streak-counter-nav" class="flex items-center text-lg font-bold text-white bg-gray-900 bg-opacity-50 px-3 py-1 rounded-full hidden">
+                    <span class="mr-2">🔥</span>
+                    <span id="streak-count-nav">0</span>
+                </div>
+                <!-- BOTÃO DE LOGOUT -->
+                <button id="logout-btn" class="text-gray-400 hover:text-white" title="Logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <header class="text-center mb-8 pt-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-wide">Shape<span class="text-amber-400">Shift</span></h1>
+            <p class="text-gray-400 mt-2" data-lang="subtitle">Planos de treino inteligentes para resultados reais.</p>
+        </header>
+
+        <form id="workout-form" class="generator-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="age" class="form-label">Idade</label>
+                    <input type="number" id="age" name="age" class="form-input" placeholder="ex: 25">
+                </div>
+                <div class="form-group">
+                    <label for="weight" class="form-label">Peso (kg)</label>
+                    <input type="number" id="weight" name="weight" class="form-input" placeholder="ex: 70">
+                </div>
+                <div class="form-group">
+                    <label for="height" class="form-label">Altura (cm)</label>
+                    <input type="number" id="height" name="height" class="form-input" placeholder="ex: 175">
+                </div>
+                <div class="form-group">
+                    <label for="goal" class="form-label" data-lang="goalLabel">Objetivo Principal</label>
+                    <select id="goal" name="goal" class="form-select">
+                        <option data-lang="goalOpt1">Construir Músculo</option>
+                        <option data-lang="goalOpt2">Perder Gordura</option>
+                        <option data-lang="goalOpt3">Melhorar Resistência</option>
+                        <option data-lang="goalOpt4">Aumentar Força</option>
+                        <option data-lang="goalOpt5">Fitness Geral</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="level" class="form-label" data-lang="levelLabel">Nível de Fitness</label>
+                    <select id="level" name="level" class="form-select">
+                        <option data-lang="levelOpt1">Iniciante</option>
+                        <option data-lang="levelOpt2">Intermediário</option>
+                        <option data-lang="levelOpt3">Avançado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="days" class="form-label" data-lang="daysLabel">Divisão do Treino</label>
+                    <select id="days" name="days" class="form-select">
+                        <option value="2">2 fichas (ex: AB)</option>
+                        <option value="3">3 fichas (ex: ABC)</option>
+                        <option value="4">4 fichas (ex: ABCD)</option>
+                        <option value="5">5 fichas (ex: ABCDE)</option>
+                        <option value="6">6 fichas (ex: ABCDEF)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="equipment" class="form-label" data-lang="equipmentLabel">Equipamento</label>
+                    <select id="equipment" name="equipment" class="form-select">
+                        <option data-lang="equipOpt1">Acesso Total à Academia</option>
+                        <option data-lang="equipOpt2">Halteres e Barras</option>
+                        <option data-lang="equipOpt3">Apenas Halteres</option>
+                        <option data-lang="equipOpt4">Apenas Peso Corporal</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-full">
+                <label for="notes" class="form-label" data-lang="notesLabel">Observações Específicas (Opcional)</label>
+                <textarea id="notes" name="notes" rows="2" class="form-input" data-lang-placeholder="notesPlaceholder"></textarea>
+            </div>
+            <div class="form-button-container">
+                <button id="generate-btn" class="generate-button" data-lang="generateBtn">
+                    Gerar Meu Plano
+                </button>
+            </div>
+        </form>
+
+        <div id="output-container" class="w-full">
+            <div id="loader" class="hidden text-center py-8">
+                <div role="status" class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-amber-400 border-r-transparent"></div>
+                <p class="mt-4 text-gray-300" data-lang="loaderText">Gerando seu plano personalizado...</p>
+            </div>
+            <div id="workout-plan-output" class="hidden">
+                <div id="workout-plan-content"></div>
+                <div class="text-center mt-6">
+                    <button id="save-routine-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 rounded-full shadow-lg" data-lang="saveBtn">
+                        Guardar Rotina e Começar
+                    </button>
+                </div>
+            </div>
+             <div id="error-message" class="hidden text-center bg-red-900 bg-opacity-50 text-red-300 p-4 rounded-lg"></div>
+        </div>
+    </main>
+    
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="auth-guard.js"></script>
+    <script src="translation.js" defer></script>
+    <script type="module" src="utils.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
