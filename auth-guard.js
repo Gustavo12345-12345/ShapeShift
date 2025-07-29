@@ -8,9 +8,9 @@ const protectPage = () => {
 
         // Se não há usuário e a página atual não é a de login, redireciona.
         // Esta verificação é mais confiável do que usar um setTimeout.
-        if (!user && !window.location.pathname.endsWith('login.html')) {
+        if (!user && !window.location.pathname.endsWith('/login')) {
             console.log("Auth Guard: Usuário não encontrado. Redirecionando para o login.");
-            window.location.href = 'login.html';
+            window.location.href = '/login';
         }
     });
 };
