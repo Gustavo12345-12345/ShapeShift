@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveBtn.textContent = "A guardar...";
         try {
             const userId = auth.currentUser.uid;
-            await setDoc(doc(db, "users", userId, "routine", "active"), { 
+            await setDoc(doc(db, "users", userId, "/minha-rotina", "active"), { 
                 createdAt: new Date().toISOString(), 
                 rawText: generatedPlanText 
             });
