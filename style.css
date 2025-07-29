@@ -66,68 +66,73 @@ h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme nece
     color: #a0a0a0;
 }
 
+/* MELHORIA: Estilos para Input e Select */
 .form-input,
 .form-select {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 0.75rem; /* Levemente mais arredondado */
-    padding: 1.1rem 1.4rem; /* Aumentado para campos maiores */
+    background-color: rgba(255, 255, 255, 0.08); /* Fundo ligeiramente mais opaco */
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Borda mais definida */
+    border-radius: 0.85rem; /* Mais arredondado */
+    padding: 1.2rem 1.5rem; /* Aumentado para campos maiores */
     color: #e0e0e0;
-    font-size: 1.1rem; /* Levemente maior */
-    transition: all 0.3s ease;
+    font-size: 1.15rem; /* Levemente maior */
+    transition: all 0.4s ease-in-out; /* Transição mais suave */
     outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.2); /* Sombra e inner shadow */
 }
 
 .form-input::placeholder,
-.form-select::placeholder { /* Estilo para o placeholder */
-    color: rgba(255, 255, 255, 0.5); /* Cor mais clara para o placeholder */
-    opacity: 1; /* Garante que a opacidade seja aplicada */
-    font-style: italic; /* Adiciona um toque de estilo */
+.form-select::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Cor mais visível para o placeholder */
+    opacity: 1;
+    font-style: italic;
 }
 
 .form-input:focus,
 .form-select:focus {
     border-color: #fbbf24; /* amber-400 */
-    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5);
-    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5), 0 0 15px rgba(251, 191, 36, 0.7); /* Sombra maior e brilho */
+    background-color: rgba(255, 255, 255, 0.12); /* Fundo ligeiramente mais claro no foco */
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6)); /* Efeito de brilho na borda */
 }
 
 .form-select {
-    appearance: none; /* Remove a seta padrão do select */
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    /* MELHORIA: Ícone da seta do select */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23fbbf24'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 1.4rem center; /* Ajustado para o novo padding */
-    background-size: 1.5em 1.5em;
-    padding-right: 3.5rem; /* Aumentado para acomodar a seta */
+    background-position: right 1.5rem center; /* Ajustado para novo padding */
+    background-size: 1.6em 1.6em; /* Levemente maior */
+    padding-right: 4rem; /* Aumentado para acomodar a seta */
 }
 
 .form-group-full {
-    grid-column: 1 / -1; /* Ocupa toda a largura no grid */
+    grid-column: 1 / -1;
     margin-bottom: 1.5rem;
 }
 
 /* Ajuste específico para a caixa de informações adicionais (textarea) */
 .form-group-full textarea.form-input {
-    background-color: rgba(255, 255, 255, 0.1); /* Um pouco mais opaco */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda um pouco mais visível */
-    border-radius: 0.75rem; /* Levemente mais arredondado */
-    padding: 1.1rem 1.4rem; /* Aumentado para campos maiores */
+    background-color: rgba(255, 255, 255, 0.08); /* Um pouco mais opaco */
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Borda um pouco mais visível */
+    border-radius: 0.85rem; /* Mais arredondado */
+    padding: 1.2rem 1.5rem; /* Aumentado para campos maiores */
     color: #e0e0e0;
-    font-size: 1.1rem; /* Levemente maior */
-    transition: all 0.3s ease;
+    font-size: 1.15rem; /* Levemente maior */
+    transition: all 0.4s ease-in-out;
     outline: none;
-    resize: vertical; /* Permite redimensionar verticalmente */
-    min-height: 6rem; /* Altura mínima ligeiramente maior */
+    resize: vertical;
+    min-height: 7rem; /* Altura mínima ligeiramente maior */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .form-group-full textarea.form-input:focus {
     border-color: #fbbf24; /* amber-400 */
-    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5);
-    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5), 0 0 15px rgba(251, 191, 36, 0.7);
+    background-color: rgba(255, 255, 255, 0.12);
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
 }
-
 
 .form-button-container {
     text-align: center;
