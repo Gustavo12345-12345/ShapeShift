@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // **INÍCIO DA CORREÇÃO**
             // Redirecione AQUI, somente depois que todas as operações
             // assíncronas (await) acima forem concluídas.
-            window.location.href = 'index.html';
+            window.location.href = '/inicio';
             // **FIM DA CORREÇÃO**
 
         } catch (error) {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user) {
             // Este listener agora só serve para redirecionar usuários que já têm
             // uma sessão ativa, não para novos logins, pois handleLogin cuidará disso.
-            if (window.location.pathname.endsWith('login.html')) {
+            if (window.location.pathname.endsWith('/login')) {
                 // Para evitar um loop caso a função de login ainda esteja a ser processada,
                 // pode-se verificar um estado, mas a estrutura atual é suficiente.
                 console.log("Usuário já logado detectado, redirecionando...");
