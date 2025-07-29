@@ -30,11 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
             
-            // **INÍCIO DA CORREÇÃO**
-            // Redirecione AQUI, somente depois que todas as operações
-            // assíncronas (await) acima forem concluídas.
-            window.location.href = '/inicio';
-            // **FIM DA CORREÇÃO**
+            // Redireciona para a página inicial após o login bem-sucedido
+            window.location.href = '/'; 
 
         } catch (error) {
             console.error("Erro durante o login:", error.code, error.message);
@@ -47,17 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Redireciona se o utilizador JÁ ESTIVER logado ao visitar a página
+    // Redireciona se o utilizador JÁ ESTIVER logado ao visitar a página de login
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // Este listener agora só serve para redirecionar usuários que já têm
-            // uma sessão ativa, não para novos logins, pois handleLogin cuidará disso.
-            if (window.location.pathname.endsWith('/login')) {
-                // Para evitar um loop caso a função de login ainda esteja a ser processada,
-                // pode-se verificar um estado, mas a estrutura atual é suficiente.
-                console.log("Usuário já logado detectado, redirecionando...");
-                // Descomente a linha abaixo para reativar o redirecionamento para usuários já logados.
-                // window.location.href = 'index.html';
+            // Verifica se a URL atual é a página de login
+            // Usamos startsWith para cobrir tanto /login quanto /login/
+            if (window.location.pathname.startsWith('/login')) { 
+                console.log("Usuário já logado detectado, redirecionando para a página inicial...");
+                window.location.href = '/'; // Redireciona para a página inicial
             }
         }
     });
