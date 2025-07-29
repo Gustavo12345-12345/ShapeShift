@@ -30,7 +30,11 @@ main {
 }
 
 /* Títulos */
-h1, h2, h3, h4 {
+h1 { /* Ajuste específico para a logo ShapeShift */
+    font-family: 'Poppins', sans-serif; /* Fonte da logo ajustada */
+    color: #fff;
+}
+h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme necessário */
     font-family: 'Montserrat', sans-serif;
     color: #fff;
 }
@@ -97,18 +101,39 @@ h1, h2, h3, h4 {
     margin-bottom: 1.5rem;
 }
 
+/* Ajuste específico para a caixa de informações adicionais (textarea) */
+.form-group-full textarea.form-input {
+    background-color: rgba(255, 255, 255, 0.1); /* Um pouco mais opaco */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda um pouco mais visível */
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: #e0e0e0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 4rem; /* Altura mínima */
+}
+
+.form-group-full textarea.form-input:focus {
+    border-color: #fbbf24; /* amber-400 */
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+
 .form-button-container {
     text-align: center;
     margin-top: 2rem;
 }
 
 .generate-button {
-    background: linear-gradient(90deg, #fbbf24, #f59e0b); /* Gradiente de âmbar */
+    background: #fbbf24; /* Cor sólida âmbar */
     color: #1a202c; /* Cor de texto escura para contraste */
     font-weight: 700;
     padding: 0.9rem 2.5rem;
-    border-radius: 9999px; /* Full rounded */
-    box-shadow: 0 5px 15px rgba(251, 191, 36, 0.4);
+    border-radius: 0.75rem; /* Menos arredondado */
+    box-shadow: 0 3px 8px rgba(251, 191, 36, 0.3); /* Sombra mais suave */
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
@@ -118,8 +143,8 @@ h1, h2, h3, h4 {
 }
 
 .generate-button:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.6);
+    transform: translateY(-2px) scale(1.01); /* Efeito de hover mais sutil */
+    box-shadow: 0 5px 10px rgba(251, 191, 36, 0.4); /* Sombra no hover */
 }
 
 .generate-button:disabled {
@@ -187,7 +212,7 @@ h1, h2, h3, h4 {
     color: #1a202c; /* black */
     font-weight: 700;
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem; /* Ajustado */
     transition: background-color 0.3s ease;
     border: none;
     cursor: pointer;
@@ -264,7 +289,7 @@ h1, h2, h3, h4 {
     color: #1a202c; /* black */
     font-weight: 700;
     padding: 0.25rem 1rem;
-    border-radius: 9999px; /* full rounded */
+    border-radius: 0.75rem; /* Ajustado */
     font-size: 0.875rem; /* text-sm */
     transition: background-color 0.3s ease;
     border: none;
@@ -322,7 +347,7 @@ h1, h2, h3, h4 {
     font-size: 2rem;
     width: 3rem;
     height: 3rem;
-    border-radius: 9999px; /* full rounded */
+    border-radius: 0.75rem; /* Ajustado */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -346,7 +371,7 @@ h1, h2, h3, h4 {
     color: #fff;
     font-weight: 700;
     padding: 0.75rem 2rem;
-    border-radius: 9999px; /* full rounded */
+    border-radius: 0.75rem; /* Ajustado */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -443,7 +468,7 @@ h1, h2, h3, h4 {
     background-color: #4CAF50; /* Green */
     color: white;
     padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
+    border-radius: 0.75rem; /* Ajustado */
     font-weight: 700;
     transition: background-color 0.3s ease;
     border: none;
@@ -477,7 +502,7 @@ h1, h2, h3, h4 {
     font-weight: 600;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Sombra mais suave */
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
@@ -485,12 +510,8 @@ h1, h2, h3, h4 {
 }
 
 .login-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-}
-
-.login-button svg {
-    margin-right: 0.75rem;
+    transform: scale(1.02); /* Efeito de hover mais sutil */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 #auth-error {
