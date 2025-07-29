@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Custom styles to supplement Tailwind */
 body {
     font-family: 'Poppins', sans-serif;
@@ -233,3 +234,240 @@ body {
     background-color: #FBBF24;
     color: #000000;
 }
+=======
+/* Custom styles to supplement Tailwind */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #000000, #1a1a1a, #2b2b2b, #1a1a1a);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #E0E0E0;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: #4A5568; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #FBBF24; }
+
+/* --- ESTILOS DO FORMULÁRIO (REVISADOS) --- */
+.generator-form {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+}
+
+.form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 200px;
+}
+
+.form-group-full {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #d1d5db;
+    margin-bottom: 0.5rem;
+}
+
+/* MODIFICADO: Estilos melhorados para inputs e selects */
+.form-input, .form-select {
+    width: 100%;
+    border-radius: 0.75rem; /* Mais arredondado */
+    padding: 0.75rem 1rem;
+    color: #111827;
+    background-color: #ffffff;
+    border: 2px solid transparent; /* Borda transparente para transição suave */
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+/* MODIFICADO: Efeito de hover e focus */
+.form-input:hover, .form-select:hover {
+    border-color: rgba(251, 191, 36, 0.5); /* Borda âmbar subtil no hover */
+}
+.form-input:focus, .form-select:focus {
+    border-color: #FBBF24; /* Borda âmbar mais forte no focus */
+    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2);
+    outline: none;
+}
+
+/* MODIFICADO: Estilização da combobox (select) */
+.form-select {
+    appearance: none; /* Remove a seta padrão */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2em;
+    padding-right: 3rem; /* Espaço para a nova seta */
+}
+
+
+.form-button-container {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.generate-button {
+    background-color: #F59E0B;
+    color: #000000;
+    font-weight: 700;
+    padding: 0.75rem 2.5rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease-in-out;
+    border: none;
+}
+
+.generate-button:hover {
+    background-color: #D97706;
+    transform: scale(1.05);
+}
+
+.generate-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: scale(1);
+}
+
+/* --- FIM DOS ESTILOS DO FORMULÁRIO --- */
+
+
+/* Estilos para o conteúdo HTML gerado */
+#workout-plan-content h3, #routine-container h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #FBBF24;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+.exercise-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.exercise-info-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s ease-in-out;
+    flex-shrink: 0;
+}
+
+.exercise-info-link:hover { opacity: 1; }
+.exercise-info-link svg { width: 16px; height: 16px; fill: #FBBF24; }
+
+/* Estilos para a página de Treino Ativo */
+.exercise-item input:checked + label {
+    text-decoration: line-through;
+    color: #6b7280;
+}
+
+.streak-icon { animation: pulse-fire 2s infinite; }
+@keyframes pulse-fire {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Cartões de escolha de treino */
+.workout-choice-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(31, 41, 55, 0.5);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(75, 85, 99, 0.5);
+    text-decoration: none;
+    color: #f3f4f6;
+    transition: all 0.2s ease-in-out;
+}
+
+.workout-choice-card:hover {
+    background-color: rgba(55, 65, 81, 0.7);
+    border-color: #FBBF24;
+}
+
+.workout-choice-card .arrow-icon { transition: transform 0.2s ease-in-out; }
+.workout-choice-card:hover .arrow-icon { transform: translateX(5px); }
+
+/* Controles do timer */
+.timer-controls-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.timer-adjust-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    background-color: rgba(75, 85, 99, 0.7);
+    color: white;
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(107, 114, 128, 0.7);
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.timer-adjust-btn:hover {
+    background-color: rgba(107, 114, 128, 0.7);
+}
+
+.timer-adjust-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.timer-close-custom-btn {
+    background-color: #000000;
+    color: #FBBF24;
+    border: 1px solid #FBBF24;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    transition: all 0.2s ease-in-out;
+}
+
+.timer-close-custom-btn:hover {
+    background-color: #FBBF24;
+    color: #000000;
+}
+>>>>>>> 97e4f733a0f2380d536ac6a92a2d41bd0a24e640
