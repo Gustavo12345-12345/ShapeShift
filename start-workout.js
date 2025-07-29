@@ -1,7 +1,7 @@
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-// A função processWorkoutTextToHtml não é mais necessária aqui, mas o SVG sim.
-// Podemos definir o SVG diretamente para não depender do utils.js
+import { auth, db } from './firebase-config.js';
+
 const helpIconSvg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -10,7 +10,6 @@ const helpIconSvg = `
 `;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ... (referências aos elementos do DOM e do timer continuam iguais)
     const workoutDayTitle = document.getElementById('workout-day-title');
     const exerciseList = document.getElementById('exercise-list');
     const finishWorkoutBtn = document.getElementById('finish-workout-btn');
@@ -22,14 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const timerCloseBtn = document.getElementById('timer-close-btn');
     const increaseTimeBtn = document.getElementById('increase-time-btn');
     const decreaseTimeBtn = document.getElementById('decrease-time-btn');
+    
     let timerInterval;
     let totalSeconds = 60;
     const TIME_STEP = 30;
     const MIN_TIME = 15;
-    const auth = getAuth();
-    const db = window.db;
 
-    // ... (funções do timer continuam iguais)
     function formatTime(seconds) {
         const min = Math.floor(seconds / 60);
         const sec = seconds % 60;
@@ -89,9 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         finishWorkoutBtn.classList.toggle('cursor-not-allowed', !allChecked);
     }
 
-    /**
-     * Renderiza os exercícios do treino selecionado com os ícones de ajuda.
-     */
     function renderSelectedWorkout(rawText, workoutId) {
         const decodedWorkoutId = decodeURIComponent(workoutId).trim();
         workoutDayTitle.textContent = decodedWorkoutId;
@@ -110,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const currentTitle = dayMatch[1].replace(/[:*]/g, '').trim();
                 captureExercises = (currentTitle === decodedWorkoutId);
             } else if (captureExercises && trimmedLine.startsWith('*')) {
-                exercisesForSelectedWorkout.push(trimmedLine); // Guarda a linha completa
+                exercisesForSelectedWorkout.push(trimmedLine);
             }
         }
 
@@ -118,29 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const workoutHtml = exercisesForSelectedWorkout.map(exerciseLine => {
                 const fullText = exerciseLine.substring(1).trim();
                 let searchLink = '';
-
-                // Tenta extrair o nome do exercício para o link de pesquisa
                 const exerciseMatch = fullText.match(/^(?<name>.+?)(?=\s+\d+x\d+|\s+-\s+\d+|\s+\d+\s+s[eé]ries|\s+\d+\s+rep)/i);
                 if (exerciseMatch && exerciseMatch.groups.name) {
                     const exerciseName = exerciseMatch.groups.name.trim();
                     const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(exerciseName + ' exercício como fazer')}`;
-                    searchLink = `
-                        <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="exercise-info-link" title="Pesquisar '${exerciseName}' no Google">
-                            ${helpIconSvg}
-                        </a>
-                    `;
+                    searchLink = `<a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="exercise-info-link" title="Pesquisar '${exerciseName}' no Google">${helpIconSvg}</a>`;
                 }
-
-                return `
-                    <div class="exercise-item bg-gray-900 bg-opacity-50 p-4 rounded-lg flex items-center justify-between gap-4">
-                        <div class="flex items-center flex-grow">
-                            <input type="checkbox" class="exercise-checkbox h-6 w-6 rounded text-amber-500 focus:ring-amber-500 border-gray-600 bg-gray-700">
-                            <label class="ml-4 text-lg text-gray-200">${fullText}</label>
-                            ${searchLink}
-                        </div>
-                        <button class="rest-btn bg-amber-500 hover:bg-amber-600 text-black font-bold py-1 px-4 rounded-full text-sm flex-shrink-0">Descansar</button>
-                    </div>
-                `;
+                return `<div class="exercise-item bg-gray-900 bg-opacity-50 p-4 rounded-lg flex items-center justify-between gap-4"><div class="flex items-center flex-grow"><input type="checkbox" class="exercise-checkbox h-6 w-6 rounded text-amber-500 focus:ring-amber-500 border-gray-600 bg-gray-700"><label class="ml-4 text-lg text-gray-200">${fullText}</label>${searchLink}</div><button class="rest-btn bg-amber-500 hover:bg-amber-600 text-black font-bold py-1 px-4 rounded-full text-sm flex-shrink-0">Descansar</button></div>`;
             }).join('');
             exerciseList.innerHTML = workoutHtml;
             exerciseList.querySelectorAll('.rest-btn').forEach(btn => btn.addEventListener('click', openTimerModal));
@@ -151,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ... (o resto do ficheiro, incluindo updateStreak e onAuthStateChanged, continua igual)
     async function updateStreak(user) {
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
@@ -166,10 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-            window.location.href = 'login.html';
-            return;
-        }
+        if (!user) return;
 
         const urlParams = new URLSearchParams(window.location.search);
         const workoutId = urlParams.get('workoutId');
@@ -212,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
             finishWorkoutBtn.textContent = "A guardar...";
             await updateStreak(user);
             alert("Parabéns! Treino finalizado e foguinho atualizado!");
-            window.location.href = 'routine.html';
+            window.location.href = '/minha-rotina';
         }
     });
 });
