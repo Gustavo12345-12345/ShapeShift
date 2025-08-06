@@ -9,7 +9,7 @@ const protectPage = () => {
         // Se não há usuário e a página atual NÃO é a de login, redireciona.
         if (!user && window.location.pathname !== '/login.html') {
             console.log("Auth Guard: Usuário não encontrado. Redirecionando para o login.");
-            window.location.href = '/login';
+            window.location.href = '/login.html';
         }
     });
 };
