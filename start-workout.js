@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
             finishWorkoutBtn.textContent = "A guardar...";
             await updateStreak(user);
             alert("Parabéns! Treino finalizado e foguinho atualizado!");
-            window.location.href = '/minha-rotina';
+            window.location.href = '/minha-rotina.html';
         }
     });
 });
