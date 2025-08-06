@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 createdAt: new Date().toISOString(), 
                 rawText: generatedPlanText 
             });
-            window.location.href = '/minha-rotina';
+            window.location.href = '/minha-rotina.html';
         } catch (error) {
             alert(`Falha ao guardar a rotina: ${error.message}`);
             saveBtn.disabled = false;
