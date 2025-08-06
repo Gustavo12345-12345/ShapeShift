@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user) {
             // Verifica se a URL atual é a página de login
             // Usamos startsWith para cobrir tanto /login quanto /login/
-            if (window.location.pathname.startsWith('/login')) { 
+            if (window.location.pathname === '/login.html') { 
                 console.log("Usuário já logado detectado, redirecionando para a página inicial...");
                 window.location.href = '/'; // Redireciona para a página inicial
             }
