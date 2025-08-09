@@ -1,108 +1,194 @@
 /* =================================================================
-   Minimalist & Aesthetic Style for ShapeShift
+   Apple-Inspired Aesthetic for ShapeShift
+   Author: [Your Name/Studio]
+   Version: 2.0
    ================================================================= */
 
-/* 1. ROOT VARIABLES & GLOBAL STYLES
+/* 1. FONT & ROOT VARIABLES
    -----------------------------------------------------------------
-   - Define uma paleta de cores coesa para fácil manutenção.
-   - Usa um fundo escuro sólido para um visual limpo.
-   - Define 'Inter' como a fonte principal para uma UI moderna.
+   - Utiliza a fonte 'Inter', comum em UIs modernas e limpas.
+   - Centraliza a paleta de cores, mantendo a identidade visual.
+   - Adiciona variáveis para transições, bordas e sombras.
 */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --bg-color: #111827;          /* Cinza-azulado muito escuro (Tailwind gray-900) */
-    --surface-color: #1F2937;     /* Cinza-azulado escuro (Tailwind gray-800) */
-    --border-color: #374151;      /* Cinza-azulado médio (Tailwind gray-700) */
-    --primary-accent: #FBBF24;     /* Amarelo-âmbar (Tailwind amber-400) */
-    --primary-accent-hover: #F59E0B; /* Amarelo-âmbar mais escuro (Tailwind amber-500) */
+    /* Color Palette */
+    --bg-color: #000000; /* Fundo preto profundo, estilo Apple */
+    --surface-color: #1c1c1e; /* Cinza escuro para superfícies (cards, modais) */
+    --border-color: rgba(255, 255, 255, 0.15); /* Borda branca sutil */
+    --primary-accent: #FBBF24; /* Amarelo-âmbar da logo */
+    --primary-accent-hover: #FFD60A; /* Amarelo mais vibrante para hover */
     
-    --text-primary: #F9FAFB;       /* Texto principal, quase branco (Tailwind gray-50) */
-    --text-secondary: #9CA3AF;     /* Texto secundário, cinza claro (Tailwind gray-400) */
-    --text-on-accent: #111827;     /* Texto para usar sobre o acento primário */
+    --text-primary: #ffffff; /* Texto principal branco */
+    --text-secondary: #8e8e93; /* Cinza para texto secundário, padrão Apple */
+    --text-on-accent: #000000; /* Texto preto para botões amarelos */
 
-    --success-color: #10B981;      /* Verde (Tailwind emerald-500) */
-    --error-color: #EF4444;        /* Vermelho (Tailwind red-500) */
+    /* System Colors */
+    --success-color: #34c759;
+    --error-color: #ff3b30;
+
+    /* UI Metrics */
+    --border-radius-large: 24px; /* Bordas mais arredondadas */
+    --border-radius-medium: 12px;
+    --border-radius-small: 8px;
+    --transition-speed-fast: 0.2s;
+    --transition-speed-normal: 0.3s;
+    --global-padding: 3rem;
+
+    /* Advanced Effects */
+    --glow-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+    --glow-shadow-hover: 0 0 25px rgba(251, 191, 36, 0.25);
 }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-primary);
-    margin: 0;
-    padding: 1.5rem; /* Adiciona padding ao redor de toda a página */
+/* 2. GLOBAL & BODY STYLES
+   -----------------------------------------------------------------
+   - Anti-aliasing para renderização de fonte suave.
+   - Fundo preto sólido.
+   - Animação de fade-in na entrada da página.
+*/
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
-/* 2. MAIN LAYOUT CONTAINER
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    margin: 0;
+    padding: var(--global-padding);
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
+/* 3. MAIN LAYOUT & CONTAINERS
    -----------------------------------------------------------------
-   - Remove o efeito de vidro (backdrop-filter) e sombras pesadas.
-   - Usa uma borda sutil para delinear o conteúdo principal.
+   - Layout centralizado e simétrico.
+   - Efeito de "glow" sutil no contêiner principal.
 */
 main {
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 2rem;
+    border-radius: var(--border-radius-large);
+    padding: 2.5rem 3rem;
     width: 100%;
-    margin: 0 auto; /* Centraliza o main */
-    box-shadow: none; /* Remove a sombra */
-    backdrop-filter: none; /* Remove o desfoque */
+    max-width: 1200px; /* Largura máxima para telas grandes */
+    margin: 2rem auto;
+    box-shadow: var(--glow-shadow);
+    transition: box-shadow var(--transition-speed-normal) ease, transform var(--transition-speed-normal) ease;
 }
 
-/* 3. TYPOGRAPHY
+main:hover {
+    box-shadow: var(--glow-shadow-hover);
+    transform: translateY(-2px);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* 4. TYPOGRAPHY
    -----------------------------------------------------------------
-   - Estilos claros e consistentes para títulos e parágrafos.
+   - Hierarquia de texto clara e espaçamento refinado.
+   - Efeito de gradiente no título principal.
 */
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
-    font-weight: 600;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.02em;
 }
 
-p {
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+h1 .text-amber-400 { /* Estilo para o 'Shift' da logo */
+    color: var(--primary-accent);
+}
+
+header p {
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    line-height: 1.6;
+    max-width: 600px;
+    margin: 0.5rem auto 0;
 }
 
 a {
     color: var(--primary-accent);
     text-decoration: none;
-    transition: color 0.2s ease-in-out;
+    transition: color var(--transition-speed-fast) ease-in-out;
 }
 
 a:hover {
     color: var(--primary-accent-hover);
 }
 
-/* 4. FORMS & INPUTS
+/* 5. FORMS & INPUTS
    -----------------------------------------------------------------
-   - Design limpo para campos de formulário.
-   - O foco é indicado por uma borda colorida, não por sombras.
+   - Inputs com design limpo, bordas sutis e foco destacado.
+   - Transições suaves em todos os estados.
 */
 .form-label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     font-weight: 500;
     color: var(--text-secondary);
+    transition: color var(--transition-speed-fast) ease;
+}
+
+.form-group:focus-within .form-label {
+    color: var(--primary-accent);
 }
 
 .form-input,
 .form-select {
     width: 100%;
-    background-color: var(--bg-color);
+    background-color: #0d0d0f; /* Fundo do input um pouco mais escuro */
     border: 1px solid var(--border-color);
     color: var(--text-primary);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius-medium);
+    padding: 1rem 1.25rem;
     font-size: 1rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: all var(--transition-speed-normal) ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.form-input::placeholder {
+    color: #555;
+}
+
+.form-input:hover,
+.form-select:hover {
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .form-input:focus,
 .form-select:focus {
     outline: none;
     border-color: var(--primary-accent);
-    box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); /* Sombra de foco sutil */
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+    background-color: #111;
 }
 
 /* Remove as setas dos inputs numéricos */
@@ -112,150 +198,321 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 input[type=number] {
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
 }
 
-
-/* 4.1. FORM GRID LAYOUT
+/* 5.1. FORM GRID LAYOUT
    -----------------------------------------------------------------
-   - Organiza os campos do formulário em um grid para otimizar o espaço.
-   - Em telas maiores, usa 3 colunas para um visual simétrico.
+   - Grid simétrico com 3 colunas em telas grandes.
 */
 .form-grid {
     display: grid;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    /* Layout responsivo para telas menores */
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-/* Layout para telas de desktop para um visual simétrico */
 @media (min-width: 1024px) {
     .form-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-
-    /* Centraliza o último item se ele começar uma nova linha sozinho (ex: 7º item) */
-    .form-group:last-child:nth-child(3n + 1) {
-        grid-column: 2;
-    }
 }
 
-/* Aumenta a altura do campo de texto de observações */
 textarea.form-input {
-    min-height: 120px;
+    min-height: 140px;
     resize: vertical;
+    line-height: 1.6;
 }
 
-/* 5. BUTTONS
+/* 6. BUTTONS
    -----------------------------------------------------------------
-   - Estilos consistentes para botões primários e secundários.
+   - Botões com design premium, sombras e feedback tátil.
 */
 .generate-button,
 #save-routine-btn,
-#finish-workout-btn {
-    background-color: var(--primary-accent);
+#finish-workout-btn,
+.login-button {
+    display: inline-block;
+    background: var(--primary-accent);
     color: var(--text-on-accent);
     font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius-medium);
     border: none;
     cursor: pointer;
     text-align: center;
-    transition: background-color 0.2s ease;
+    transition: all var(--transition-speed-normal) cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: perspective(1px) translateZ(0);
 }
 
 .generate-button:hover,
 #save-routine-btn:hover,
-#finish-workout-btn:hover {
-    background-color: var(--primary-accent-hover);
+#finish-workout-btn:hover,
+.login-button:hover {
+    background: var(--primary-accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+.generate-button:active,
+#save-routine-btn:active,
+#finish-workout-btn:active,
+.login-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 #finish-workout-btn:disabled {
-    background-color: var(--border-color);
+    background-color: #2c2c2e;
     cursor: not-allowed;
     color: var(--text-secondary);
+    box-shadow: none;
+    transform: none;
 }
 
-/* Botão de Login (Google) */
-#login-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    color: #1a202c;
-    font-weight: 600;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    border: 1px solid #D1D5DB;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    transition: all 0.2s ease;
-    cursor: pointer;
-    font-size: 1rem;
+.form-button-container {
+    text-align: center;
+    margin-top: 2rem;
 }
 
-#login-btn:hover {
-    border-color: #9CA3AF;
-    background-color: #F9FAFB;
-}
-
-
-/* 6. WORKOUT & ROUTINE SPECIFIC STYLES
+/* 7. NAVIGATION
    -----------------------------------------------------------------
-   - Estilos limpos para a exibição de treinos e exercícios.
+   - Navegação superior limpa e alinhada.
+*/
+nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition-speed-fast) ease;
+}
+
+nav a:hover {
+    color: var(--text-primary);
+}
+
+nav a.text-amber-400 { /* Link ativo */
+    color: var(--primary-accent);
+    border-bottom-color: var(--primary-accent);
+}
+
+/* 8. WORKOUT & ROUTINE SPECIFIC STYLES
+   -----------------------------------------------------------------
+   - Cards de treino e itens de exercício com design aprimorado.
 */
 .workout-day {
     background-color: var(--bg-color);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    border-radius: var(--border-radius-medium);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all var(--transition-speed-normal) ease;
+}
+
+.workout-day:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.01);
 }
 
 .workout-day h3 {
     margin-top: 0;
     color: var(--primary-accent);
+    font-size: 1.5rem;
 }
 
 .exercise-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border-color);
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: var(--border-radius-small);
+    transition: background-color var(--transition-speed-fast) ease;
 }
-.exercise-item:last-child {
-    border-bottom: none;
+
+.exercise-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .exercise-checkbox {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-right: 1rem;
-    accent-color: var(--primary-accent);
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    font: inherit;
+    color: var(--border-color);
+    width: 1.5em;
+    height: 1.5em;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition: all var(--transition-speed-fast) ease;
 }
 
-/* 7. MODAL STYLES
+.exercise-checkbox::before {
+    content: "";
+    width: 0.75em;
+    height: 0.75em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--primary-accent);
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.exercise-checkbox:checked {
+    border-color: var(--primary-accent);
+}
+
+.exercise-checkbox:checked::before {
+    transform: scale(1);
+}
+
+.exercise-item label {
+    flex-grow: 1;
+}
+
+/* 9. MODAL STYLES
    -----------------------------------------------------------------
-   - Design limpo e focado para os modais.
+   - Modal com design premium, animação de entrada e fundo com blur.
 */
-#timer-modal .bg-gray-800 { /* Usando a classe existente para sobrescrever */
+.fixed.inset-0 { /* Estilo genérico para overlays de modal */
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    animation: fadeInAnimation 0.3s;
+}
+
+#timer-modal .bg-gray-800, #session-modal .bg-gray-800 {
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-large);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    animation: modalPopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#timer-display {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--primary-accent);
+    font-family: 'Inter', monospace;
 }
 
 .timer-adjust-btn, .timer-close-custom-btn {
     background: var(--border-color);
     color: var(--text-primary);
-    border-radius: 9999px;
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 2rem;
     border: none;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all var(--transition-speed-fast) ease;
 }
 
 .timer-adjust-btn:hover, .timer-close-custom-btn:hover {
-    background-color: #4B5563; /* gray-600 */
+    background-color: #4B5563;
+    transform: scale(1.1);
+}
+
+/* 10. PLANOS (Pricing Page)
+   -----------------------------------------------------------------
+   - Cards de planos com destaque claro para a opção Pro.
+*/
+.plan-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-large);
+    padding: 2.5rem;
+    text-align: center;
+    transition: all var(--transition-speed-normal) ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.plan-card.border-amber-500 { /* Estilo para o plano Pro */
+    border-color: var(--primary-accent);
+    box-shadow: var(--glow-shadow-hover);
+}
+
+.plan-card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.plan-card .text-5xl {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 1.5rem 0;
+}
+
+.plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.plan-card li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.plan-card li span.text-green-500 {
+    color: var(--success-color);
+}
+
+/* 11. RESPONSIVE ADJUSTMENTS
+   -----------------------------------------------------------------
+*/
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    main {
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+
+    h1 {
+        font-size: 2.25rem;
+    }
+
+    header {
+        margin-bottom: 2rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas pequenas */
+        gap: 1.5rem;
+    }
 }
