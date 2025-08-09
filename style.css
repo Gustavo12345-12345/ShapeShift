@@ -105,6 +105,32 @@ a:hover {
     box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); /* Sombra de foco sutil */
 }
 
+/* 4.1. FORM GRID LAYOUT
+   -----------------------------------------------------------------
+   - Organiza os campos do formulário em um grid para otimizar o espaço.
+   - Em telas maiores, força 4 colunas para criar 2 linhas compactas.
+*/
+.form-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    /* Layout responsivo para telas menores */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Layout para telas de desktop para garantir 2 linhas */
+@media (min-width: 1024px) {
+    .form-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Aumenta a altura do campo de texto de observações */
+textarea.form-input {
+    min-height: 120px;
+    resize: vertical;
+}
+
 /* 5. BUTTONS
    -----------------------------------------------------------------
    - Estilos consistentes para botões primários e secundários.
