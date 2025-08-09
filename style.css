@@ -1,7 +1,7 @@
 /* =================================================================
    Apple-Inspired Aesthetic for ShapeShift
    Author: [Your Name/Studio]
-   Version: 2.2
+   Version: 2.3
    ================================================================= */
 
 /* 1. FONT & ROOT VARIABLES
@@ -135,7 +135,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 4rem; /* Aumentado para maior impacto */
+    font-size: 5rem; /* Aumentado para maior impacto */
     font-weight: 800;
 }
 
