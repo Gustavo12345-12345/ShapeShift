@@ -26,8 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const userData = userSnap.data();
                 if (streakCounterNav && streakCountNav) {
                     const streakCount = userData.streakCount || 0;
-                    // *** LÓGICA CORRIGIDA ***
-                    // Remove a classe 'hidden' para garantir que o contador seja sempre visível.
                     streakCounterNav.classList.remove('hidden');
                     streakCountNav.textContent = streakCount;
                 }
@@ -44,13 +42,30 @@ document.addEventListener('DOMContentLoaded', () => {
         generateBtn.textContent = "A gerar...";
 
         const formData = new FormData(form);
-        const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características: Idade: ${formData.get('age') || 'Não informado'}, Peso: ${formData.get('weight') || 'Não informado'} kg, Altura: ${formData.get('height') || 'Não informado'} cm. O objetivo do treino é ${formData.get('goal')}, com um nível de fitness ${formData.get('level')}, para treinar ${formData.get('days')} dias por semana, com o seguinte equipamento disponível: ${formData.get('equipment')}. Observações adicionais: ${formData.get('notes') || 'Nenhuma'}. Formate como texto simples, com cada dia e exercício claramente definidos. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
+        // PROMPT ATUALIZADO PARA INCLUIR A FREQUÊNCIA SEMANAL
+        const prompt = `Crie um plano de treino semanal detalhado para um utilizador com as seguintes características:
+- Idade: ${formData.get('age') || 'Não informado'}
+- Peso: ${formData.get('weight') || 'Não informado'} kg
+- Altura: ${formData.get('height') || 'Não informado'} cm
+- Objetivo Principal: ${formData.get('goal')}
+- Nível de Fitness: ${formData.get('level')}
+- Frequência de Treino Desejada: ${formData.get('training_frequency')}
+- Divisão do Treino (em fichas): ${formData.get('days')}
+- Equipamento Disponível: ${formData.get('equipment')}
+- Observações Adicionais: ${formData.get('notes') || 'Nenhuma'}
+
+Instruções de Formato: Formate a resposta como texto simples, com cada dia e exercício claramente definidos. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
         try {
-            const apiKey = "AIzaSyCeknOilCeptvVH6zL2GF45k1e_R5jXa9k";
+            const apiKey = "AIzaSyCeknOilCeptvVH6zL2GF45k1e_R5jXa9k"; // Lembre-se de proteger sua chave de API
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+            
             const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("A requisição para a IA demorou demais (timeout).")), 20000));
-            const fetchPromise = fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
+            const fetchPromise = fetch(apiUrl, { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) 
+            });
             
             const response = await Promise.race([fetchPromise, timeoutPromise]);
             if (!response.ok) {
@@ -97,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (generateBtn) generateBtn.addEventListener('click', handleGeneratePlan);
+    if (form) form.addEventListener('submit', handleGeneratePlan);
     if (saveBtn) saveBtn.addEventListener('click', handleSaveRoutine);
     if (logoutBtn) logoutBtn.addEventListener('click', () => signOut(auth).catch(console.error));
 });
