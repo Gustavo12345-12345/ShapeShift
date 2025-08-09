@@ -105,10 +105,21 @@ a:hover {
     box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); /* Sombra de foco sutil */
 }
 
+/* Remove as setas dos inputs numéricos */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+
 /* 4.1. FORM GRID LAYOUT
    -----------------------------------------------------------------
    - Organiza os campos do formulário em um grid para otimizar o espaço.
-   - Em telas maiores, força 4 colunas para criar 2 linhas compactas.
+   - Em telas maiores, usa 3 colunas para um visual simétrico.
 */
 .form-grid {
     display: grid;
@@ -118,10 +129,15 @@ a:hover {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
-/* Layout para telas de desktop para garantir 2 linhas */
+/* Layout para telas de desktop para um visual simétrico */
 @media (min-width: 1024px) {
     .form-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Centraliza o último item se ele começar uma nova linha sozinho (ex: 7º item) */
+    .form-group:last-child:nth-child(3n + 1) {
+        grid-column: 2;
     }
 }
 
