@@ -1,554 +1,219 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Montserrat:wght@400;500&display=swap');
+/* =================================================================
+   Minimalist & Aesthetic Style for ShapeShift
+   ================================================================= */
 
-/* Reset básico e estilos globais */
+/* 1. ROOT VARIABLES & GLOBAL STYLES
+   -----------------------------------------------------------------
+   - Define uma paleta de cores coesa para fácil manutenção.
+   - Usa um fundo escuro sólido para um visual limpo.
+   - Define 'Inter' como a fonte principal para uma UI moderna.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-color: #111827;          /* Cinza-azulado muito escuro (Tailwind gray-900) */
+    --surface-color: #1F2937;     /* Cinza-azulado escuro (Tailwind gray-800) */
+    --border-color: #374151;      /* Cinza-azulado médio (Tailwind gray-700) */
+    --primary-accent: #FBBF24;     /* Amarelo-âmbar (Tailwind amber-400) */
+    --primary-accent-hover: #F59E0B; /* Amarelo-âmbar mais escuro (Tailwind amber-500) */
+    
+    --text-primary: #F9FAFB;       /* Texto principal, quase branco (Tailwind gray-50) */
+    --text-secondary: #9CA3AF;     /* Texto secundário, cinza claro (Tailwind gray-400) */
+    --text-on-accent: #111827;     /* Texto para usar sobre o acento primário */
+
+    --success-color: #10B981;      /* Verde (Tailwind emerald-500) */
+    --error-color: #EF4444;        /* Vermelho (Tailwind red-500) */
+}
+
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
     margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #1a1a1a, #000000); /* Gradiente preto */
-    color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho total */
+    padding: 1.5rem; /* Adiciona padding ao redor de toda a página */
+    box-sizing: border-box;
 }
 
-/* Estilos para o contêiner principal */
+/* 2. MAIN LAYOUT CONTAINER
+   -----------------------------------------------------------------
+   - Remove o efeito de vidro (backdrop-filter) e sombras pesadas.
+   - Usa uma borda sutil para delinear o conteúdo principal.
+*/
 main {
-    background-color: rgba(0, 0, 0, 0.3); /* Fundo semi-transparente para o conteúdo */
-    backdrop-filter: blur(10px); /* Efeito de desfoque para o fundo */
-    border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    padding: 2.5rem; /* Aumentado para melhor espaçamento */
-    width: 100%;
-    max-width: 72rem; /* Aumentado para 6xl */
-    margin: 1rem auto; /* Centraliza e adiciona margem */
-    position: relative;
-    overflow: hidden; /* Para garantir que bordas arredondadas funcionem bem com conteúdo */
-}
-
-/* Títulos */
-h1 { /* Ajuste específico para a logo ShapeShift */
-    font-family: 'Poppins', sans-serif; /* Fonte da logo ajustada */
-    color: #fff;
-}
-h2, h3, h4 { /* Outros títulos podem manter Montserrat ou ajustar conforme necessário */
-    font-family: 'Montserrat', sans-serif;
-    color: #fff;
-}
-
-/* Formulário do Gerador */
-.generator-form {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     padding: 2rem;
-    margin-top: 2rem;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    margin: 0 auto; /* Centraliza o main */
+    box-shadow: none; /* Remove a sombra */
+    backdrop-filter: none; /* Remove o desfoque */
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+/* 3. TYPOGRAPHY
+   -----------------------------------------------------------------
+   - Estilos claros e consistentes para títulos e parágrafos.
+*/
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
+p {
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
+a {
+    color: var(--primary-accent);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: var(--primary-accent-hover);
+}
+
+/* 4. FORMS & INPUTS
+   -----------------------------------------------------------------
+   - Design limpo para campos de formulário.
+   - O foco é indicado por uma borda colorida, não por sombras.
+*/
 .form-label {
+    display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: #a0a0a0;
+    color: var(--text-secondary);
 }
 
-/* MELHORIA: Estilos para Input e Select */
 .form-input,
 .form-select {
-    background-color: rgba(255, 255, 255, 0.08); /* Fundo ligeiramente mais opaco */
-    border: 1px solid rgba(255, 255, 255, 0.25); /* Borda mais definida */
-    border-radius: 0.85rem; /* Mais arredondado */
-    padding: 1.2rem 1.5rem; /* Aumentado para campos maiores */
-    color: #e0e0e0;
-    font-size: 1.15rem; /* Levemente maior */
-    transition: all 0.4s ease-in-out; /* Transição mais suave */
-    outline: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.2); /* Sombra e inner shadow */
-}
-
-.form-input::placeholder,
-.form-select::placeholder {
-    color: rgba(255, 255, 255, 0.6); /* Cor mais visível para o placeholder */
-    opacity: 1;
-    font-style: italic;
+    width: 100%;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-input:focus,
 .form-select:focus {
-    border-color: #fbbf24; /* amber-400 */
-    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5), 0 0 15px rgba(251, 191, 36, 0.7); /* Sombra maior e brilho */
-    background-color: rgba(255, 255, 255, 0.12); /* Fundo ligeiramente mais claro no foco */
-    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6)); /* Efeito de brilho na borda */
-}
-
-.form-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    /* MELHORIA: Ícone da seta do select */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23fbbf24'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1.5rem center; /* Ajustado para novo padding */
-    background-size: 1.6em 1.6em; /* Levemente maior */
-    padding-right: 4rem; /* Aumentado para acomodar a seta */
-}
-
-.form-group-full {
-    grid-column: 1 / -1;
-    margin-bottom: 1.5rem;
-}
-
-/* Ajuste específico para a caixa de informações adicionais (textarea) */
-.form-group-full textarea.form-input {
-    background-color: rgba(255, 255, 255, 0.08); /* Um pouco mais opaco */
-    border: 1px solid rgba(255, 255, 255, 0.25); /* Borda um pouco mais visível */
-    border-radius: 0.85rem; /* Mais arredondado */
-    padding: 1.2rem 1.5rem; /* Aumentado para campos maiores */
-    color: #e0e0e0;
-    font-size: 1.15rem; /* Levemente maior */
-    transition: all 0.4s ease-in-out;
     outline: none;
-    resize: vertical;
-    min-height: 7rem; /* Altura mínima ligeiramente maior */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); /* Sombra de foco sutil */
 }
 
-.form-group-full textarea.form-input:focus {
-    border-color: #fbbf24; /* amber-400 */
-    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5), 0 0 15px rgba(251, 191, 36, 0.7);
-    background-color: rgba(255, 255, 255, 0.12);
-    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
-}
-
-.form-button-container {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.generate-button {
-    background: #fbbf24; /* Cor sólida âmbar */
-    color: #1a202c; /* Cor de texto escura para contraste */
-    font-weight: 700;
-    padding: 1rem 3rem; /* Padding maior para botões mais proeminentes */
-    border-radius: 0.75rem; /* Menos arredondado */
-    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4); /* Sombra um pouco mais forte */
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem; /* Fonte ligeiramente maior */
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.generate-button:hover {
-    transform: translateY(-3px) scale(1.01); /* Efeito de hover um pouco mais pronunciado */
-    box-shadow: 0 6px 15px rgba(251, 191, 36, 0.6); /* Sombra no hover */
-}
-
-.generate-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-/* Estilos para a saída do plano de treino */
-#workout-plan-output {
-    margin-top: 2rem;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-#workout-plan-content h3 {
-    color: #fbbf24; /* Âmbar */
-    font-size: 1.875rem; /* text-3xl */
-    font-weight: 700;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid rgba(251, 191, 36, 0.3);
-    padding-bottom: 0.5rem;
-}
-
-#workout-plan-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#workout-plan-content li {
-    background-color: rgba(255, 255, 255, 0.03);
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 1.1rem;
-    color: #c0c0c0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#workout-plan-content li:last-child {
-    margin-bottom: 0;
-}
-
-.day-workout-group {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.day-workout-group:first-child {
-    border-top: none;
-    padding-top: 0;
-    margin-top: 0;
-}
-
-.start-workout-btn {
-    background-color: #fbbf24; /* amber-500 */
-    color: #1a202c; /* black */
-    font-weight: 700;
-    padding: 0.6rem 1.2rem; /* Ajustado */
-    border-radius: 0.75rem; /* Ajustado */
-    transition: background-color 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem; /* Ajustado */
-}
-
-.start-workout-btn:hover {
-    background-color: #f59e0b; /* amber-600 */
-}
-
-/* Estilos para a página de rotina (routine.html / minha-rotina/index.html) */
-#routine-content .day-workout-group {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-#routine-content .day-workout-group:first-child {
-    border-top: none;
-    padding-top: 0;
-    margin-top: 0;
-}
-
-.exercise-item {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.exercise-item:last-child {
-    margin-bottom: 0;
-}
-
-.exercise-checkbox {
-    height: 1.5rem;
-    width: 1.5rem;
-    border-radius: 0.25rem;
-    color: #fbbf24; /* amber-500 */
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.exercise-checkbox:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5);
-}
-
-.exercise-item label {
-    flex-grow: 1;
-    margin-left: 1rem;
-    font-size: 1.125rem; /* text-lg */
-    color: #e0e0e0;
-}
-
-.exercise-info-link {
-    color: #a0a0a0;
-    margin-left: 0.5rem;
-    transition: color 0.2s ease;
-}
-
-.exercise-info-link:hover {
-    color: #fbbf24;
-}
-
-.rest-btn {
-    background-color: #fbbf24; /* amber-500 */
-    color: #1a202c; /* black */
-    font-weight: 700;
-    padding: 0.3rem 1.1rem; /* Ajustado */
-    border-radius: 0.75rem; /* Ajustado */
-    font-size: 0.9rem; /* Ajustado */
-    transition: background-color 0.3s ease;
-    border: none;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.rest-btn:hover {
-    background-color: #f59e0b; /* amber-600 */
-}
-
-/* Estilos para o modal de timer */
-#timer-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
-}
-
-#timer-modal > div {
-    background-color: #1a1a1a;
-    border-radius: 1rem;
-    padding: 2rem;
-    text-align: center;
-    color: #e0e0e0;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-    width: 100%;
-    max-width: 24rem;
-}
-
-#timer-display {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 5rem; /* text-8xl */
-    font-weight: 700;
-    color: #fbbf24; /* amber-400 */
-    margin: 1.5rem 0;
-}
-
-.timer-controls-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.timer-adjust-btn {
-    background-color: #4a5568; /* gray-600 */
-    color: #fff;
-    font-size: 2rem;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 0.75rem; /* Ajustado */
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 1rem;
-}
-
-.timer-adjust-btn:hover {
-    background-color: #2d3748; /* gray-800 */
-}
-
-.timer-adjust-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.timer-close-custom-btn {
-    background-color: #4a5568; /* gray-600 */
-    color: #fff;
-    font-weight: 700;
-    padding: 0.75rem 2rem;
-    border-radius: 0.75rem; /* Ajustado */
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.timer-close-custom-btn:hover {
-    background-color: #2d3748; /* gray-800 */
-}
-
-/* Estilos para o loader */
-#loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-#loader div[role="status"] {
-    border-color: #fbbf24; /* amber-400 */
-    border-right-color: transparent;
-}
-
-/* Estilos para mensagens de erro */
-#error-message {
-    background-color: rgba(220, 38, 38, 0.3);
-    color: #fca5a5;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    text-align: center;
-    font-weight: 500;
-}
-
-/* Estilos para a navegação superior (foguinho e logout) */
-#streak-counter-nav {
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: #fff;
-    display: flex;
-    align-items: center;
-}
-
-#logout-btn {
-    color: #a0a0a0;
-    transition: color 0.2s ease;
-}
-
-#logout-btn:hover {
-    color: #fff;
-}
-
-/* Estilos para a navegação inferior (planos) */
-.plan-card {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.plan-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-.plan-card h3 {
-    color: #fbbf24;
-    font-size: 1.875rem;
-    margin-bottom: 1rem;
-}
-
-.plan-card p {
-    color: #c0c0c0;
-    margin-bottom: 1.5rem;
-}
-
-.plan-card .price {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 1rem;
-}
-
-.plan-card .price span {
-    font-size: 1.5rem;
-    color: #a0a0a0;
-}
-
-.plan-card .upgrade-button {
-    background-color: #4CAF50; /* Green */
-    color: white;
+/* 5. BUTTONS
+   -----------------------------------------------------------------
+   - Estilos consistentes para botões primários e secundários.
+*/
+.generate-button,
+#save-routine-btn,
+#finish-workout-btn {
+    background-color: var(--primary-accent);
+    color: var(--text-on-accent);
+    font-weight: 600;
     padding: 0.75rem 1.5rem;
-    border-radius: 0.75rem; /* Ajustado */
-    font-weight: 700;
-    transition: background-color 0.3s ease;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
-}
-
-.plan-card .upgrade-button:hover {
-    background-color: #45a049;
-}
-
-/* Estilos para a página de login */
-.login-container {
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-    border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    padding: 3rem;
     text-align: center;
-    width: 100%;
-    max-width: 28rem;
-    position: relative;
-    overflow: hidden;
+    transition: background-color 0.2s ease;
 }
 
-.login-button {
+.generate-button:hover,
+#save-routine-btn:hover,
+#finish-workout-btn:hover {
+    background-color: var(--primary-accent-hover);
+}
+
+#finish-workout-btn:disabled {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+    color: var(--text-secondary);
+}
+
+/* Botão de Login (Google) */
+#login-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background-color: #fff;
     color: #1a202c;
     font-weight: 600;
-    padding: 0.85rem 1.25rem; /* Ajustado */
-    border-radius: 0.6rem; /* Ajustado */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Sombra mais visível */
-    transition: all 0.3s ease;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#login-btn:hover {
+    border-color: #9CA3AF;
+    background-color: #F9FAFB;
+}
+
+
+/* 6. WORKOUT & ROUTINE SPECIFIC STYLES
+   -----------------------------------------------------------------
+   - Estilos limpos para a exibição de treinos e exercícios.
+*/
+.workout-day {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.workout-day h3 {
+    margin-top: 0;
+    color: var(--primary-accent);
+}
+
+.exercise-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.exercise-item:last-child {
+    border-bottom: none;
+}
+
+.exercise-checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 1rem;
+    accent-color: var(--primary-accent);
+}
+
+/* 7. MODAL STYLES
+   -----------------------------------------------------------------
+   - Design limpo e focado para os modais.
+*/
+#timer-modal .bg-gray-800 { /* Usando a classe existente para sobrescrever */
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+}
+
+.timer-adjust-btn, .timer-close-custom-btn {
+    background: var(--border-color);
+    color: var(--text-primary);
+    border-radius: 9999px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
     border: none;
     cursor: pointer;
-    font-size: 1.15rem; /* Levemente maior */
+    transition: background-color 0.2s ease;
 }
 
-.login-button:hover {
-    transform: translateY(-2px) scale(1.02); /* Efeito de hover um pouco mais pronunciado */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
-}
-
-#auth-error {
-    background-color: rgba(220, 38, 38, 0.3);
-    color: #fca5a5;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    text-align: center;
-    font-weight: 500;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-    main {
-        padding: 1.5rem;
-    }
-    .generator-form {
-        padding: 1.5rem;
-    }
-    .login-container {
-        padding: 2rem;
-    }
+.timer-adjust-btn:hover, .timer-close-custom-btn:hover {
+    background-color: #4B5563; /* gray-600 */
 }
