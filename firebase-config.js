@@ -11,12 +11,12 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase
 
 // TODO: Substitua o objeto abaixo pelas credenciais do seu projeto Firebase
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_AUTH_DOMAIN",
-  projectId: "SEU_PROJECT_ID",
-  storageBucket: "SEU_STORAGE_BUCKET",
-  messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-  appId: "SUA_APP_ID"
+  apiKey: "AIzaSyAEsQXShcDO-IP4C0mLFBevckA6ccoFry4",
+  authDomain: "workoutplaner-3930e.firebaseapp.com",
+  projectId: "workoutplaner-3930e",
+  storageBucket: "workoutplaner-3930e.firebasestorage.app",
+  messagingSenderId: "197140468893",
+  appId: "1:197140468893:web:1e43c4072bddb0a4ec3074"
 };
 
 // Inicializa o Firebase
