@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 Instruções de Formato: Formate a resposta como texto simples, com cada dia e exercício claramente definidos. Exemplo: Dia A: Peito e Tríceps * Supino Reto 4x10`;
 
         try {
-            const apiKey = "AIzaSyCeknOilCeptvVH6zL2GF45k1e_R5jXa9k"; // Lembre-se de proteger sua chave de API
+            const apiKey = "AIzaSyA8GweO3l6t_KObs0Zg1bHRmuIaQZKpDcw"; // Lembre-se de proteger sua chave de API
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             
             const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("A requisição para a IA demorou demais (timeout).")), 20000));
