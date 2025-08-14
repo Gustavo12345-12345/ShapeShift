@@ -4,23 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShapeShift - Minha Rotina</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css"> <!-- CORRIGIDO: Caminho absoluto para o CSS -->
-
+    <link rel="stylesheet" href="/style.css">
 </head>
-<body class="min-h-screen p-4">
+<body>
 
-    <main class="w-full max-w-6xl mx-auto bg-black bg-opacity-30 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 transition-all duration-500 relative">
-        
+    <main>
+        <!-- A navegação superior é inserida aqui pelo CSS para alinhamento correto -->
         <div class="absolute top-5 left-5 right-5 flex justify-between items-center">
-            <nav class="flex items-center space-x-4 text-white">
-                <a href="/" class="hover:text-amber-300 transition-colors pb-1">Gerador</a> <!-- CORRIGIDO: Link para a raiz do site -->
-                <a href="/minha-rotina.html" class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1">Minha Rotina</a>
+            <nav>
+                <a href="/">Gerador</a>
+                <a href="/minha-rotina.html" class="text-amber-400">Minha Rotina</a>
             </nav>
             <div class="flex items-center space-x-4">
                 <div id="streak-counter-nav" class="flex items-center text-lg font-bold text-white bg-gray-900 bg-opacity-50 px-3 py-1 rounded-full hidden">
@@ -33,81 +26,34 @@
             </div>
         </div>
 
-        <header class="text-center mb-8 pt-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-wide">Minha <span class="text-amber-400">Rotina</span></h1>
-            <p class="text-gray-400 mt-2" data-lang="routineSubtitle">Seu plano de treino atual e histórico.</p>
+        <header>
+            <h1>Minha <span class="text-amber-400">Rotina</span></h1>
+            <p data-lang="routineSubtitle">O seu plano de treino ativo.</p>
         </header>
 
+        <!-- Mensagem para quando não há rotina -->
         <div id="empty-state" class="text-center py-12 hidden">
-            <p class="text-gray-300 text-lg mb-4" data-lang="noRoutine">Você ainda não tem uma rotina de treino salva.</p>
-            <a href="/" class="generate-button inline-block">
+            <p class="text-lg mb-4" data-lang="noRoutine">Você ainda não tem uma rotina de treino guardada.</p>
+            <a href="/" class="generate-button">
                 Gerar uma agora
             </a>
         </div>
 
-        <div id="routine-content" class="hidden">
-            <!-- Conteúdo da rotina será carregado aqui pelo JS -->
-        </div>
+        <!-- O conteúdo da rotina será inserido aqui -->
+        <div id="routine-content"></div>
 
-        <div class="text-center mt-8">
-            <button id="delete-routine-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg hidden" data-lang="deleteRoutineBtn">
+        <!-- Botão para apagar a rotina -->
+        <div class="form-button-container">
+            <button id="delete-routine-btn" class="delete-button hidden">
                 Remover Rotina Atual
             </button>
         </div>
-
-        <!-- Modal de Sessão de Treino -->
-        <div id="session-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
-            <div class="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-8 text-center text-white">
-                <h2 id="session-exercise-title" class="text-3xl font-bold text-amber-400 mb-2">Nome do Exercício</h2>
-                <p id="session-exercise-sets" class="text-xl mb-6"></p>
-                
-                <div id="sets-container" class="space-y-3 mb-8"></div>
-
-                <div class="flex justify-between items-center">
-                    <button id="session-close-btn" class="bg-gray-600 hover:bg-gray-700 py-2 px-4 rounded-lg">Fechar</button>
-                    <button id="session-next-btn" class="bg-green-600 hover:bg-green-700 py-2 px-6 rounded-lg font-bold">Próximo Exercício</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="timer-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
-            <div class="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center text-white">
-                <h3 class="text-2xl font-bold mb-4">Tempo de Descanso</h3>
-                <div id="timer-display" class="text-8xl font-mono font-bold text-amber-400 my-6">60</div>
-                <button id="timer-close-btn" class="bg-gray-600 hover:bg-gray-700 py-2 px-4 rounded-lg">Fechar</button>
-            </div>
-        </div>
     </main>
 
+    <!-- Scripts -->
     <script type="module" src="/firebase-config.js"></script>
-    <script type="module" src="auth-guard.js"></script>
-    <script type="module">
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { auth, db } from './firebase-config.js';
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const userRef = doc(db, "users", user.uid);
-                onSnapshot(userRef, (userSnap) => {
-                    if (userSnap.exists()) {
-                        const userData = userSnap.data();
-                        const streakCounterNav = document.getElementById('streak-counter-nav');
-                        const streakCountNav = document.getElementById('streak-count-nav');
-                        if (streakCounterNav && streakCountNav) {
-                            if (userData.streakCount > 0) {
-                                streakCountNav.textContent = userData.streakCount;
-                                streakCounterNav.classList.remove('hidden');
-                            } else {
-                                streakCounterNav.classList.add('hidden');
-                            }
-                        }
-                    }
-                });
-            }
-        });
-    </script>
-    <script src="/translation.js" defer></script>
+    <script type="module" src="/auth-guard.js"></script>
+    <script type="module" src="/utils.js"></script>
     <script type="module" src="/routine.js"></script>
 </body>
 </html>
