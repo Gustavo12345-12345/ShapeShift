@@ -1,21 +1,21 @@
 /* =================================================================
    Apple-Inspired Aesthetic for ShapeShift
    Author: [Your Name/Studio]
-   Version: 2.3
+   Version: 2.4 - Conflict Resolution
    ================================================================= */
 
 /* 1. FONT & ROOT VARIABLES
    -----------------------------------------------------------------
-   - Utiliza a fonte 'Inter', comum em UIs modernas e limpas.
-   - Centraliza a paleta de cores, mantendo a identidade visual.
-   - Adiciona variáveis para transições, bordas e sombras.
+   - NOTA: Este ficheiro foi desenhado para sobrepor-se ao Tailwind CSS.
+     Para melhores resultados, remova o script do Tailwind e as suas
+     classes dos ficheiros HTML.
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
     /* Color Palette */
-    --bg-color: #000000; /* Fundo preto profundo, estilo Apple */
-    --surface-color: #1c1c1e; /* Cinza escuro para superfícies (cards, modais) */
+    --bg-color: #000000; /* Fundo preto profundo, garantido */
+    --surface-color: #000000; /* Superfície preta para corresponder ao fundo */
     --border-color: rgba(255, 255, 255, 0.15); /* Borda branca sutil */
     --primary-accent: #FBBF24; /* Amarelo-âmbar da logo */
     --primary-accent-hover: #FFD60A; /* Amarelo mais vibrante para hover */
@@ -59,7 +59,7 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
+    background-color: var(--bg-color) !important; /* !important para garantir a sobreposição */
     color: var(--text-primary);
     margin: 0;
     padding: var(--global-padding);
@@ -97,7 +97,7 @@ main > div[class*="absolute"] {
    - Efeito de "glow" sutil no contêiner principal.
 */
 main {
-    background-color: var(--surface-color);
+    background-color: var(--surface-color) !important; /* !important para garantir a sobreposição */
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-large);
     padding: 2.5rem 3rem;
@@ -125,7 +125,7 @@ header {
 /* 4. TYPOGRAPHY
    -----------------------------------------------------------------
    - Hierarquia de texto clara e espaçamento refinado.
-   - Logo maior.
+   - Logo maior com seletor específico.
 */
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
@@ -134,9 +134,9 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: -0.02em;
 }
 
-h1 {
-    font-size: 5rem; /* Aumentado para maior impacto */
-    font-weight: 800;
+header h1 {
+    font-size: 6rem !important; /* Aumentado e !important para garantir a sobreposição */
+    font-weight: 800 !important;
 }
 
 h1 .text-amber-400 { /* Estilo para o 'Shift' da logo */
@@ -220,14 +220,13 @@ a:hover {
     cursor: pointer;
 }
 
-/* Remove as setas dos inputs numéricos */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
+/* Remove as setas dos inputs numéricos - SINTAXE CORRIGIDA */
+input[type="number"] 
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Específico para Chrome, Safari, Edge */
     margin: 0;
-}
-input[type=number] {
-    -moz-appearance: textfield;
 }
 
 /* 5.1. FORM GRID LAYOUT
