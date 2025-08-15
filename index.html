@@ -11,27 +11,10 @@
 </head>
 <body class="min-h-screen p-4">
 
+    <div id="header-placeholder"></div>
+
     <main class="w-full max-w-6xl mx-auto">
         
-        <!-- NAVEGAÇÃO SUPERIOR -->
-        <div class="absolute top-5 left-5 right-5 flex justify-between items-center" style="padding: 0 2rem;">
-            <nav class="flex items-center space-x-4 text-white">
-                <a href="/" class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1" data-lang="navHome">Gerador</a>
-                <a href="/minha-rotina.html" class="hover:text-amber-300 transition-colors pb-1" data-lang="navRoutine">Minha Rotina</a>
-            </nav>
-
-            <!-- ÍCONES DO LADO DIREITO (FOGUINHO E LOGOUT) -->
-            <div class="flex items-center space-x-4">
-                 <div id="streak-counter-nav" class="flex items-center text-lg font-bold text-white bg-gray-900 bg-opacity-50 px-3 py-1 rounded-full hidden">
-                    <span class="mr-2">🔥</span>
-                    <span id="streak-count-nav">0</span>
-                </div>
-                <button id="logout-btn" class="text-gray-400 hover:text-white" title="Logout">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/></svg>
-                </button>
-            </div>
-        </div>
-
         <header>
             <h1>Shape<span class="text-amber-400">Shift</span></h1>
             <p data-lang="subtitle">Planos de treino inteligentes para resultados reais.</p>
@@ -79,7 +62,6 @@
                         <option value="6">6 fichas (ex: ABCDEF)</option>
                     </select>
                 </div>
-                <!-- NOVO CAMPO ADICIONADO AQUI -->
                 <div class="form-group">
                     <label for="training_frequency" class="form-label" data-lang="Frequência Semanal">Frequência Semanal</label>
                     <select id="training_frequency" name="training_frequency" class="form-select">
@@ -132,6 +114,7 @@
     
     <script type="module" src="/firebase-config.js"></script>
     <script type="module" src="/auth-guard.js"></script>
+    <script src="/header.js"></script>
     <script src="/translation.js" defer></script>
     <script type="module" src="/utils.js"></script>
     <script type="module" src="/app.js"></script>
