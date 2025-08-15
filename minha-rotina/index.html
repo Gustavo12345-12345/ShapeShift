@@ -2,14 +2,14 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
     <title>ShapeShift - Minha Rotina</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
     <main>
-        <!-- A navegação superior é inserida aqui pelo CSS para alinhamento correto -->
+        <!-- Navegação Superior -->
         <div id="main-navigation-container">
             <nav>
                 <a href="/">Gerador</a>
@@ -28,18 +28,18 @@
 
         <header>
             <h1>Minha <span class="text-amber-400">Rotina</span></h1>
-            <p data-lang="routineSubtitle">O seu plano de treino ativo. Marque os exercícios para finalizar o dia.</p>
+            <p data-lang="routineSubtitle">O seu plano de treino ativo. Clique em "Iniciar Treino" para começar.</p>
         </header>
 
         <!-- Mensagem para quando não há rotina -->
         <div id="empty-state" class="hidden">
-            <p data-lang="noRoutine">Você ainda não tem uma rotina de treino guardada. Volte ao gerador para criar uma.</p>
+            <p data-lang="noRoutine">Você ainda não tem uma rotina de treino guardada.</p>
         </div>
 
         <!-- O conteúdo da rotina será inserido aqui -->
         <div id="routine-content"></div>
 
-        <!-- Botão para apagar a rotina -->
+        <!-- Botão para apagar a rotina geral -->
         <div class="form-button-container">
             <button id="delete-routine-btn" class="delete-button hidden">
                 Remover Rotina Atual
