@@ -28,31 +28,31 @@
 
         <div id="exercise-list-container">
             <div id="exercise-list">
-                <!-- Os exercícios serão carregados aqui -->
+                <!-- Os exercícios serão carregados aqui pelo start-workout.js -->
             </div>
-            <div id="workout-loader" class="hidden">
-                <!-- Ícone de carregamento pode ser adicionado aqui se necessário -->
+            <div id="workout-loader">
+                <!-- Opcional: Adicionar um ícone de carregamento aqui -->
             </div>
         </div>
 
         <div class="form-button-container">
-            <button id="finish-workout-btn" disabled>
+            <button id="finish-workout-btn" class="generate-button" disabled>
                 Finalizar Treino
             </button>
         </div>
     </main>
 
-    <!-- Modal do Cronómetro -->
+    <!-- Modal do Cronómetro Redesenhado -->
     <div id="timer-modal" class="fixed inset-0 hidden">
-        <div class="bg-gray-800">
+        <div class="modal-content">
             <h3>Tempo de Descanso</h3>
             <div id="timer-display">01:00</div>
-            <div class="timer-controls-container">
+            <div class="timer-controls">
                 <button id="decrease-time-btn" class="timer-adjust-btn">-</button>
                 <button id="timer-start-btn" class="generate-button">Iniciar</button>
                 <button id="increase-time-btn" class="timer-adjust-btn">+</button>
             </div>
-             <button id="timer-close-btn" class="timer-close-custom-btn">Fechar</button>
+             <button id="timer-close-btn" class="close-button">Fechar</button>
         </div>
     </div>
     
