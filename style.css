@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 3.3 - Button Alignment & Font Highlight
+   Version: 3.4 - Interactive Workout & Centered Modal
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -352,7 +352,7 @@ nav a.text-amber-400::after { width: 100%; }
 }
 .exercise-item:hover { background-color: rgba(255, 255, 255, 0.03); }
 
-/* 9. CHECKBOX & MODAL STYLES */
+/* 9. CHECKBOX & MODAL STYLES (OLD) */
 .exercise-checkbox {
     -webkit-appearance: none; appearance: none; background-color: transparent; margin: 0;
     font: inherit; color: var(--border-color); width: 1.75em; height: 1.75em;
@@ -367,23 +367,6 @@ nav a.text-amber-400::after { width: 100%; }
 }
 .exercise-checkbox:checked { border-color: var(--primary-accent); background-color: var(--primary-accent); }
 .exercise-checkbox:checked::before { transform: scale(1); box-shadow: inset 1em 1em white; }
-.fixed.inset-0 {
-    background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(20px);
-    animation: fadeInAnimation 0.5s var(--transition-timing-function);
-}
-#timer-modal .bg-gray-800, #session-modal .bg-gray-800 {
-    background: var(--surface-gradient); border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-large); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-    transform: scale(0.95); animation: modalPopIn 0.5s var(--transition-timing-function) forwards;
-}
-@keyframes modalPopIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-#timer-display { font-size: 6rem; font-weight: 700; color: var(--primary-accent); font-family: 'Inter', monospace; }
-.timer-adjust-btn, .timer-close-custom-btn {
-    background: var(--border-color); color: var(--text-primary); border-radius: 50%;
-    width: 52px; height: 52px; font-size: 2.5rem; border: none;
-    cursor: pointer; transition: all var(--transition-speed-fast) ease;
-}
-.timer-adjust-btn:hover, .timer-close-custom-btn:hover { background-color: #4B5563; transform: scale(1.1); }
 
 /* 10. UTILITY CLASSES
    -----------------------------------------------------------------
@@ -417,6 +400,7 @@ nav a.text-amber-400::after { width: 100%; }
     header { padding-top: 7rem; } /* Mais espaço para a navegação em coluna */
     .form-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 }
+
 /* =================================================================
    12. ESTILOS DO TREINO INTERATIVO (Adicionado)
    ================================================================= */
@@ -493,6 +477,7 @@ nav a.text-amber-400::after { width: 100%; }
     border-color: var(--primary-accent);
     color: var(--primary-accent);
     background-color: rgba(251, 191, 36, 0.1);
+    box-shadow: 0 0 8px rgba(251, 191, 36, 0.5); /* EFEITO DE BRILHO ADICIONADO */
 }
 
 .exercise-info-link {
@@ -514,6 +499,10 @@ nav a.text-amber-400::after { width: 100%; }
    13. ESTILOS DO MODAL DO CRONÓMETRO (Aprimorado)
    ================================================================= */
 .fixed.inset-0 {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    animation: fadeInAnimation 0.5s var(--transition-timing-function);
+    /* PROPRIEDADES DE CENTRALIZAÇÃO ADICIONADAS */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -531,7 +520,13 @@ nav a.text-amber-400::after { width: 100%; }
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    transform: scale(0.95);
     animation: modalPopIn 0.5s var(--transition-timing-function) forwards;
+}
+
+@keyframes modalPopIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .timer-modal-title {
