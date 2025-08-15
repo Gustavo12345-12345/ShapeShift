@@ -1,16 +1,17 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 3.2 - Centering & Symmetry Fix
+   Version: 3.3 - Button Alignment & Font Highlight
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
    -----------------------------------------------------------------
-   - Fontes: Inter para UI, SF Mono para elementos de código/dados.
+   - Fontes: Inter para UI, Oswald para destaques.
    - Paleta de cores expandida com gradientes e cores de estado.
    - Métricas de UI refinadas para um espaçamento consistente.
    - Efeitos avançados como brilhos, gradientes e sombras complexas.
 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 
 :root {
     /* Primary Color Palette */
@@ -306,6 +307,9 @@ nav a.text-amber-400::after { width: 100%; }
     border-radius: var(--border-radius-large);
     padding: 2.5rem;
     transition: all var(--transition-speed-normal) var(--transition-timing-function);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .workout-day:hover {
     border-color: var(--border-color-hover);
@@ -313,22 +317,38 @@ nav a.text-amber-400::after { width: 100%; }
     box-shadow: var(--card-shadow);
 }
 .workout-day h3 {
-    margin-top: 0; color: var(--primary-accent); font-size: 1.75rem;
-    margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;
+    width: 100%;
     text-align: center;
+    margin-top: 0; color: var(--primary-accent); font-size: 1.75rem;
+    margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;
+}
+.workout-day > .generate-button {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 .exercise-list {
     list-style: none; padding: 0; margin: 0;
     display: flex; flex-direction: column; gap: 0.5rem;
-    align-items: center; /* Centra os itens de exercício horizontalmente */
+    width: 100%;
 }
 .exercise-item {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1.5rem;
     padding: 1.25rem;
     border-radius: var(--border-radius-medium);
     transition: background-color var(--transition-speed-fast) ease;
+    width: 100%;
+}
+.exercise-item label {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+    flex-grow: 1;
 }
 .exercise-item:hover { background-color: rgba(255, 255, 255, 0.03); }
 
