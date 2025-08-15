@@ -8,38 +8,20 @@
 </head>
 <body>
 
-    <main>
-        <!-- Navegação Superior -->
-        <div id="main-navigation-container">
-            <nav>
-                <a href="index.html">Gerador</a>
-                <a href="minha-rotina.html" class="text-amber-400">Minha Rotina</a>
-            </nav>
-            <div class="nav-right-items">
-                <div id="streak-counter-nav">
-                    <span>🔥</span>
-                    <span id="streak-count-nav">0</span>
-                </div>
-                <button id="logout-btn" title="Logout">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/></svg>
-                </button>
-            </div>
-        </div>
+    <div id="header-placeholder"></div>
 
+    <main>
         <header>
             <h1>Minha <span class="text-amber-400">Rotina</span></h1>
             <p data-lang="routineSubtitle">O seu plano de treino ativo. Clique em "Iniciar Treino" para começar.</p>
         </header>
 
-        <!-- Mensagem para quando não há rotina -->
         <div id="empty-state" class="hidden">
             <p data-lang="noRoutine">Você ainda não tem uma rotina de treino guardada.</p>
         </div>
 
-        <!-- O conteúdo da rotina será inserido aqui -->
         <div id="routine-content"></div>
 
-        <!-- Botão para apagar a rotina geral -->
         <div class="form-button-container">
             <button id="delete-routine-btn" class="delete-button hidden">
                 Remover Rotina Atual
@@ -47,7 +29,6 @@
         </div>
     </main>
 
-    <!-- Modal do Cronómetro com Design Aprimorado -->
     <div id="timer-modal" class="fixed inset-0 hidden">
         <div class="timer-modal-content">
             <h3 class="timer-modal-title">Tempo de Descanso</h3>
@@ -61,9 +42,9 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script type="module" src="/firebase-config.js"></script>
     <script type="module" src="/auth-guard.js"></script>
+    <script src="/header.js"></script>
     <script type="module" src="/utils.js"></script>
     <script type="module" src="/routine.js"></script>
 </body>
