@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 3.6 - Force Modal Centering & Enhanced Button Outline
+   Version: 3.7 - Animation Fix for Modal Centering
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -80,9 +80,10 @@ body {
     animation: fadeInAnimation 1s ease forwards;
 }
 
+/* ANIMAÇÃO CORRIGIDA PARA NÃO INTERFERIR COM O MODAL */
 @keyframes fadeInAnimation {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Custom Scrollbar */
