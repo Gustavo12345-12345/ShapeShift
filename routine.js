@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTimerDisplay();
             if (totalSeconds <= 0) {
                 clearInterval(timerInterval);
-                // Adiciona um pequeno delay antes de fechar para o usuário ver o 00:00
                 setTimeout(closeTimerModal, 500);
             }
         }, 1000);
@@ -110,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(exerciseName + ' exercício como fazer')}`;
             return `
                 <li class="interactive-exercise-item">
-                    <input type="checkbox" class="exercise-checkbox">
-                    <label class="exercise-label">${exercise}</label>
+                    <input type="checkbox" class="exercise-checkbox" id="ex-${Math.random()}">
+                    <label for="ex-${Math.random()}" class="exercise-label">${exercise}</label>
                     <div class="exercise-actions">
                         <button class="rest-button">Descansar</button>
                         <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="exercise-info-link" title="Pesquisar '${exerciseName}'">${helpIconSvg}</a>
@@ -130,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const dayTitle = button.dataset.dayTitle;
         const dayContainer = button.closest('.workout-day');
 
-        // Desativa todos os outros botões "Iniciar Treino"
         document.querySelectorAll('.start-workout-button').forEach(btn => {
             if(btn !== button) {
                 btn.disabled = true;
@@ -140,13 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const interactiveViewHtml = createInteractiveWorkoutView(dayTitle);
         
-        // Remove conteúdo estático e o botão "Iniciar"
         const staticList = dayContainer.querySelector('.exercise-list-static');
         const startButtonContainer = dayContainer.querySelector('.form-button-container');
         if(staticList) staticList.remove();
         if(startButtonContainer) startButtonContainer.remove();
 
-        // Adiciona a classe de ativo e insere a nova visualização
         dayContainer.classList.add('workout-day--active');
         dayContainer.insertAdjacentHTML('beforeend', interactiveViewHtml);
 
@@ -168,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 finishButton.disabled = true;
                 finishButton.textContent = "Guardado!";
                 await updateStreak(user);
-                // Opcional: recarregar a página ou reverter a view para a estática após finalizar
                 window.location.reload(); 
             }
         });
@@ -197,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Atualiza o contador de streak na navegação
         const userRef = doc(db, "users", user.uid);
         onSnapshot(userRef, (userSnap) => {
             if (userSnap.exists()) {
@@ -217,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteBtn.textContent = "A apagar...";
         try { 
             await deleteDoc(routineDocRef);
-            // A página irá recarregar automaticamente devido ao onSnapshot
         }
         catch (error) { 
             console.error("Erro ao apagar a rotina: ", error); 
@@ -229,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- EVENT LISTENERS GLOBAIS ---
     if (deleteBtn) deleteBtn.addEventListener('click', handleDeleteRoutine);
     if (logoutBtn) logoutBtn.addEventListener('click', () => signOut(auth));
     if (timerStartBtn) timerStartBtn.addEventListener('click', startTimer);
