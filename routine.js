@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         routineContent.querySelectorAll('.workout-day').forEach(dayContainer => {
             const checkboxes = dayContainer.querySelectorAll('.exercise-checkbox');
             const finishButton = dayContainer.querySelector('.finish-workout-button');
+            const restButtons = dayContainer.querySelectorAll('.rest-button');
 
             const checkCompletion = () => {
                 const allChecked = [...checkboxes].every(box => box.checked);
@@ -73,6 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             checkboxes.forEach(box => box.addEventListener('change', checkCompletion));
+            
+            restButtons.forEach(button => button.addEventListener('click', openTimerModal));
+
             finishButton.addEventListener('click', async () => {
                 const user = auth.currentUser;
                 if (user) {
