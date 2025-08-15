@@ -9,18 +9,18 @@
 <body>
 
     <main>
-        <!-- A navegação superior é inserida aqui pelo CSS para alinhamento correto -->
-        <div class="absolute top-5 left-5 right-5 flex justify-between items-center">
+        <!-- A navegação superior está agora totalmente controlada pelo style.css -->
+        <div id="main-navigation-container">
             <nav>
                 <a href="/">Gerador</a>
                 <a href="/minha-rotina.html" class="text-amber-400">Minha Rotina</a>
             </nav>
-            <div class="flex items-center space-x-4">
-                <div id="streak-counter-nav" class="flex items-center text-lg font-bold text-white bg-gray-900 bg-opacity-50 px-3 py-1 rounded-full hidden">
-                    <span class="mr-2">🔥</span>
+            <div class="nav-right-items">
+                <div id="streak-counter-nav">
+                    <span>🔥</span>
                     <span id="streak-count-nav">0</span>
                 </div>
-                <button id="logout-btn" class="text-gray-400 hover:text-white" title="Logout">
+                <button id="logout-btn" title="Logout">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/></svg>
                 </button>
             </div>
@@ -31,12 +31,9 @@
             <p data-lang="routineSubtitle">O seu plano de treino ativo.</p>
         </header>
 
-        <!-- Mensagem para quando não há rotina -->
-        <div id="empty-state" class="text-center py-12 hidden">
-            <p class="text-lg mb-4" data-lang="noRoutine">Você ainda não tem uma rotina de treino guardada.</p>
-            <a href="/" class="generate-button">
-                Gerar uma agora
-            </a>
+        <!-- Mensagem para quando não há rotina (sem o botão "Gerar") -->
+        <div id="empty-state" class="hidden">
+            <p data-lang="noRoutine">Você ainda não tem uma rotina de treino guardada. Volte ao gerador para criar uma.</p>
         </div>
 
         <!-- O conteúdo da rotina será inserido aqui -->
