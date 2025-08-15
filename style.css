@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 3.4 - Interactive Workout & Centered Modal
+   Version: 3.6 - Force Modal Centering & Enhanced Button Outline
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -326,33 +326,22 @@ nav a.text-amber-400::after { width: 100%; }
     margin-top: 1rem;
     margin-bottom: 2rem;
 }
-.exercise-list {
+.exercise-list-static { /* Renamed from .exercise-list to be specific */
     list-style: none; padding: 0; margin: 0;
     display: flex; flex-direction: column; gap: 0.5rem;
     width: 100%;
+    text-align: center;
 }
-.exercise-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 1.25rem;
-    border-radius: var(--border-radius-medium);
-    transition: background-color var(--transition-speed-fast) ease;
-    width: 100%;
-}
-.exercise-item label {
+.exercise-list-static li {
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
     font-size: 1.2rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    text-align: center;
-    flex-grow: 1;
+    padding: 0.5rem;
 }
-.exercise-item:hover { background-color: rgba(255, 255, 255, 0.03); }
 
-/* 9. CHECKBOX & MODAL STYLES (OLD) */
+/* 9. CHECKBOX STYLES */
 .exercise-checkbox {
     -webkit-appearance: none; appearance: none; background-color: transparent; margin: 0;
     font: inherit; color: var(--border-color); width: 1.75em; height: 1.75em;
@@ -368,10 +357,7 @@ nav a.text-amber-400::after { width: 100%; }
 .exercise-checkbox:checked { border-color: var(--primary-accent); background-color: var(--primary-accent); }
 .exercise-checkbox:checked::before { transform: scale(1); box-shadow: inset 1em 1em white; }
 
-/* 10. UTILITY CLASSES
-   -----------------------------------------------------------------
-   - Classes de utilidade, como .hidden, para controlo via JS.
-*/
+/* 10. UTILITY CLASSES */
 .hidden {
     display: none !important;
 }
@@ -397,36 +383,31 @@ nav a.text-amber-400::after { width: 100%; }
         gap: 1rem;
         top: 1rem;
     }
-    header { padding-top: 7rem; } /* Mais espaço para a navegação em coluna */
+    header { padding-top: 7rem; }
     .form-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 }
 
 /* =================================================================
-   12. ESTILOS DO TREINO INTERATIVO (Adicionado)
+   12. ESTILOS DO TREINO INTERATIVO
    ================================================================= */
-
-/* Estilo para o dia de treino quando está ativo */
 .workout-day--active {
     border-color: var(--primary-accent);
     box-shadow: var(--glow-shadow-hover);
     transform: scale(1.02);
 }
-
 .workout-day--active h3 {
     color: var(--primary-accent-hover);
 }
-
 .interactive-exercise-list {
     list-style: none;
     padding: 0;
     margin: 1.5rem 0;
     width: 100%;
-    max-width: 700px; /* Limita a largura para melhor leitura */
+    max-width: 700px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
-
 .interactive-exercise-item {
     display: flex;
     align-items: center;
@@ -437,30 +418,26 @@ nav a.text-amber-400::after { width: 100%; }
     padding: 1rem 1.5rem;
     transition: all var(--transition-speed-fast) ease;
 }
-
 .interactive-exercise-item:hover {
     border-color: var(--border-color-hover);
     background-color: rgba(0, 0, 0, 0.3);
 }
-
 .exercise-label {
     flex-grow: 1;
     color: var(--text-primary);
     font-size: 1.1rem;
     font-weight: 500;
+    cursor: pointer;
 }
-
 .exercise-checkbox:checked + .exercise-label {
     text-decoration: line-through;
     color: var(--text-secondary);
 }
-
 .exercise-actions {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
-
 .rest-button {
     background: none;
     border: 1px solid var(--border-color);
@@ -472,42 +449,44 @@ nav a.text-amber-400::after { width: 100%; }
     cursor: pointer;
     transition: all var(--transition-speed-fast) ease;
 }
-
 .rest-button:hover {
-    border-color: var(--primary-accent);
-    color: var(--primary-accent);
-    background-color: rgba(251, 191, 36, 0.1);
-    box-shadow: 0 0 8px rgba(251, 191, 36, 0.5); /* EFEITO DE BRILHO ADICIONADO */
+    border-color: var(--primary-accent-hover);
+    color: var(--primary-accent-hover);
+    background-color: rgba(251, 191, 36, 0.15);
+    /* OUTLINE MAIS APARENTE */
+    box-shadow: 0 0 12px 2px rgba(251, 191, 36, 0.6);
 }
-
 .exercise-info-link {
     color: var(--text-tertiary);
     transition: color var(--transition-speed-fast) ease;
     padding: 0.5rem;
 }
-
 .exercise-info-link:hover {
     color: var(--primary-accent-hover);
 }
-
 .finish-workout-button {
     padding: 1rem 2.5rem;
     font-size: 1.1rem;
 }
 
 /* =================================================================
-   13. ESTILOS DO MODAL DO CRONÓMETRO (Aprimorado)
+   13. ESTILOS DO MODAL DO CRONÓMETRO (CORRIGIDO)
    ================================================================= */
-.fixed.inset-0 {
+#timer-modal {
+    /* ESTILOS DE CENTRALIZAÇÃO REFORÇADOS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999; /* Z-index alto para garantir que fica por cima */
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(20px);
-    animation: fadeInAnimation 0.5s var(--transition-timing-function);
-    /* PROPRIEDADES DE CENTRALIZAÇÃO ADICIONADAS */
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: fadeInAnimation 0.5s var(--transition-timing-function);
 }
-
 .timer-modal-content {
     background: var(--surface-gradient);
     border: 1px solid var(--border-color);
@@ -523,19 +502,16 @@ nav a.text-amber-400::after { width: 100%; }
     transform: scale(0.95);
     animation: modalPopIn 0.5s var(--transition-timing-function) forwards;
 }
-
 @keyframes modalPopIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
-
 .timer-modal-title {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--text-primary);
     margin: 0;
 }
-
 #timer-display {
     font-size: 6rem;
     font-weight: 700;
@@ -543,14 +519,12 @@ nav a.text-amber-400::after { width: 100%; }
     color: var(--primary-accent);
     font-family: 'Inter', monospace;
 }
-
 .timer-controls {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
 }
-
 .timer-adjust-btn {
     background: var(--border-color);
     color: var(--text-primary);
@@ -558,23 +532,20 @@ nav a.text-amber-400::after { width: 100%; }
     width: 52px;
     height: 52px;
     font-size: 2.5rem;
-    line-height: 52px; /* Centraliza o texto verticalmente */
+    line-height: 52px;
     border: none;
     cursor: pointer;
     transition: all var(--transition-speed-fast) ease;
 }
-
 .timer-adjust-btn:hover {
     background-color: #4B5563;
     transform: scale(1.1);
 }
-
 .timer-adjust-btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
     transform: none;
 }
-
 .timer-close-custom-btn {
     background-color: var(--disabled-bg-color);
     color: var(--text-secondary);
@@ -586,7 +557,6 @@ nav a.text-amber-400::after { width: 100%; }
     transition: all var(--transition-speed-fast) ease;
     margin-top: 1rem;
 }
-
 .timer-close-custom-btn:hover {
     background-color: #4a4a4e;
     color: var(--text-primary);
