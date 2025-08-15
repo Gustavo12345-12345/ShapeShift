@@ -42,6 +42,7 @@ export function processWorkoutTextToHtml(rawText) {
                 <li class="exercise-item">
                     <input type="checkbox" class="exercise-checkbox">
                     <label>${exerciseText}</label>
+                    <button class="rest-button">Descansar</button>
                     <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="exercise-info-link" title="Pesquisar '${exerciseName}'">${helpIconSvg}</a>
                 </li>`;
         }
