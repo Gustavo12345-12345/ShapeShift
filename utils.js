@@ -8,11 +8,11 @@ export function processWorkoutTextToHtml(rawText) {
 
     const lines = rawText.split('\n');
     let htmlResult = '';
-    let isListOpen = false;
     let exercisesForCurrentDay = [];
+    let currentDayTitle = '';
 
     const flushDayHtml = (dayTitle) => {
-        if (dayTitle) {
+        if (dayTitle && exercisesForCurrentDay.length > 0) {
             htmlResult += `<div class="workout-day" data-day-id="${dayTitle}">`;
             htmlResult += `<h3>${dayTitle}</h3>`;
             htmlResult += '<ul class="exercise-list-static">';
@@ -27,7 +27,6 @@ export function processWorkoutTextToHtml(rawText) {
         }
     };
 
-    let currentDayTitle = '';
     lines.forEach(line => {
         const trimmedLine = line.trim();
         if (!trimmedLine) return;
@@ -37,8 +36,7 @@ export function processWorkoutTextToHtml(rawText) {
             flushDayHtml(currentDayTitle); // Finaliza o dia anterior
             currentDayTitle = dayMatch[1].replace(/[*:]/g, '').trim();
             exercisesForCurrentDay = [];
-            isListOpen = true;
-        } else if (isListOpen && trimmedLine.startsWith('*')) {
+        } else if (trimmedLine.startsWith('*')) {
             exercisesForCurrentDay.push(trimmedLine.substring(1).trim());
         }
     });
