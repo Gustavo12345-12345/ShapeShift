@@ -36,7 +36,8 @@ export function processWorkoutTextToHtml(rawText) {
             flushDayHtml(currentDayTitle); // Finaliza o dia anterior
             currentDayTitle = dayMatch[1].replace(/[*:]/g, '').trim();
             exercisesForCurrentDay = [];
-        } else if (trimmedLine.startsWith('*')) {
+        } else if (trimmedLine.startsWith('*') && /\d/.test(trimmedLine)) {
+            // CONDIÇÃO ATUALIZADA: Só adiciona se a linha começar com '*' E contiver um número.
             exercisesForCurrentDay.push(trimmedLine.substring(1).trim());
         }
     });
