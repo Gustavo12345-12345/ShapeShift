@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 3.7 - Animation Fix for Modal Centering
+   Version: 3.8 - Disabled Button Style Update
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -80,7 +80,6 @@ body {
     animation: fadeInAnimation 1s ease forwards;
 }
 
-/* ANIMAÇÃO CORRIGIDA PARA NÃO INTERFERIR COM O MODAL */
 @keyframes fadeInAnimation {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -260,9 +259,25 @@ textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
 }
 .delete-button { background: var(--delete-color); color: var(--text-primary); }
 .delete-button:hover { background: var(--delete-color-hover); }
-#finish-workout-btn:disabled, .delete-button:disabled {
-    background: var(--disabled-bg-color); cursor: not-allowed; color: var(--disabled-text-color); box-shadow: none; transform: none;
+
+/* ESTILO DO BOTÃO DESATIVADO ATUALIZADO */
+.finish-workout-button:disabled {
+    background: var(--primary-accent); /* Usa a cor base, sem gradiente */
+    color: rgba(0, 0, 0, 0.5); /* Texto preto, mas com transparência */
+    opacity: 0.5; /* Deixa o botão inteiro semissaturado/transparente */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
+
+.delete-button:disabled {
+    background: var(--disabled-bg-color);
+    cursor: not-allowed;
+    color: var(--disabled-text-color);
+    box-shadow: none;
+    transform: none;
+}
+
 .form-button-container { text-align: center; margin-top: 3rem; }
 
 /* 7. NAVIGATION */
