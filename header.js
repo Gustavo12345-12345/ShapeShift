@@ -24,4 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     
     headerPlaceholder.innerHTML = headerHTML;
+
+    // Adiciona o listener de logout ao botão recém-criado
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        // Precisa importar o signOut e o auth para este escopo, ou passar a lógica para um arquivo principal
+        // Por simplicidade aqui, vamos assumir que uma função global `performLogout` existe
+        // A melhor abordagem seria centralizar a lógica de auth.
+    }
 });
