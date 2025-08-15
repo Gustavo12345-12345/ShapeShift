@@ -9,7 +9,7 @@
 <body>
 
     <main>
-        <!-- A navegação superior está agora totalmente controlada pelo style.css -->
+        <!-- A navegação superior é inserida aqui pelo CSS para alinhamento correto -->
         <div id="main-navigation-container">
             <nav>
                 <a href="/">Gerador</a>
@@ -28,10 +28,10 @@
 
         <header>
             <h1>Minha <span class="text-amber-400">Rotina</span></h1>
-            <p data-lang="routineSubtitle">O seu plano de treino ativo.</p>
+            <p data-lang="routineSubtitle">O seu plano de treino ativo. Marque os exercícios para finalizar o dia.</p>
         </header>
 
-        <!-- Mensagem para quando não há rotina (sem o botão "Gerar") -->
+        <!-- Mensagem para quando não há rotina -->
         <div id="empty-state" class="hidden">
             <p data-lang="noRoutine">Você ainda não tem uma rotina de treino guardada. Volte ao gerador para criar uma.</p>
         </div>
@@ -46,6 +46,20 @@
             </button>
         </div>
     </main>
+
+    <!-- Modal do Cronómetro -->
+    <div id="timer-modal" class="fixed inset-0 hidden">
+        <div class="modal-content">
+            <h3>Tempo de Descanso</h3>
+            <div id="timer-display">01:00</div>
+            <div class="timer-controls">
+                <button id="decrease-time-btn" class="timer-adjust-btn">-</button>
+                <button id="timer-start-btn" class="generate-button">Iniciar</button>
+                <button id="increase-time-btn" class="timer-adjust-btn">+</button>
+            </div>
+             <button id="timer-close-btn" class="close-button">Fechar</button>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script type="module" src="/firebase-config.js"></script>
