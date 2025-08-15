@@ -417,3 +417,182 @@ nav a.text-amber-400::after { width: 100%; }
     header { padding-top: 7rem; } /* Mais espaço para a navegação em coluna */
     .form-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 }
+/* =================================================================
+   12. ESTILOS DO TREINO INTERATIVO (Adicionado)
+   ================================================================= */
+
+/* Estilo para o dia de treino quando está ativo */
+.workout-day--active {
+    border-color: var(--primary-accent);
+    box-shadow: var(--glow-shadow-hover);
+    transform: scale(1.02);
+}
+
+.workout-day--active h3 {
+    color: var(--primary-accent-hover);
+}
+
+.interactive-exercise-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    width: 100%;
+    max-width: 700px; /* Limita a largura para melhor leitura */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.interactive-exercise-item {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: 1rem 1.5rem;
+    transition: all var(--transition-speed-fast) ease;
+}
+
+.interactive-exercise-item:hover {
+    border-color: var(--border-color-hover);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.exercise-label {
+    flex-grow: 1;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.exercise-checkbox:checked + .exercise-label {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+.exercise-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.rest-button {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: all var(--transition-speed-fast) ease;
+}
+
+.rest-button:hover {
+    border-color: var(--primary-accent);
+    color: var(--primary-accent);
+    background-color: rgba(251, 191, 36, 0.1);
+}
+
+.exercise-info-link {
+    color: var(--text-tertiary);
+    transition: color var(--transition-speed-fast) ease;
+    padding: 0.5rem;
+}
+
+.exercise-info-link:hover {
+    color: var(--primary-accent-hover);
+}
+
+.finish-workout-button {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+}
+
+/* =================================================================
+   13. ESTILOS DO MODAL DO CRONÓMETRO (Aprimorado)
+   ================================================================= */
+.fixed.inset-0 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-modal-content {
+    background: var(--surface-gradient);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-large);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: modalPopIn 0.5s var(--transition-timing-function) forwards;
+}
+
+.timer-modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+#timer-display {
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--primary-accent);
+    font-family: 'Inter', monospace;
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.timer-adjust-btn {
+    background: var(--border-color);
+    color: var(--text-primary);
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    font-size: 2.5rem;
+    line-height: 52px; /* Centraliza o texto verticalmente */
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-speed-fast) ease;
+}
+
+.timer-adjust-btn:hover {
+    background-color: #4B5563;
+    transform: scale(1.1);
+}
+
+.timer-adjust-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.timer-close-custom-btn {
+    background-color: var(--disabled-bg-color);
+    color: var(--text-secondary);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius-medium);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-speed-fast) ease;
+    margin-top: 1rem;
+}
+
+.timer-close-custom-btn:hover {
+    background-color: #4a4a4e;
+    color: var(--text-primary);
+}
