@@ -17,16 +17,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const decreaseTimeBtn = document.getElementById('decrease-time-btn');
 
     let routineDocRef;
-    let rawRoutineText = ''; // Armazena o texto da rotina
+    let rawRoutineText = '';
     let timerInterval;
     let totalSeconds = 60;
+    const TIME_STEP = 15;
+    const MIN_TIME = 15;
 
     // --- LÓGICA DO CRONÓMETRO ---
-    const openTimerModal = () => { /* ... (código do cronómetro) ... */ };
-    // (Toda a lógica do cronómetro permanece a mesma da versão anterior)
+    const formatTime = (seconds) => `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
+    const updateTimerDisplay = () => {
+        timerDisplay.textContent = formatTime(totalSeconds);
+        decreaseTimeBtn.disabled = totalSeconds <= MIN_TIME;
+    };
+    const openTimerModal = () => {
+        totalSeconds = 60;
+        updateTimerDisplay();
+        timerStartBtn.disabled = false;
+        timerStartBtn.textContent = "Iniciar";
+        increaseTimeBtn.disabled = false;
+        timerModal.classList.remove('hidden');
+    };
+    const closeTimerModal = () => {
+        clearInterval(timerInterval);
+        timerModal.classList.add('hidden');
+    };
+    const startTimer = () => {
+        clearInterval(timerInterval);
+        timerStartBtn.disabled = true;
+        timerStartBtn.textContent = "A contar...";
+        decreaseTimeBtn.disabled = true;
+        increaseTimeBtn.disabled = true;
+        timerInterval = setInterval(() => {
+            totalSeconds--;
+            updateTimerDisplay();
+            if (totalSeconds <= 0) {
+                clearInterval(timerInterval);
+                closeTimerModal();
+            }
+        }, 1000);
+    };
 
     // --- LÓGICA DA ROTINA ---
-    const updateStreak = async (user) => { /* ... (código do streak) ... */ };
+    const updateStreak = async (user) => {
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+        if (!userSnap.exists()) return;
+        const userData = userSnap.data();
+        const today = new Date().toISOString().split('T')[0];
+        if (userData.lastWorkoutDate === today) return;
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split('T')[0];
+        const newStreak = (userData.lastWorkoutDate === yesterdayStr) ? (userData.streakCount || 0) + 1 : 1;
+        await updateDoc(userRef, { streakCount: newStreak, lastWorkoutDate: today });
+        alert("Parabéns! Treino finalizado e foguinho atualizado!");
+    };
 
     const createInteractiveWorkoutView = (dayTitle) => {
         const lines = rawRoutineText.split('\n');
@@ -69,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const interactiveView = createInteractiveWorkoutView(dayTitle);
         
-        // Substitui a lista estática e o botão "Iniciar" pela vista interativa
         const staticList = dayContainer.querySelector('.exercise-list-static');
         const startButtonContainer = dayContainer.querySelector('.form-button-container');
         
@@ -78,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         dayContainer.insertAdjacentHTML('beforeend', interactiveView);
 
-        // Adiciona os event listeners para a nova vista
         const checkboxes = dayContainer.querySelectorAll('.exercise-checkbox');
         const finishButton = dayContainer.querySelector('.finish-workout-button');
         const restButtons = dayContainer.querySelectorAll('.rest-button');
@@ -122,5 +165,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // (O resto do código, como handleDeleteRoutine e os eventos do cronómetro, permanece o mesmo)
+    async function handleDeleteRoutine() {
+        if (!routineDocRef || !confirm("Tem a certeza de que quer apagar a sua rotina atual?")) return;
+        deleteBtn.disabled = true;
+        deleteBtn.textContent = "A apagar...";
+        try { await deleteDoc(routineDocRef); }
+        catch (error) { console.error("Erro ao apagar a rotina: ", error); }
+        finally { deleteBtn.disabled = false; deleteBtn.textContent = "Remover Rotina Atual"; }
+    }
+
+    if (deleteBtn) deleteBtn.addEventListener('click', handleDeleteRoutine);
+    if (logoutBtn) logoutBtn.addEventListener('click', () => signOut(auth));
+    if (timerStartBtn) timerStartBtn.addEventListener('click', startTimer);
+    if (timerCloseBtn) timerCloseBtn.addEventListener('click', closeTimerModal);
+    if (increaseTimeBtn) increaseTimeBtn.addEventListener('click', () => { totalSeconds += TIME_STEP; updateTimerDisplay(); });
+    if (decreaseTimeBtn) decreaseTimeBtn.addEventListener('click', () => { if (totalSeconds > MIN_TIME) { totalSeconds -= TIME_STEP; updateTimerDisplay(); } });
 });
