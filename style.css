@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 3.0 - Hyper-Detailed
+   Version: 3.1 - Logic & Alignment Fix
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -162,7 +162,8 @@ header h1 {
 }
 h1 .text-amber-400 {
     background: var(--primary-accent-gradient);
-    
+    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 header p {
@@ -320,6 +321,10 @@ nav a.text-amber-400::after { width: 100%; }
     display: flex; align-items: center; gap: 1.5rem; padding: 1.25rem;
     border-radius: var(--border-radius-medium);
     transition: background-color var(--transition-speed-fast) ease;
+    text-align: center; /* Centraliza o texto do exercício */
+}
+.exercise-item label {
+    flex-grow: 1; /* Garante que o label ocupe o espaço para centralizar corretamente */
 }
 .exercise-item:hover { background-color: rgba(255, 255, 255, 0.03); }
 
@@ -356,7 +361,15 @@ nav a.text-amber-400::after { width: 100%; }
 }
 .timer-adjust-btn:hover, .timer-close-custom-btn:hover { background-color: #4B5563; transform: scale(1.1); }
 
-/* 10. RESPONSIVE ADJUSTMENTS */
+/* 10. UTILITY CLASSES
+   -----------------------------------------------------------------
+   - Classes de utilidade, como .hidden, para controlo via JS.
+*/
+.hidden {
+    display: none !important;
+}
+
+/* 11. RESPONSIVE ADJUSTMENTS */
 @media (max-width: 1024px) {
     body { padding: 2rem; }
     main { padding: 2rem; }
