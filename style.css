@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 3.8 - Disabled Button Style Update
+   Version: 3.9 - Increased Button Hitbox for Easier Interaction
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -260,16 +260,14 @@ textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
 .delete-button { background: var(--delete-color); color: var(--text-primary); }
 .delete-button:hover { background: var(--delete-color-hover); }
 
-/* ESTILO DO BOTÃO DESATIVADO ATUALIZADO */
 .finish-workout-button:disabled {
-    background: var(--primary-accent); /* Usa a cor base, sem gradiente */
-    color: rgba(0, 0, 0, 0.5); /* Texto preto, mas com transparência */
-    opacity: 0.5; /* Deixa o botão inteiro semissaturado/transparente */
+    background: var(--primary-accent);
+    color: rgba(0, 0, 0, 0.5);
+    opacity: 0.5;
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
 }
-
 .delete-button:disabled {
     background: var(--disabled-bg-color);
     cursor: not-allowed;
@@ -277,7 +275,6 @@ textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
     box-shadow: none;
     transform: none;
 }
-
 .form-button-container { text-align: center; margin-top: 3rem; }
 
 /* 7. NAVIGATION */
@@ -342,7 +339,7 @@ nav a.text-amber-400::after { width: 100%; }
     margin-top: 1rem;
     margin-bottom: 2rem;
 }
-.exercise-list-static { /* Renamed from .exercise-list to be specific */
+.exercise-list-static {
     list-style: none; padding: 0; margin: 0;
     display: flex; flex-direction: column; gap: 0.5rem;
     width: 100%;
@@ -469,7 +466,6 @@ nav a.text-amber-400::after { width: 100%; }
     border-color: var(--primary-accent-hover);
     color: var(--primary-accent-hover);
     background-color: rgba(251, 191, 36, 0.15);
-    /* OUTLINE MAIS APARENTE */
     box-shadow: 0 0 12px 2px rgba(251, 191, 36, 0.6);
 }
 .exercise-info-link {
@@ -489,13 +485,12 @@ nav a.text-amber-400::after { width: 100%; }
    13. ESTILOS DO MODAL DO CRONÓMETRO (CORRIGIDO)
    ================================================================= */
 #timer-modal {
-    /* ESTILOS DE CENTRALIZAÇÃO REFORÇADOS */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 999; /* Z-index alto para garantir que fica por cima */
+    z-index: 999;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(20px);
     display: flex;
@@ -541,18 +536,21 @@ nav a.text-amber-400::after { width: 100%; }
     align-items: center;
     gap: 1.5rem;
 }
+
+/* HITBOX AUMENTADA */
 .timer-adjust-btn {
     background: var(--border-color);
     color: var(--text-primary);
     border-radius: 50%;
-    width: 52px;
-    height: 52px;
-    font-size: 2.5rem;
-    line-height: 52px;
+    width: 58px; /* Aumentado de 52px */
+    height: 58px; /* Aumentado de 52px */
+    font-size: 2.8rem; /* Aumentado proporcionalmente */
+    line-height: 58px;
     border: none;
     cursor: pointer;
     transition: all var(--transition-speed-fast) ease;
 }
+
 .timer-adjust-btn:hover {
     background-color: #4B5563;
     transform: scale(1.1);
@@ -562,17 +560,20 @@ nav a.text-amber-400::after { width: 100%; }
     cursor: not-allowed;
     transform: none;
 }
+
+/* HITBOX AUMENTADA */
 .timer-close-custom-btn {
     background-color: var(--disabled-bg-color);
     color: var(--text-secondary);
     border: none;
-    padding: 0.8rem 1.5rem;
+    padding: 1rem 2rem; /* Padding aumentado */
     border-radius: var(--border-radius-medium);
     cursor: pointer;
     font-weight: 500;
     transition: all var(--transition-speed-fast) ease;
     margin-top: 1rem;
 }
+
 .timer-close-custom-btn:hover {
     background-color: #4a4a4e;
     color: var(--text-primary);
