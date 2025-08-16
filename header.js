@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerHTML = `
         <div id="main-navigation-container" class="fixed-header">
             <nav>
-                <a href="/index.html" class="${currentPage === '/' || currentPage.includes('index.html') ? 'text-amber-400' : ''}">Gerador</a>
+                <a href="/index.html" class="${currentPage === '/' || currentPage.includes('/index.html') ? 'text-amber-400' : ''}">Gerador</a>
                 <a href="/minha-rotina.html" class="${currentPage.includes('/minha-rotina.html') ? 'text-amber-400' : ''}">Minha Rotina</a>
                 <a href="/planos.html" class="${currentPage.includes('/planos.html') ? 'text-amber-400' : ''}">Planos</a>
             </nav>
