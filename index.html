@@ -11,6 +11,7 @@
 </head>
 <body class="min-h-screen p-4">
 
+    <!-- O cabeçalho é inserido dinamicamente aqui -->
     <div id="header-placeholder"></div>
 
     <main class="w-full max-w-6xl mx-auto">
@@ -86,7 +87,7 @@
             </div>
             <div class="form-group-full">
                 <label for="notes" class="form-label" data-lang="notesLabel">Observações Específicas (Opcional)</label>
-                <textarea id="notes" name="notes" rows="2" class="form-input" data-lang-placeholder="notesPlaceholder"></textarea>
+                <textarea id="notes" name="notes" rows="2" class="form-input" placeholder="Ex: Tenho uma lesão no joelho direito, evitar agachamentos pesados." data-lang-placeholder="notesPlaceholder"></textarea>
             </div>
             <div class="form-button-container">
                 <button type="submit" id="generate-btn" class="generate-button" data-lang="generateBtn">
@@ -103,7 +104,7 @@
             <div id="workout-plan-output" class="hidden">
                 <div id="workout-plan-content"></div>
                 <div class="text-center mt-6">
-                    <button id="save-routine-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 rounded-full shadow-lg" data-lang="saveBtn">
+                    <button id="save-routine-btn" class="generate-button" style="background: var(--success-color);" data-lang="saveBtn">
                         Guardar Rotina e Começar
                     </button>
                 </div>
@@ -114,7 +115,8 @@
     
     <script type="module" src="/firebase-config.js"></script>
     <script type="module" src="/auth-guard.js"></script>
-    <script src="/header.js"></script>
+    <!-- CORREÇÃO: Alterado para type="module" para carregar o header corretamente -->
+    <script type="module" src="/header.js"></script>
     <script src="/translation.js" defer></script>
     <script type="module" src="/utils.js"></script>
     <script type="module" src="/app.js"></script>
