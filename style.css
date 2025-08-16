@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 5.1 - Streak Visibility and Logic Fix
+   Version: 5.2 - Mobile Workout View Overhaul
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -75,18 +75,15 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     margin: 0;
-    /* Padding padrão para páginas como "Minha Rotina" */
     padding-top: 10rem;
     opacity: 0;
     animation: fadeInAnimation 1s ease forwards;
 }
 
-/* Classe específica com padding maior apenas para o body da index.html */
 body.body-index {
     padding-top: 12rem;
 }
 
-/* Classe específica para a página de Planos */
 body.body-planos {
     padding-top: 12rem;
 }
@@ -139,7 +136,6 @@ header {
     position: relative;
 }
 
-/* Efeito de brilho no header */
 header::after {
     content: '';
     position: absolute;
@@ -155,11 +151,7 @@ main:hover header::after {
     width: 20%;
 }
 
-/* 4. TYPOGRAPHY
-   -----------------------------------------------------------------
-   - Hierarquia tipográfica refinada.
-   - Título principal com efeito de texto em gradiente.
-*/
+/* 4. TYPOGRAPHY */
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
     font-weight: 700;
@@ -193,10 +185,7 @@ a {
 }
 a:hover { color: var(--primary-accent-hover); }
 
-/* 5. FORMS & INPUTS
-   -----------------------------------------------------------------
-   - Campos de formulário com animações de foco e validação.
-*/
+/* 5. FORMS & INPUTS */
 .form-label {
     display: block;
     margin-bottom: 0.75rem;
@@ -240,7 +229,6 @@ a:hover { color: var(--primary-accent-hover); }
 input[type="number"] { -moz-appearance: textfield; appearance: none; }
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
-/* 5.1. FORM GRID LAYOUT */
 .form-grid { display: grid; gap: 2rem; margin-bottom: 2rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
 @media (min-width: 1200px) { .form-grid { grid-template-columns: repeat(4, 1fr); } }
 textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
@@ -289,10 +277,7 @@ textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
 }
 .form-button-container { text-align: center; margin-top: 3rem; }
 
-/* 7. NAVIGATION & LOGO
-   -----------------------------------------------------------------
-   - Adicionado o logo e ajustado o layout para flexbox.
-*/
+/* 7. NAVIGATION & LOGO */
 #main-navigation-container {
     position: fixed;
     top: 0;
@@ -309,7 +294,6 @@ textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Estilos do Logo */
 #header-logo h1 {
     font-size: 1.75rem;
     font-weight: 800;
@@ -322,7 +306,6 @@ textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
     transform: scale(1.05);
 }
 
-/* A navegação agora ocupa o espaço central */
 nav {
     display: flex;
     gap: 2rem;
@@ -342,7 +325,6 @@ nav a:hover::after { width: 100%; }
 nav a.text-amber-400 { color: var(--primary-accent); }
 nav a.text-amber-400::after { width: 100%; }
 
-/* Itens da direita (streak, logout) */
 .nav-right-items {
     display: flex;
     align-items: center;
@@ -451,24 +433,22 @@ nav a.text-amber-400::after { width: 100%; }
     }
     #main-navigation-container {
         padding: 1rem 1.5rem;
-        justify-content: space-between; /* CORREÇÃO: Garante o alinhamento */
+        justify-content: space-between;
     }
     
-    /* CORREÇÃO: Esconde a navegação principal, mas mostra o logo e o foguinho */
     nav {
         display: none;
     }
     #header-logo, .nav-right-items {
         display: flex;
     }
-    /* Esconde o botão de logout para ganhar espaço, mas mantém o foguinho */
     #logout-btn {
         display: none;
     }
 }
 
 /* =================================================================
-   12. ESTILOS DO TREINO INTERATIVO
+   12. ESTILOS DO TREINO INTERATIVO (MOBILE-FIRST)
    ================================================================= */
 .workout-day--active {
     border-color: var(--primary-accent);
@@ -491,54 +471,81 @@ nav a.text-amber-400::after { width: 100%; }
 .interactive-exercise-item {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1rem;
     background-color: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-medium);
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1rem;
     transition: all var(--transition-speed-fast) ease;
 }
 .interactive-exercise-item:hover {
     border-color: var(--border-color-hover);
     background-color: rgba(0, 0, 0, 0.3);
 }
-.exercise-label {
+
+/* CORREÇÃO: Container para o texto do exercício */
+.exercise-info {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    overflow: hidden;
+}
+
+.exercise-label {
     color: var(--text-primary);
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
+    line-height: 1.3;
 }
-.exercise-checkbox:checked + .exercise-label {
+
+/* CORREÇÃO: Estilo para os detalhes (séries/reps) */
+.exercise-details {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.exercise-checkbox:checked + .exercise-info .exercise-label {
     text-decoration: line-through;
     color: var(--text-secondary);
 }
+
 .exercise-actions {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 }
+
+/* CORREÇÃO: Novo estilo para o botão de descanso (ícone) */
 .rest-button {
     background: none;
-    border: 1px solid var(--border-color);
+    border: 1px solid transparent;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-small);
+    padding: 0.5rem;
+    border-radius: 50%;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all var(--transition-speed-fast) ease;
 }
 .rest-button:hover {
     border-color: var(--primary-accent-hover);
     color: var(--primary-accent-hover);
-    background-color: rgba(251, 191, 36, 0.15);
-    box-shadow: 0 0 12px 2px rgba(251, 191, 36, 0.6);
+    background-color: rgba(251, 191, 36, 0.1);
 }
+
 .exercise-info-link {
     color: var(--text-tertiary);
     transition: color var(--transition-speed-fast) ease;
     padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .exercise-info-link:hover {
     color: var(--primary-accent-hover);
@@ -604,7 +611,6 @@ nav a.text-amber-400::after { width: 100%; }
     gap: 1.5rem;
 }
 
-/* HITBOX AUMENTADA */
 .timer-adjust-btn {
     background: var(--border-color);
     color: var(--text-primary);
@@ -617,7 +623,6 @@ nav a.text-amber-400::after { width: 100%; }
     cursor: pointer;
     transition: all var(--transition-speed-fast) ease;
 }
-
 .timer-adjust-btn:hover {
     background-color: #4B5563;
     transform: scale(1.1);
@@ -628,7 +633,6 @@ nav a.text-amber-400::after { width: 100%; }
     transform: none;
 }
 
-/* HITBOX AUMENTADA */
 .timer-close-custom-btn {
     background-color: var(--disabled-bg-color);
     color: var(--text-secondary);
@@ -640,7 +644,6 @@ nav a.text-amber-400::after { width: 100%; }
     transition: all var(--transition-speed-fast) ease;
     margin-top: 1rem;
 }
-
 .timer-close-custom-btn:hover {
     background-color: #4a4a4e;
     color: var(--text-primary);
