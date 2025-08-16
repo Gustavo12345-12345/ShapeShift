@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 5.0 - Page-Specific Spacing
+   Version: 5.1 - Streak Visibility and Logic Fix
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -86,7 +86,7 @@ body.body-index {
     padding-top: 12rem;
 }
 
-/* CORREÇÃO: Classe específica para a página de Planos */
+/* Classe específica para a página de Planos */
 body.body-planos {
     padding-top: 12rem;
 }
@@ -435,10 +435,10 @@ nav a.text-amber-400::after { width: 100%; }
 
 @media (max-width: 780px) {
     body {
-        padding-top: 8rem;
+        padding-top: 6rem;
     }
     body.body-index, body.body-planos {
-        padding-top: 12rem;
+        padding-top: 8rem;
     }
     main {
         padding: 1.5rem;
@@ -451,14 +451,19 @@ nav a.text-amber-400::after { width: 100%; }
     }
     #main-navigation-container {
         padding: 1rem 1.5rem;
-        justify-content: center;
+        justify-content: space-between; /* CORREÇÃO: Garante o alinhamento */
     }
-    #header-logo, .nav-right-items {
+    
+    /* CORREÇÃO: Esconde a navegação principal, mas mostra o logo e o foguinho */
+    nav {
         display: none;
     }
-    nav {
-        position: static;
-        transform: none;
+    #header-logo, .nav-right-items {
+        display: flex;
+    }
+    /* Esconde o botão de logout para ganhar espaço, mas mantém o foguinho */
+    #logout-btn {
+        display: none;
     }
 }
 
