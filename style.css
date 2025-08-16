@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 4.7 - Final Top Spacing Adjustment
+   Version: 4.8 - Page-Specific Spacing Fix
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -75,11 +75,17 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     margin: 0;
-    /* CORREÇÃO: Aumenta ainda mais o padding no topo para garantir espaço para o header */
-    padding-top: 15rem;
+    /* CORREÇÃO: Padding padrão para páginas como "Minha Rotina" */
+    padding-top: 10rem;
     opacity: 0;
     animation: fadeInAnimation 1s ease forwards;
 }
+
+/* CORREÇÃO: Classe específica com padding maior apenas para o body da index.html */
+body.body-index {
+    padding-top: 15rem;
+}
+
 
 @keyframes fadeInAnimation {
     from { opacity: 0; }
@@ -427,6 +433,9 @@ nav a.text-amber-400::after { width: 100%; }
 @media (max-width: 780px) {
     body {
         padding-top: 8rem; /* Espaço para o header fixo em mobile */
+    }
+    body.body-index {
+        padding-top: 12rem; /* Espaçamento maior para a index em mobile */
     }
     main {
         padding: 1.5rem;
