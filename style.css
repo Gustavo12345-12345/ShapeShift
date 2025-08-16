@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 4.2 - Header Logo Implementation
+   Version: 4.3 - Header Visibility Fix
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -71,6 +71,7 @@ html {
 }
 
 body {
+    position: relative; /* CORREÇÃO: Garante que o header absoluto se posicione corretamente dentro do body */
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-primary);
