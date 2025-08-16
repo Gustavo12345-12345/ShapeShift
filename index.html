@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="/style.css">
 
 </head>
-<body class="min-h-screen p-4">
+<!-- CORREÇÃO: Adicionada a classe 'body-index' para aplicar o espaçamento extra -->
+<body class="min-h-screen p-4 body-index">
 
     <!-- O cabeçalho é inserido dinamicamente aqui -->
     <div id="header-placeholder"></div>
@@ -115,7 +116,6 @@
     
     <script type="module" src="/firebase-config.js"></script>
     <script type="module" src="/auth-guard.js"></script>
-    <!-- CORREÇÃO: Alterado para type="module" para carregar o header corretamente -->
     <script type="module" src="/header.js"></script>
     <script src="/translation.js" defer></script>
     <script type="module" src="/utils.js"></script>
