@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 4.5 - Robust Fixed Header Layout
+   Version: 4.6 - Increased Top Spacing for Index Page
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -75,8 +75,8 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     margin: 0;
-    /* CORREÇÃO: Adiciona padding no topo para criar espaço para o header fixo */
-    padding-top: 8rem;
+    /* CORREÇÃO: Aumenta o padding no topo para criar mais espaço para o header fixo */
+    padding-top: 12rem;
     opacity: 0;
     animation: fadeInAnimation 1s ease forwards;
 }
@@ -426,7 +426,7 @@ nav a.text-amber-400::after { width: 100%; }
 
 @media (max-width: 780px) {
     body {
-        padding-top: 6rem; /* Espaço para o header fixo em mobile */
+        padding-top: 8rem; /* Espaço para o header fixo em mobile */
     }
     main {
         padding: 1.5rem;
