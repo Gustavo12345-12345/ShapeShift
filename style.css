@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 4.9 - Balanced Index Page Spacing
+   Version: 5.0 - Page-Specific Spacing
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -83,7 +83,11 @@ body {
 
 /* Classe específica com padding maior apenas para o body da index.html */
 body.body-index {
-    /* CORREÇÃO: Valor reduzido para um espaçamento mais equilibrado */
+    padding-top: 12rem;
+}
+
+/* CORREÇÃO: Classe específica para a página de Planos */
+body.body-planos {
     padding-top: 12rem;
 }
 
@@ -433,7 +437,7 @@ nav a.text-amber-400::after { width: 100%; }
     body {
         padding-top: 8rem;
     }
-    body.body-index {
+    body.body-index, body.body-planos {
         padding-top: 12rem;
     }
     main {
