@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 4.3 - Header Visibility Fix
+   Version: 4.4 - Header Spacing Fix
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -71,7 +71,7 @@ html {
 }
 
 body {
-    position: relative; /* CORREÇÃO: Garante que o header absoluto se posicione corretamente dentro do body */
+    position: relative; /* Garante que o header absoluto se posicione corretamente dentro do body */
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-primary);
@@ -106,7 +106,8 @@ main {
     padding: 3rem 4rem;
     width: 100%;
     max-width: 1400px;
-    margin: 8rem auto 4rem;
+    /* CORREÇÃO: Aumentei a margem superior para criar mais espaço para o header */
+    margin: 10rem auto 4rem;
     box-shadow: var(--card-shadow), var(--glow-shadow);
     transition: all var(--transition-speed-normal) var(--transition-timing-function);
     position: relative;
@@ -423,7 +424,7 @@ nav a.text-amber-400::after { width: 100%; }
 
 @media (max-width: 780px) {
     body { padding: 1rem; }
-    main { padding: 1.5rem; margin: 8rem auto 2rem; }
+    main { padding: 1.5rem; margin: 10rem auto 2rem; } /* CORREÇÃO: Aumentei a margem superior para mobile também */
     header h1 { font-size: 3.5rem !important; }
     header { 
         margin-bottom: 2rem; 
