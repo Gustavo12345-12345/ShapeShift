@@ -61,13 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const userSnap = await getDoc(userRef);
         const userData = userSnap.data();
         const today = new Date().toISOString().split('T')[0];
+        
+        // Se já treinou hoje, não faz nada
         if (userData.lastWorkoutDate === today) return;
 
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayStr = yesterday.toISOString().split('T')[0];
-        
-        const newStreak = (userData.lastWorkoutDate === yesterdayStr) ? (userData.streakCount || 0) + 1 : 1;
+        // CORREÇÃO: A lógica de reset foi removida. O streak agora apenas incrementa.
+        const newStreak = (userData.streakCount || 0) + 1;
         await updateDoc(userRef, { streakCount: newStreak, lastWorkoutDate: today });
     }
 
