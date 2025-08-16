@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const openTimerModal = () => {
-        clearInterval(timerInterval); // Garante que qualquer timer anterior seja limpo
+        clearInterval(timerInterval);
         totalSeconds = 60;
         updateTimerDisplay();
         timerStartBtn.disabled = false;
@@ -72,16 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const userData = userSnap.data();
         const today = new Date().toISOString().split('T')[0];
+        
+        // Se já treinou hoje, não faz nada
         if (userData.lastWorkoutDate === today) {
             alert("Você já completou um treino hoje! Foguinho mantido!");
             return;
         };
 
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayStr = yesterday.toISOString().split('T')[0];
-        
-        const newStreak = (userData.lastWorkoutDate === yesterdayStr) ? (userData.streakCount || 0) + 1 : 1;
+        // CORREÇÃO: A lógica de reset foi removida. O streak agora apenas incrementa.
+        const newStreak = (userData.streakCount || 0) + 1;
         await updateDoc(userRef, { streakCount: newStreak, lastWorkoutDate: today });
         alert("Parabéns! Treino finalizado e foguinho atualizado!");
     };
@@ -104,13 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        const exercisesHtml = exercisesForDay.map(exercise => {
+        const exercisesHtml = exercisesForDay.map((exercise, index) => {
             const exerciseName = exercise.match(/^(.*?)(?=\s+\d|séries|rep)/i)?.[1]?.trim() || exercise;
             const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(exerciseName + ' exercício como fazer')}`;
+            const uniqueId = `ex-${dayTitle}-${index}`; // Cria um ID único
             return `
                 <li class="interactive-exercise-item">
-                    <input type="checkbox" class="exercise-checkbox" id="ex-${Math.random()}">
-                    <label for="ex-${Math.random()}" class="exercise-label">${exercise}</label>
+                    <input type="checkbox" class="exercise-checkbox" id="${uniqueId}">
+                    <label for="${uniqueId}" class="exercise-label">${exercise}</label>
                     <div class="exercise-actions">
                         <button class="rest-button">Descansar</button>
                         <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="exercise-info-link" title="Pesquisar '${exerciseName}'">${helpIconSvg}</a>
@@ -192,17 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        const userRef = doc(db, "users", user.uid);
-        onSnapshot(userRef, (userSnap) => {
-            if (userSnap.exists()) {
-                const userData = userSnap.data();
-                const streakCounterNav = document.getElementById('streak-counter-nav');
-                const streakCountNav = document.getElementById('streak-count-nav');
-                if (streakCounterNav && streakCountNav) {
-                    streakCountNav.textContent = userData.streakCount || 0;
-                }
-            }
-        });
+        // CORREÇÃO: A lógica de exibir o foguinho foi removida daqui
+        // e centralizada no header.js para aparecer em todas as páginas.
     });
 
     async function handleDeleteRoutine() {
