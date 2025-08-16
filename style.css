@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 4.0 - Layout Overlap Fix
+   Version: 4.1 - Improved Readability for Exercise Lists
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -347,13 +347,15 @@ nav a.text-amber-400::after { width: 100%; }
     width: 100%;
     text-align: center;
 }
+/* CORREÇÃO: Altera a fonte da lista de exercícios para uma mais legível e padrão. */
 .exercise-list-static li {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 700;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* Negrito, mas não excessivamente */
+    font-size: 1.1rem; /* Tamanho ajustado para leitura */
     padding: 0.5rem;
+    line-height: 1.6; /* Melhora o espaçamento entre linhas */
+    text-transform: none; /* Remove o uppercase forçado */
+    letter-spacing: normal; /* Remove o espaçamento extra entre letras */
 }
 
 /* 9. CHECKBOX STYLES */
