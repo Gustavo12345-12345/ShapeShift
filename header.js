@@ -1,10 +1,10 @@
 /**
  * header.js
  * Este script injeta dinamicamente o cabeçalho de navegação em todas as páginas.
- * Inclui um logo inteligente que direciona o usuário com base na existência de uma rotina.
+ * CORREÇÃO: Agora também centraliza a lógica para exibir e atualizar o "foguinho" (streak).
  */
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 import { auth, db } from './firebase-config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,10 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const currentPage = window.location.pathname;
 
-    // HTML do cabeçalho agora inclui o placeholder para o logo
     const headerHTML = `
         <div id="main-navigation-container">
-            <!-- O logo será inserido aqui -->
             <a href="/index.html" id="header-logo">
                 <h1>Shape<span class="text-amber-400">Shift</span></h1>
             </a>
@@ -42,26 +40,28 @@ document.addEventListener('DOMContentLoaded', () => {
     
     headerPlaceholder.innerHTML = headerHTML;
 
-    // Lógica do Logo Inteligente
-    onAuthStateChanged(auth, async (user) => {
+    // Lógica centralizada para exibir o "foguinho" (streak)
+    onAuthStateChanged(auth, (user) => {
         if (user) {
-            const logoLink = document.getElementById('header-logo');
-            if (logoLink) {
-                try {
-                    const routineRef = doc(db, "users", user.uid, "routine", "active");
-                    const routineSnap = await getDoc(routineRef);
-                    
-                    // Se a rotina existir, o logo aponta para "Minha Rotina".
-                    if (routineSnap.exists()) {
-                        logoLink.href = '/minha-rotina.html';
-                    } else {
-                        // Caso contrário, aponta para a página inicial (Gerador).
-                        logoLink.href = '/index.html';
+            const streakCounterNav = document.getElementById('streak-counter-nav');
+            const streakCountNav = document.getElementById('streak-count-nav');
+            
+            if (streakCounterNav && streakCountNav) {
+                const userRef = doc(db, "users", user.uid);
+                onSnapshot(userRef, (userSnap) => {
+                    if (userSnap.exists()) {
+                        const userData = userSnap.data();
+                        const streakCount = userData.streakCount || 0;
+                        streakCountNav.textContent = streakCount;
+                        
+                        // Mostra o contador se o streak for maior que 0
+                        if (streakCount > 0) {
+                            streakCounterNav.classList.remove('hidden');
+                        } else {
+                            streakCounterNav.classList.add('hidden');
+                        }
                     }
-                } catch (error) {
-                    console.error("Erro ao verificar rotina para o link do logo:", error);
-                    logoLink.href = '/index.html'; // Garante um fallback
-                }
+                });
             }
         }
     });
