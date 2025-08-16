@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 4.4 - Header Spacing Fix
+   Version: 4.5 - Robust Fixed Header Layout
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -71,11 +71,12 @@ html {
 }
 
 body {
-    position: relative; /* Garante que o header absoluto se posicione corretamente dentro do body */
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-primary);
     margin: 0;
+    /* CORREÇÃO: Adiciona padding no topo para criar espaço para o header fixo */
+    padding-top: 8rem;
     opacity: 0;
     animation: fadeInAnimation 1s ease forwards;
 }
@@ -106,8 +107,8 @@ main {
     padding: 3rem 4rem;
     width: 100%;
     max-width: 1400px;
-    /* CORREÇÃO: Aumentei a margem superior para criar mais espaço para o header */
-    margin: 10rem auto 4rem;
+    /* CORREÇÃO: Remove a margem superior, pois o padding do body agora cuida do espaçamento */
+    margin: 0 auto 4rem;
     box-shadow: var(--card-shadow), var(--glow-shadow);
     transition: all var(--transition-speed-normal) var(--transition-timing-function);
     position: relative;
@@ -283,15 +284,20 @@ textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
    - Adicionado o logo e ajustado o layout para flexbox.
 */
 #main-navigation-container {
-    position: absolute;
-    left: 4rem;
-    right: 4rem;
-    top: 2.5rem;
-    width: calc(100% - 8rem);
+    /* CORREÇÃO: Header agora é fixo no topo da tela */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 1.5rem 4rem; /* Adiciona espaçamento interno */
     display: flex;
-    justify-content: space-between; /* Espaça os itens */
+    justify-content: space-between;
     align-items: center;
     z-index: 10;
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo com transparência */
+    backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+    border-bottom: 1px solid var(--border-color);
 }
 
 /* Estilos do Logo */
@@ -311,9 +317,6 @@ textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
 nav {
     display: flex;
     gap: 2rem;
-    position: absolute; /* Permite centralização perfeita */
-    left: 50%;
-    transform: translateX(-50%);
 }
 nav a {
     color: var(--text-secondary); font-weight: 500; padding-bottom: 0.5rem;
@@ -416,31 +419,36 @@ nav a.text-amber-400::after { width: 100%; }
 
 /* 11. RESPONSIVE ADJUSTMENTS */
 @media (max-width: 1024px) {
-    body { padding: 2rem; }
-    main { padding: 2rem; }
-    header h1 { font-size: 4.5rem; }
-    #main-navigation-container { left: 2rem; right: 2rem; width: calc(100% - 4rem); }
+    #main-navigation-container {
+        padding: 1.5rem 2rem;
+    }
 }
 
 @media (max-width: 780px) {
-    body { padding: 1rem; }
-    main { padding: 1.5rem; margin: 10rem auto 2rem; } /* CORREÇÃO: Aumentei a margem superior para mobile também */
+    body {
+        padding-top: 6rem; /* Espaço para o header fixo em mobile */
+    }
+    main {
+        padding: 1.5rem;
+        margin: 2rem auto 2rem;
+    }
     header h1 { font-size: 3.5rem !important; }
     header { 
         margin-bottom: 2rem; 
-        padding-top: 7rem; 
+        padding-top: 0; 
     }
     #main-navigation-container {
-        left: 1.5rem;
-        right: 1.5rem;
-        width: calc(100% - 3rem);
-        flex-direction: column;
-        gap: 1rem;
-        top: 1rem;
+        padding: 1rem 1.5rem;
+        justify-content: center; /* Centraliza a navegação */
     }
-    /* Em telas pequenas, esconde o logo para não poluir a UI */
-    #header-logo { display: none; }
-    nav { position: static; transform: none; }
+    /* Em telas pequenas, esconde o logo e itens da direita para focar na navegação */
+    #header-logo, .nav-right-items {
+        display: none;
+    }
+    nav {
+        position: static;
+        transform: none;
+    }
 }
 
 /* =================================================================
