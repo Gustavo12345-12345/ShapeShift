@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 4.1 - Improved Readability for Exercise Lists
+   Version: 4.2 - Header Logo Implementation
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -105,7 +105,6 @@ main {
     padding: 3rem 4rem;
     width: 100%;
     max-width: 1400px;
-    /* CORREÇÃO: Aumenta a margem superior para não sobrepor o header */
     margin: 8rem auto 4rem;
     box-shadow: var(--card-shadow), var(--glow-shadow);
     transition: all var(--transition-speed-normal) var(--transition-timing-function);
@@ -121,7 +120,6 @@ main:hover {
 header {
     text-align: center;
     margin-bottom: 4rem;
-    /* CORREÇÃO: Remove padding superior desnecessário */
     padding-top: 0;
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--border-color);
@@ -278,13 +276,43 @@ textarea.form-input { min-height: 150px; resize: vertical; line-height: 1.7; }
 }
 .form-button-container { text-align: center; margin-top: 3rem; }
 
-/* 7. NAVIGATION */
+/* 7. NAVIGATION & LOGO
+   -----------------------------------------------------------------
+   - Adicionado o logo e ajustado o layout para flexbox.
+*/
 #main-navigation-container {
-    position: absolute; left: 4rem; right: 4rem; top: 2.5rem;
-    width: calc(100% - 8rem); display: flex; justify-content: space-between; align-items: center;
+    position: absolute;
+    left: 4rem;
+    right: 4rem;
+    top: 2.5rem;
+    width: calc(100% - 8rem);
+    display: flex;
+    justify-content: space-between; /* Espaça os itens */
+    align-items: center;
     z-index: 10;
 }
-nav { display: flex; gap: 2rem; }
+
+/* Estilos do Logo */
+#header-logo h1 {
+    font-size: 1.75rem; /* Tamanho menor para o header */
+    font-weight: 800;
+    line-height: 1;
+    margin: 0; /* Remove margens do h1 */
+    letter-spacing: -0.05em;
+    transition: transform 0.3s ease;
+}
+#header-logo:hover h1 {
+    transform: scale(1.05);
+}
+
+/* A navegação agora ocupa o espaço central */
+nav {
+    display: flex;
+    gap: 2rem;
+    position: absolute; /* Permite centralização perfeita */
+    left: 50%;
+    transform: translateX(-50%);
+}
 nav a {
     color: var(--text-secondary); font-weight: 500; padding-bottom: 0.5rem;
     border-bottom: 2px solid transparent; position: relative;
@@ -299,7 +327,13 @@ nav a:hover { color: var(--text-primary); }
 nav a:hover::after { width: 100%; }
 nav a.text-amber-400 { color: var(--primary-accent); }
 nav a.text-amber-400::after { width: 100%; }
-.nav-right-items { display: flex; align-items: center; gap: 1.5rem; }
+
+/* Itens da direita (streak, logout) */
+.nav-right-items {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
 #streak-counter-nav {
     display: flex; align-items: center; gap: 0.5rem; font-weight: 600;
     background-color: rgba(255,255,255,0.05); padding: 0.5rem 1rem;
@@ -347,15 +381,14 @@ nav a.text-amber-400::after { width: 100%; }
     width: 100%;
     text-align: center;
 }
-/* CORREÇÃO: Altera a fonte da lista de exercícios para uma mais legível e padrão. */
 .exercise-list-static li {
     font-family: 'Inter', sans-serif;
-    font-weight: 600; /* Negrito, mas não excessivamente */
-    font-size: 1.1rem; /* Tamanho ajustado para leitura */
+    font-weight: 600;
+    font-size: 1.1rem;
     padding: 0.5rem;
-    line-height: 1.6; /* Melhora o espaçamento entre linhas */
-    text-transform: none; /* Remove o uppercase forçado */
-    letter-spacing: normal; /* Remove o espaçamento extra entre letras */
+    line-height: 1.6;
+    text-transform: none;
+    letter-spacing: normal;
 }
 
 /* 9. CHECKBOX STYLES */
@@ -389,11 +422,10 @@ nav a.text-amber-400::after { width: 100%; }
 
 @media (max-width: 780px) {
     body { padding: 1rem; }
-    main { padding: 1.5rem; margin: 8rem auto 2rem; } /* Mantém a margem superior */
+    main { padding: 1.5rem; margin: 8rem auto 2rem; }
     header h1 { font-size: 3.5rem !important; }
     header { 
         margin-bottom: 2rem; 
-        /* Padding superior para mobile é ajustado para compensar o header maior */
         padding-top: 7rem; 
     }
     #main-navigation-container {
@@ -404,6 +436,9 @@ nav a.text-amber-400::after { width: 100%; }
         gap: 1rem;
         top: 1rem;
     }
+    /* Em telas pequenas, esconde o logo para não poluir a UI */
+    #header-logo { display: none; }
+    nav { position: static; transform: none; }
 }
 
 /* =================================================================
@@ -548,9 +583,9 @@ nav a.text-amber-400::after { width: 100%; }
     background: var(--border-color);
     color: var(--text-primary);
     border-radius: 50%;
-    width: 58px; /* Aumentado de 52px */
-    height: 58px; /* Aumentado de 52px */
-    font-size: 2.8rem; /* Aumentado proporcionalmente */
+    width: 58px;
+    height: 58px;
+    font-size: 2.8rem;
     line-height: 58px;
     border: none;
     cursor: pointer;
@@ -572,7 +607,7 @@ nav a.text-amber-400::after { width: 100%; }
     background-color: var(--disabled-bg-color);
     color: var(--text-secondary);
     border: none;
-    padding: 1rem 2rem; /* Padding aumentado */
+    padding: 1rem 2rem;
     border-radius: var(--border-radius-medium);
     cursor: pointer;
     font-weight: 500;
