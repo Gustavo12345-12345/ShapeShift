@@ -6,7 +6,8 @@
     <title>ShapeShift - Minha Rotina</title>
     <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<!-- CORREÇÃO: O body aqui NÃO tem a classe extra, usando o espaçamento padrão -->
+<body class="min-h-screen p-4">
 
     <!-- O cabeçalho agora é inserido dinamicamente aqui -->
     <div id="header-placeholder"></div>
@@ -49,7 +50,6 @@
     <!-- Scripts Essenciais -->
     <script type="module" src="/firebase-config.js"></script>
     <script type="module" src="/auth-guard.js"></script>
-    <!-- CORREÇÃO: Alterado para type="module" para carregar o header corretamente -->
     <script type="module" src="/header.js"></script>
     <script type="module" src="/utils.js"></script>
     <script type="module" src="/routine.js"></script>
