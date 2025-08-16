@@ -1,15 +1,12 @@
 import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-import { auth, db } from './firebase-config.js'; // Importa do ficheiro centralizado
+import { auth, db } from './firebase-config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const provider = new GoogleAuthProvider();
     const loginBtn = document.getElementById('login-btn');
     const errorContainer = document.getElementById('auth-error');
 
-    /**
-     * Lida com o processo de login com o Google.
-     */
     async function handleLogin() {
         try {
             const result = await signInWithPopup(auth, provider);
@@ -18,19 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const userRef = doc(db, "users", user.uid);
             const userSnap = await getDoc(userRef);
 
-            // Se o documento do usuário não existe, crie-o.
+            // Se o documento do usuário não existe, crie-o com os campos do paywall.
             if (!userSnap.exists()) {
                 await setDoc(userRef, {
                     email: user.email,
-                    plan: "free",
+                    plan: "free", // 'free' ou 'pro'
                     createdAt: new Date().toISOString(),
+                    generationCount: 0, // Contador de gerações
                     streakCount: 0,
                     lastWorkoutDate: null,
-                    streakRestores: 5 
                 });
             }
             
-            // Redireciona para a página inicial após o login bem-sucedido
             window.location.href = '/'; 
 
         } catch (error) {
@@ -44,22 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Redireciona se o utilizador JÁ ESTIVER logado ao visitar a página de login
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // Verifica se a URL atual é a página de login
-            // Usamos startsWith para cobrir tanto /login quanto /login/
-            if (window.location.pathname === '/login.html') { 
-                console.log("Usuário já logado detectado, redirecionando para a página inicial...");
-                window.location.href = '/'; // Redireciona para a página inicial
-            }
+        if (user && window.location.pathname === '/login.html') { 
+            window.location.href = '/';
         }
     });
 
     if(loginBtn) {
         loginBtn.addEventListener('click', handleLogin);
-        console.log("Botão de login configurado com sucesso.");
-    } else {
-        console.error("ERRO CRÍTICO: O botão de login não foi encontrado na página.");
     }
 });
