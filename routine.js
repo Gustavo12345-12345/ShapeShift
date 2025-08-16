@@ -191,9 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 emptyState.classList.remove('hidden');
             }
         });
-
-        // CORREÇÃO: A lógica de exibir o foguinho foi removida daqui
-        // e centralizada no header.js para aparecer em todas as páginas.
     });
 
     async function handleDeleteRoutine() {
@@ -213,8 +210,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Garante que o botão de logout funciona nesta página
+    const logoutHandler = () => signOut(auth).catch(console.error);
+    document.body.addEventListener('click', (e) => {
+        if (e.target.closest('#logout-btn')) {
+            logoutHandler();
+        }
+    });
+
     if (deleteBtn) deleteBtn.addEventListener('click', handleDeleteRoutine);
-    if (logoutBtn) logoutBtn.addEventListener('click', () => signOut(auth));
     if (timerStartBtn) timerStartBtn.addEventListener('click', startTimer);
     if (timerCloseBtn) timerCloseBtn.addEventListener('click', closeTimerModal);
     if (increaseTimeBtn) increaseTimeBtn.addEventListener('click', () => { totalSeconds += TIME_STEP; updateTimerDisplay(); });
