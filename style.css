@@ -1,6 +1,6 @@
 /* =================================================================
    Apple-Inspired Premium Aesthetic for ShapeShift
-   Version: 4.6 - Increased Top Spacing for Index Page
+   Version: 4.7 - Final Top Spacing Adjustment
    ================================================================= */
 
 /* 1. FONT IMPORTS & ROOT VARIABLES
@@ -75,8 +75,8 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     margin: 0;
-    /* CORREÇÃO: Aumenta o padding no topo para criar mais espaço para o header fixo */
-    padding-top: 12rem;
+    /* CORREÇÃO: Aumenta ainda mais o padding no topo para garantir espaço para o header */
+    padding-top: 15rem;
     opacity: 0;
     animation: fadeInAnimation 1s ease forwards;
 }
