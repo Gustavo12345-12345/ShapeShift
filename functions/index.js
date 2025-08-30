@@ -2,36 +2,36 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const cors = require("cors")({ origin: true }); // Importa e configura o CORS
-const stripe = require("stripe")("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");
+const stripe = require("stripe")("COLE_AQUI_SUA_CHAVE_SECRETA_DA_STRIPE");
 
 // Inicializa o Firebase Admin
 admin.initializeApp();
-const db = admin.firestore();
 
 /**
  * Função que cria a sessão de pagamento (agora com CORS)
  */
 exports.createCheckoutSession = functions.https.onRequest((req, res) => {
-  // Envolve a função com o handler do CORS
+  // Envolve a função com o handler do CORS para dar a permissão
   cors(req, res, async () => {
-    // O método agora é POST, como esperado por uma API
+    // Apenas o método POST é permitido
     if (req.method !== "POST") {
       return res.status(405).send("Method Not Allowed");
     }
 
-    // O token de autenticação vem no header
+    // O token de autenticação do usuário vem no cabeçalho (header)
     const idToken = req.headers.authorization?.split("Bearer ")[1];
     if (!idToken) {
       return res.status(403).send("Unauthorized");
     }
 
     try {
-      // Verifica o token para obter o UID do usuário
+      // Verifica se o token do usuário é válido
       const decodedToken = await admin.auth().verifyIdToken(idToken);
       const userId = decodedToken.uid;
-      const { priceId } = req.body.data; // Os dados vêm em req.body.data
+      const { priceId } = req.body.data;
       const projectUrl = `https://${process.env.GCLOUD_PROJECT}.web.app`;
 
+      // Cria a sessão na Stripe
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "subscription",
@@ -41,7 +41,7 @@ exports.createCheckoutSession = functions.https.onRequest((req, res) => {
         cancel_url: `${projectUrl}/planos.html?payment_cancel=true`,
       });
       
-      // Envia a resposta com o ID da sessão
+      // Envia a resposta de sucesso
       return res.status(200).send({ data: { id: session.id } });
 
     } catch (error) {
@@ -50,6 +50,4 @@ exports.createCheckoutSession = functions.https.onRequest((req, res) => {
     }
   });
 });
-
-// A função de webhook foi removida para simplificar a configuração.
 
