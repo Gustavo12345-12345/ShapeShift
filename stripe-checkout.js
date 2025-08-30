@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!subscribeButton) return;
 
   // Cole aqui a sua chave PUBLICÁVEL da Stripe
-  const stripe = Stripe('pk_test_...');
+  const stripe = Stripe('pk_live_51RwpGKBEi7pirtkoP1tIbPmKzvRDdMjsCd3zgmCOwsW6a7U4qjOt0QnRdPjGrBehR27xB1dTaLWiIDFDfy6H01ln00HGlz6SdG');
   // Cole aqui o ID do PREÇO do seu plano Pro
-  const proPriceId = 'price_...';
+  const proPriceId = 'price_1RzkjRBEi7pirtkoTZpGXD9J';
 
   // Adiciona a funcionalidade ao botão
   subscribeButton.addEventListener('click', async () => {
