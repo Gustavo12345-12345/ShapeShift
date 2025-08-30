@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
   
-  const stripe = Stripe(STRIPE_PUBLIC_KEY);
+  const stripe = Stripe('pk_live_51RwpGKBEi7pirtkoP1tIbPmKzvRDdMjsCd3zgmCOwsW6a7U4qjOt0QnRdPjGrBehR27xB1dTaLWiIDFDfy6H01ln00HGlz6SdG');
 
   subscribeButton.addEventListener('click', async () => {
     const user = auth.currentUser;
@@ -62,4 +62,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 
