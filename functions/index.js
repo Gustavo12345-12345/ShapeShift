@@ -2,7 +2,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const cors = require("cors")({ origin: true }); // Importa e configura o CORS
-const stripe = require("stripe")("COLE_AQUI_SUA_CHAVE_SECRETA_DA_STRIPE");
+const stripe = require("stripe")("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");
 
 // Inicializa o Firebase Admin
 admin.initializeApp();
