@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!subscribeButton) return;
   
   const STRIPE_PUBLIC_KEY = 'pk_live_51RwpGKBEi7pirtkoP1tIbPmKzvRDdMjsCd3zgmCOwsW6a7U4qjOt0QnRdPjGrBehR27xB1dTaLWiIDFDfy6H01ln00HGlz6SdG';
-  const PRO_PRICE_ID = 'price_1RzkjRBEi7pirtkoTZpGXD9JI';
+  const PRO_PRICE_ID = 'price_1RzkjRBEi7pirtkoTZpGXD9JIO';
 
   if (!STRIPE_PUBLIC_KEY.startsWith('pk_') || !PRO_PRICE_ID.startsWith('price_')) {
     console.error("ERRO: As chaves da Stripe ou o ID do Preço não foram definidos no arquivo stripe-checkout.js.");
@@ -28,17 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
     subscribeButton.textContent = 'A redirecionar...';
 
     try {
-      // 1. Obtém o token de autenticação do usuário
+      // 1. Obtém o token de autenticação do usuário para provar quem ele é
       const idToken = await user.getIdToken(true);
       
-      // 2. Define a URL da sua função de backend
+      // 2. Define a URL exata do seu backend
       const functionURL = 'https://us-central1-workoutplaner-3p930e.cloudfunctions.net/createCheckoutSession';
 
-      // 3. Faz uma chamada direta à função usando fetch
+      // 3. Faz uma chamada direta à função usando o método 'fetch'
       const response = await fetch(functionURL, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${idToken}`,
+          'Authorization': `Bearer ${idToken}`, // Envia o token para autenticação
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ data: { priceId: PRO_PRICE_ID } }),
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
       const sessionId = result.data.id;
 
-      // 4. Redireciona para o checkout da Stripe
+      // 4. Redireciona o usuário para a página de pagamento segura da Stripe
       await stripe.redirectToCheckout({ sessionId });
 
     } catch (error) {
